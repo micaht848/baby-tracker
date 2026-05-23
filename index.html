@@ -16,6 +16,7 @@
       --bg: #0a0a0a; --bg2: #141414; --bg3: #1c1c1e; --bg4: #2c2c2e;
       --green: #30d158; --green-dim: #1a3d24;
       --amber: #ffd60a; --amber-dim: #3a3000;
+      --blue: #0a84ff; --blue-dim: #0a2a4a;
       --text: #f5f5f7; --text2: #aeaeb2; --text3: #636366;
       --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.13);
     }
@@ -25,14 +26,21 @@
     /* HEADER */
     .header { background: var(--bg2); padding: calc(env(safe-area-inset-top) + 14px) 1.25rem 1rem; border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
     .header-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
-    .child-name { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 300; color: var(--text); line-height: 1.1; }
+    .child-name { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 300; color: var(--text); line-height: 1.1; }
     .child-name em { color: var(--green); font-style: italic; }
-    .age-pill { background: var(--green-dim); color: var(--green); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+    .age-pill { background: var(--green-dim); color: var(--green); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; white-space: nowrap; margin-top: 4px; }
     .sub-line { font-size: 12px; color: var(--text3); margin-bottom: 10px; }
     .custody-bar { background: var(--bg3); border-radius: 8px; padding: 9px 12px; display: flex; align-items: center; gap: 8px; border: 0.5px solid var(--border); }
     .custody-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
     .custody-text { font-size: 12px; color: var(--text2); }
     .custody-text strong { color: var(--text); }
+
+    /* AGE SELECTOR */
+    .age-selector { background: var(--bg2); padding: 10px 1.25rem; border-bottom: 0.5px solid var(--border); flex-shrink: 0; display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+    .age-selector::-webkit-scrollbar { display: none; }
+    .age-selector-label { font-size: 11px; color: var(--text3); white-space: nowrap; font-weight: 500; flex-shrink: 0; }
+    .age-btn { flex: none; padding: 5px 12px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text3); background: var(--bg3); border: 0.5px solid var(--border2); border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+    .age-btn.active { background: var(--green-dim); color: var(--green); border-color: var(--green); }
 
     /* NAV */
     .nav { display: flex; background: var(--bg2); border-bottom: 0.5px solid var(--border); overflow-x: auto; scrollbar-width: none; flex-shrink: 0; }
@@ -45,15 +53,17 @@
     .content { flex: 1; overflow-y: auto; background: var(--bg); -webkit-overflow-scrolling: touch; padding-bottom: calc(env(safe-area-inset-bottom) + 16px); }
     .section { display: none; padding: 1rem; }
     .section.active { display: block; }
-    .section-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; color: var(--text); margin-bottom: 0.75rem; }
+    .section-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; color: var(--text); margin-bottom: 4px; }
+    .section-subtitle { font-size: 12px; color: var(--text3); margin-bottom: 0.75rem; }
 
     /* CARDS */
     .card { background: var(--bg3); border-radius: 12px; border: 0.5px solid var(--border2); padding: 1rem 1.125rem; margin-bottom: 0.75rem; }
-    .card.green-accent { border-left: 2px solid var(--green); border-radius: 0 12px 12px 0; }
-    .card.amber-accent { border-left: 2px solid var(--amber); border-radius: 0 12px 12px 0; }
+    .card.ga { border-left: 2px solid var(--green); border-radius: 0 12px 12px 0; }
+    .card.aa { border-left: 2px solid var(--amber); border-radius: 0 12px 12px 0; }
+    .card.ba { border-left: 2px solid var(--blue); border-radius: 0 12px 12px 0; }
     .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
     .lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; }
-    .lbl.g { color: var(--green); } .lbl.a { color: var(--amber); }
+    .lbl.g { color: var(--green); } .lbl.a { color: var(--amber); } .lbl.b { color: var(--blue); }
 
     /* MILESTONES */
     .ms-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid var(--border); }
@@ -99,18 +109,20 @@
     .mem-item:last-child { border-bottom: none; }
     .mem-date { font-size: 10px; color: var(--text3); margin-bottom: 3px; }
     .mem-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+    .mem-age-tag { display: inline-block; background: var(--green-dim); color: var(--green); font-size: 10px; padding: 2px 7px; border-radius: 10px; margin-left: 6px; }
   </style>
 </head>
 <body>
 <div class="app">
 
+  <!-- HEADER -->
   <div class="header">
     <div class="header-row">
       <div>
-        <div class="child-name">Your <em>little one</em></div>
-        <div class="sub-line">Born June 15, 2024 · turning 2 soon</div>
+        <div class="child-name"><em>Malachi</em></div>
+        <div class="sub-line">Born June 15, 2024 · <span id="exact-age">calculating...</span></div>
       </div>
-      <div class="age-pill" id="age-pill">23 months</div>
+      <div class="age-pill" id="age-pill">2 years</div>
     </div>
     <div class="custody-bar">
       <div class="custody-dot"></div>
@@ -118,6 +130,16 @@
     </div>
   </div>
 
+  <!-- AGE BAND SELECTOR -->
+  <div class="age-selector">
+    <span class="age-selector-label">Viewing:</span>
+    <button class="age-btn" onclick="setAgeBand('2')" id="band-2">Age 2</button>
+    <button class="age-btn" onclick="setAgeBand('3')" id="band-3">Age 3</button>
+    <button class="age-btn" onclick="setAgeBand('4')" id="band-4">Age 4</button>
+    <button class="age-btn" onclick="setAgeBand('5')" id="band-5">Age 5</button>
+  </div>
+
+  <!-- NAV -->
   <nav class="nav">
     <button class="nav-btn active" onclick="showTab('milestones')"><i class="ti ti-star"></i>Milestones</button>
     <button class="nav-btn" onclick="showTab('research')"><i class="ti ti-microscope"></i>Research</button>
@@ -129,21 +151,16 @@
 
   <div class="content">
 
+    <!-- MILESTONES -->
     <div id="milestones" class="section active">
       <p class="section-title">Milestone tracker</p>
-      <div class="card green-accent">
+      <p class="section-subtitle" id="ms-subtitle">Tracking age 2 milestones</p>
+      <div class="card ga" id="ms-card">
         <div class="card-head">
-          <span class="lbl g">At 24 months</span>
-          <span id="ms-count" style="font-size:11px;color:var(--text3)">0 / 8 done</span>
+          <span class="lbl g" id="ms-card-label">At age 2</span>
+          <span id="ms-count" style="font-size:11px;color:var(--text3)">0 / 0 done</span>
         </div>
-        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Uses 2-word phrases ("more milk", "go bye-bye")</p><span>Language</span></div></div>
-        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Points to things or pictures when named</p><span>Communication</span></div></div>
-        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Kicks a ball, runs with more control</p><span>Gross motor</span></div></div>
-        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Stacks 4+ blocks, uses spoon independently</p><span>Fine motor</span></div></div>
-        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Shows defiant behavior ("No!")</p><span>Social / emotional</span></div></div>
-        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Parallel play alongside other children</p><span>Social</span></div></div>
-        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Follows 2-step instructions</p><span>Cognitive</span></div></div>
-        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Pretend play (feeds doll, talks on toy phone)</p><span>Cognitive</span></div></div>
+        <div id="ms-list"></div>
         <div class="progress-row">
           <div class="ring-wrap">
             <svg width="48" height="48" viewBox="0 0 48 48">
@@ -152,46 +169,45 @@
             </svg>
             <div class="ring-center" id="ring-pct">0%</div>
           </div>
-          <div class="ring-info"><p>Development progress</p><span>CDC guidelines · age 2</span></div>
+          <div class="ring-info"><p id="ring-label">Development progress</p><span>CDC guidelines</span></div>
         </div>
       </div>
     </div>
 
+    <!-- RESEARCH -->
     <div id="research" class="section">
       <p class="section-title">Latest research</p>
-      <div class="card green-accent">
-        <div class="card-head">
-          <span class="lbl g">AI-curated for his age</span>
-          <button class="refresh-btn" onclick="loadAI('research')"><i class="ti ti-refresh"></i>Refresh</button>
-        </div>
+      <p class="section-subtitle" id="research-subtitle">AI-curated for age 2</p>
+      <div class="card ga">
+        <div class="card-head"><span class="lbl g" id="research-lbl">Age 2 research</span><button class="refresh-btn" onclick="loadAI('research')"><i class="ti ti-refresh"></i>Refresh</button></div>
         <div id="research-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
       </div>
     </div>
 
+    <!-- TOYS -->
     <div id="toys" class="section">
       <p class="section-title">Toy recommendations</p>
-      <div class="card amber-accent">
-        <div class="card-head">
-          <span class="lbl a">Best for his age range</span>
-          <button class="refresh-btn" onclick="loadAI('toys')"><i class="ti ti-refresh"></i>Refresh</button>
-        </div>
+      <p class="section-subtitle" id="toys-subtitle">Best picks for age 2</p>
+      <div class="card aa">
+        <div class="card-head"><span class="lbl a" id="toys-lbl">Age 2 toys</span><button class="refresh-btn" onclick="loadAI('toys')"><i class="ti ti-refresh"></i>Refresh</button></div>
         <div id="toys-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
       </div>
     </div>
 
+    <!-- TIPS -->
     <div id="tips" class="section">
       <p class="section-title">Communication &amp; learning</p>
-      <div class="card green-accent">
-        <div class="card-head">
-          <span class="lbl g">Tips for co-parenting at this age</span>
-          <button class="refresh-btn" onclick="loadAI('tips')"><i class="ti ti-refresh"></i>Refresh</button>
-        </div>
+      <p class="section-subtitle" id="tips-subtitle">Tips for age 2</p>
+      <div class="card ga">
+        <div class="card-head"><span class="lbl g" id="tips-lbl">Age 2 tips</span><button class="refresh-btn" onclick="loadAI('tips')"><i class="ti ti-refresh"></i>Refresh</button></div>
         <div id="tips-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
       </div>
     </div>
 
+    <!-- HOME & HEALTH -->
     <div id="home" class="section">
       <p class="section-title">Home &amp; health</p>
+      <p class="section-subtitle" id="home-subtitle">Recommendations for age 2</p>
       <div class="two-col">
         <div class="sub-card" style="border-left:2px solid var(--green);border-radius:0 10px 10px 0">
           <div class="lbl g" style="margin-bottom:6px">Lifestyle</div>
@@ -207,11 +223,13 @@
       </div>
     </div>
 
+    <!-- JOURNAL -->
     <div id="journal" class="section">
       <p class="section-title">Memory journal</p>
+      <p class="section-subtitle">Every moment with Malachi, saved forever</p>
       <div class="card">
         <div class="lbl g" style="margin-bottom:6px">Add a memory</div>
-        <textarea class="j-textarea" id="journal-input" rows="3" placeholder="Write something he did today..."></textarea>
+        <textarea class="j-textarea" id="journal-input" rows="3" placeholder="Write something Malachi did today..."></textarea>
         <button class="save-btn" onclick="saveMemory()">Save memory</button>
       </div>
       <div class="card">
@@ -225,93 +243,224 @@
 
 <script>
 const BIRTH = new Date('2024-06-15');
-const API_KEY = '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';
+let currentBand = '2';
+let activeTab = 'milestones';
 
-function getAge() {
+// ── MILESTONE DATA ──────────────────────────────────────────────
+const MILESTONES = {
+  '2': [
+    { text: 'Uses 2-word phrases ("more milk", "go bye-bye")', cat: 'Language' },
+    { text: 'Points to things or pictures when named', cat: 'Communication' },
+    { text: 'Kicks a ball, runs with more control', cat: 'Gross motor' },
+    { text: 'Stacks 4+ blocks, uses spoon independently', cat: 'Fine motor' },
+    { text: 'Shows defiant behavior ("No!")', cat: 'Social / emotional' },
+    { text: 'Parallel play alongside other children', cat: 'Social' },
+    { text: 'Follows 2-step instructions', cat: 'Cognitive' },
+    { text: 'Pretend play (feeds doll, talks on toy phone)', cat: 'Cognitive' },
+  ],
+  '3': [
+    { text: 'Speaks in sentences of 3–4 words', cat: 'Language' },
+    { text: 'Strangers can understand most of what they say', cat: 'Communication' },
+    { text: 'Climbs stairs alternating feet, pedals a tricycle', cat: 'Gross motor' },
+    { text: 'Draws a circle, turns pages one at a time', cat: 'Fine motor' },
+    { text: 'Takes turns in games, shows affection for friends', cat: 'Social' },
+    { text: 'Shows concern when others are upset', cat: 'Social / emotional' },
+    { text: 'Understands "mine", "his", "hers"', cat: 'Cognitive' },
+    { text: 'Dresses and undresses with some help', cat: 'Self-care' },
+    { text: 'Names familiar colors', cat: 'Cognitive' },
+  ],
+  '4': [
+    { text: 'Tells stories, uses sentences of 5+ words', cat: 'Language' },
+    { text: 'Can say first and last name', cat: 'Communication' },
+    { text: 'Hops on one foot, catches a bounced ball', cat: 'Gross motor' },
+    { text: 'Draws a person with 2–4 body parts', cat: 'Fine motor' },
+    { text: 'Cooperates with other children, prefers playing with others', cat: 'Social' },
+    { text: 'Understands "same" and "different"', cat: 'Cognitive' },
+    { text: 'Follows 3-step instructions', cat: 'Cognitive' },
+    { text: 'Counts to 10 or higher', cat: 'Cognitive' },
+    { text: 'Uses the toilet independently most of the time', cat: 'Self-care' },
+  ],
+  '5': [
+    { text: 'Speaks very clearly, tells a simple story', cat: 'Language' },
+    { text: 'Uses future tense ("Dad will come")', cat: 'Language' },
+    { text: 'Stands on one foot for 10+ seconds, does somersaults', cat: 'Gross motor' },
+    { text: 'Copies a triangle, writes some letters', cat: 'Fine motor' },
+    { text: 'Wants to please friends, wants to be like friends', cat: 'Social' },
+    { text: 'Can distinguish fantasy from reality', cat: 'Cognitive' },
+    { text: 'Counts 10+ objects, knows about everyday things (money, food)', cat: 'Cognitive' },
+    { text: 'Uses fork, spoon, and sometimes a knife', cat: 'Self-care' },
+    { text: 'Can use the toilet without help', cat: 'Self-care' },
+  ]
+};
+
+// ── AI PROMPTS ──────────────────────────────────────────────────
+const PROMPTS = {
+  research: (band) => `Child development expert. My son Malachi is ${band} years old. Give me a dad-friendly summary of current research for this exact age: brain development, sleep needs, language growth, emotional regulation, and social development. Use <h4> section headers and <ul><li> bullets. Be specific to age ${band}, not general. Max 300 words. Return HTML only, no preamble.`,
+
+  toys: (band) => `Child development toy specialist. My son is ${band} years old. Recommend the 5 best developmental toys or activities specifically for a ${band}-year-old right now. For each: name, why it's developmentally valuable at this age, price range. Use <h4> for toy name and <p> for description. Max 280 words. Return HTML only, no preamble.`,
+
+  tips: (band) => `Child development specialist. My son Malachi is ${band} years old. I have him every other week in a co-parenting arrangement. Give me 5 specific, actionable communication and learning tips tailored to a ${band}-year-old. Include at least one tip about maintaining connection during the weeks apart. Use <h4> headers and <p>. Max 280 words. Return HTML only, no preamble.`,
+
+  lifestyle: (band) => `Parenting lifestyle expert. My son is ${band} years old. Give SHORT bullet-point recommendations specifically for this age: bedroom setup, appropriate bed type, bedding safety, and sleep environment. Use <ul><li> only. Be age-specific to ${band} years. Max 110 words. Return HTML only, no preamble.`,
+
+  health: (band) => `Pediatric health advisor. My son is ${band} years old. List the essential items to keep in my medicine cabinet and any supplements commonly recommended for a ${band}-year-old. Include brief notes on each. Use <ul><li> only. End with one sentence: always verify with your pediatrician. Max 110 words. Return HTML only, no preamble.`
+};
+
+// ── HEADER ──────────────────────────────────────────────────────
+function getAgeMonths() {
   const n = new Date();
   return (n.getFullYear() - BIRTH.getFullYear()) * 12 + (n.getMonth() - BIRTH.getMonth());
 }
 
-const PROMPTS = {
-  research: () => `Child development expert. My son is ${getAge()} months old. Dad-friendly summary of current research: brain development, sleep needs, language explosion, emotional regulation. Use <h4> headers, <ul><li> bullets. Max 280 words. HTML only, no preamble.`,
-  toys:     () => `Child development toy specialist. Son is ${getAge()} months. Recommend 5 developmental toys: name, why valuable, price range. Use <h4> names, <p> description. Max 260 words. HTML only, no preamble.`,
-  tips:     () => `Child development specialist. Son is ${getAge()} months, co-parenting every-other-week. Give 5 specific communication and learning tips, accounting for the schedule. Use <h4> headers and <p>. Max 260 words. HTML only, no preamble.`,
-  lifestyle:() => `Parenting lifestyle expert. Son ${getAge()} months. SHORT bullet recs: toddler bed transition, bedding safety, sleep setup. <ul><li> only. Max 100 words. HTML only, no preamble.`,
-  health:   () => `Pediatric health advisor. Son ${getAge()} months. Essential medicine cabinet and supplement list with brief notes. <ul><li> only. End: always verify with your pediatrician. Max 100 words. HTML only, no preamble.`
-};
+function getAgeYears() {
+  const n = new Date();
+  let years = n.getFullYear() - BIRTH.getFullYear();
+  const mDiff = n.getMonth() - BIRTH.getMonth();
+  if (mDiff < 0 || (mDiff === 0 && n.getDate() < BIRTH.getDate())) years--;
+  return years;
+}
 
 function updateHeader() {
-  document.getElementById('age-pill').textContent = getAge() + ' months';
+  const months = getAgeMonths();
+  const years = getAgeYears();
+  const remMonths = months - years * 12;
+  document.getElementById('age-pill').textContent = years + ' yr' + (remMonths > 0 ? ' ' + remMonths + ' mo' : '');
+  document.getElementById('exact-age').textContent = years + ' years' + (remMonths > 0 ? ', ' + remMonths + ' months old' : ' old');
   const d = new Date().getDay();
   const days = d === 0 ? 7 : 7 - d;
   document.getElementById('handoff-days').textContent = days === 1 ? 'tomorrow' : days + ' days';
+
+  // Auto-set age band to actual age (clamped 2–5)
+  const autoBand = String(Math.min(5, Math.max(2, years + (remMonths >= 6 ? 1 : 0))));
+  setAgeBand(autoBand, true);
 }
 
-const loaded = {};
-async function loadAI(key) {
-  const el = document.getElementById(key + '-content');
-  if (!el) return;
-  el.innerHTML = '<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div>';
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
-      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{ role: 'user', content: PROMPTS[key]() }] })
-    });
-    const data = await res.json();
-    const text = data.content?.map(c => c.text || '').join('') || 'Unable to load.';
-    el.innerHTML = '<div class="ai-body">' + text + '</div>';
-    loaded[key] = true;
-  } catch(e) {
-    el.innerHTML = '<p style="font-size:12px;color:var(--text3)">Could not load — check your API key.</p>';
+// ── AGE BAND ────────────────────────────────────────────────────
+function setAgeBand(band, silent) {
+  currentBand = band;
+  document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('band-' + band);
+  if (btn) btn.classList.add('active');
+
+  // Update all subtitle labels
+  document.getElementById('ms-subtitle').textContent = 'Tracking age ' + band + ' milestones';
+  document.getElementById('ms-card-label').textContent = 'Age ' + band + ' milestones';
+  document.getElementById('research-subtitle').textContent = 'AI-curated for age ' + band;
+  document.getElementById('research-lbl').textContent = 'Age ' + band + ' research';
+  document.getElementById('toys-subtitle').textContent = 'Best picks for age ' + band;
+  document.getElementById('toys-lbl').textContent = 'Age ' + band + ' toys';
+  document.getElementById('tips-subtitle').textContent = 'Tips for age ' + band;
+  document.getElementById('tips-lbl').textContent = 'Age ' + band + ' tips';
+  document.getElementById('home-subtitle').textContent = 'Recommendations for age ' + band;
+
+  renderMilestones();
+
+  if (!silent) {
+    // Reload AI content for current tab
+    const aiTabs = ['research', 'toys', 'tips'];
+    if (aiTabs.includes(activeTab)) loadAI(activeTab);
+    if (activeTab === 'home') { loadAI('lifestyle'); loadAI('health'); }
   }
 }
 
+// ── MILESTONES ──────────────────────────────────────────────────
+function renderMilestones() {
+  const list = document.getElementById('ms-list');
+  const items = MILESTONES[currentBand] || [];
+  const savedKey = 'ms-' + currentBand;
+  const saved = JSON.parse(localStorage.getItem(savedKey) || '[]');
+
+  list.innerHTML = items.map((m, i) => `
+    <div class="ms-item">
+      <div class="ms-check${saved[i] ? ' done' : ''}" onclick="toggleMs(this, ${i})">
+        <i class="ti ti-check"></i>
+      </div>
+      <div class="ms-label"><p>${m.text}</p><span>${m.cat}</span></div>
+    </div>
+  `).join('');
+
+  updateProgress();
+}
+
+function toggleMs(el, idx) {
+  el.classList.toggle('done');
+  const savedKey = 'ms-' + currentBand;
+  const items = MILESTONES[currentBand] || [];
+  const checks = document.querySelectorAll('.ms-check');
+  const states = [...checks].map(c => c.classList.contains('done'));
+  localStorage.setItem(savedKey, JSON.stringify(states));
+  updateProgress();
+}
+
+function updateProgress() {
+  const checks = document.querySelectorAll('.ms-check');
+  if (!checks.length) return;
+  const done = document.querySelectorAll('.ms-check.done').length;
+  const pct = Math.round(done / checks.length * 100);
+  const circ = 2 * Math.PI * 19;
+  document.getElementById('progress-arc').setAttribute('stroke-dashoffset', circ - circ * pct / 100);
+  document.getElementById('ring-pct').textContent = pct + '%';
+  document.getElementById('ms-count').textContent = done + ' / ' + checks.length + ' done';
+}
+
+// ── AI ──────────────────────────────────────────────────────────
+function spin() {
+  return '<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div>';
+}
+
+async function loadAI(key) {
+  const el = document.getElementById(key + '-content');
+  if (!el) return;
+  el.innerHTML = spin();
+  try {
+    const res = await fetch('/.netlify/functions/ai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: PROMPTS[key](currentBand) }]
+      })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    const text = data.content?.map(c => c.text || '').join('') || '';
+    if (!text) throw new Error('empty');
+    el.innerHTML = '<div class="ai-body">' + text + '</div>';
+  } catch(e) {
+    el.innerHTML = '<p style="font-size:12px;color:var(--text3);padding:4px 0">Could not load — tap Refresh to try again.</p>';
+  }
+}
+
+// ── TABS ─────────────────────────────────────────────────────────
 function showTab(tab) {
+  activeTab = tab;
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(tab).classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b => {
     if (b.getAttribute('onclick').includes("'" + tab + "'")) b.classList.add('active');
   });
-  if (!loaded[tab] && PROMPTS[tab]) loadAI(tab);
-  if (tab === 'home') {
-    if (!loaded.lifestyle) loadAI('lifestyle');
-    if (!loaded.health) loadAI('health');
-  }
+  const aiTabs = ['research', 'toys', 'tips'];
+  if (aiTabs.includes(tab)) loadAI(tab);
+  if (tab === 'home') { loadAI('lifestyle'); loadAI('health'); }
 }
 
-function toggleMs(el) {
-  el.classList.toggle('done');
-  const all = document.querySelectorAll('.ms-check');
-  const done = document.querySelectorAll('.ms-check.done').length;
-  const pct = Math.round(done / all.length * 100);
-  const circ = 2 * Math.PI * 19;
-  document.getElementById('progress-arc').setAttribute('stroke-dashoffset', circ - circ * pct / 100);
-  document.getElementById('ring-pct').textContent = pct + '%';
-  document.getElementById('ms-count').textContent = done + ' / ' + all.length + ' done';
-  localStorage.setItem('ms', JSON.stringify([...all].map(e => e.classList.contains('done'))));
-}
-
-function loadMilestones() {
-  const saved = JSON.parse(localStorage.getItem('ms') || '[]');
-  document.querySelectorAll('.ms-check').forEach((el, i) => { if (saved[i]) el.classList.add('done'); });
-  const done = document.querySelectorAll('.ms-check.done').length;
-  const all = document.querySelectorAll('.ms-check').length;
-  const pct = Math.round(done / all * 100);
-  const circ = 2 * Math.PI * 19;
-  document.getElementById('progress-arc').setAttribute('stroke-dashoffset', circ - circ * pct / 100);
-  document.getElementById('ring-pct').textContent = pct + '%';
-  document.getElementById('ms-count').textContent = done + ' / ' + all + ' done';
-}
-
+// ── JOURNAL ──────────────────────────────────────────────────────
 const memories = JSON.parse(localStorage.getItem('memories') || '[]');
 
 function saveMemory() {
   const input = document.getElementById('journal-input');
   const text = input.value.trim();
   if (!text) return;
-  memories.unshift({ text, date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) });
+  const years = getAgeYears();
+  const months = getAgeMonths() - years * 12;
+  const ageTag = years + 'y' + (months > 0 ? months + 'm' : '');
+  memories.unshift({
+    text,
+    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    age: ageTag
+  });
   localStorage.setItem('memories', JSON.stringify(memories));
   input.value = '';
   renderMemories();
@@ -319,13 +468,22 @@ function saveMemory() {
 
 function renderMemories() {
   const list = document.getElementById('memories-list');
-  if (!memories.length) { list.innerHTML = '<p style="font-size:13px;color:var(--text3)">No memories yet — add your first one above.</p>'; return; }
-  list.innerHTML = memories.map(m => `<div class="mem-item"><div class="mem-date">${m.date}</div><div class="mem-text">${m.text}</div></div>`).join('');
+  if (!memories.length) {
+    list.innerHTML = '<p style="font-size:13px;color:var(--text3)">No memories yet — add your first one above.</p>';
+    return;
+  }
+  list.innerHTML = memories.map(m =>
+    `<div class="mem-item">
+      <div class="mem-date">${m.date}<span class="mem-age-tag">${m.age || ''}</span></div>
+      <div class="mem-text">${m.text}</div>
+    </div>`
+  ).join('');
 }
 
+// ── INIT ─────────────────────────────────────────────────────────
 updateHeader();
-loadMilestones();
 renderMemories();
+loadAI('research');
 </script>
 </body>
 </html>
