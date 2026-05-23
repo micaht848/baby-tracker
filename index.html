@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Dad Tracker" />
+  <meta name="theme-color" content="#0a0a0a" />
+  <title>Dad Tracker</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    :root {
+      --bg: #0a0a0a; --bg2: #141414; --bg3: #1c1c1e; --bg4: #2c2c2e;
+      --green: #30d158; --green-dim: #1a3d24;
+      --amber: #ffd60a; --amber-dim: #3a3000;
+      --text: #f5f5f7; --text2: #aeaeb2; --text3: #636366;
+      --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.13);
+    }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow: hidden; }
+    .app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+
+    /* HEADER */
+    .header { background: var(--bg2); padding: calc(env(safe-area-inset-top) + 14px) 1.25rem 1rem; border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
+    .header-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+    .child-name { font-family: 'Fraunces', serif; font-size: 24px; font-weight: 300; color: var(--text); line-height: 1.1; }
+    .child-name em { color: var(--green); font-style: italic; }
+    .age-pill { background: var(--green-dim); color: var(--green); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+    .sub-line { font-size: 12px; color: var(--text3); margin-bottom: 10px; }
+    .custody-bar { background: var(--bg3); border-radius: 8px; padding: 9px 12px; display: flex; align-items: center; gap: 8px; border: 0.5px solid var(--border); }
+    .custody-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .custody-text { font-size: 12px; color: var(--text2); }
+    .custody-text strong { color: var(--text); }
+
+    /* NAV */
+    .nav { display: flex; background: var(--bg2); border-bottom: 0.5px solid var(--border); overflow-x: auto; scrollbar-width: none; flex-shrink: 0; }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-btn { flex: none; padding: 11px 14px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text3); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; }
+    .nav-btn i { font-size: 14px; vertical-align: -2px; margin-right: 4px; }
+    .nav-btn.active { color: var(--green); border-bottom-color: var(--green); }
+
+    /* CONTENT */
+    .content { flex: 1; overflow-y: auto; background: var(--bg); -webkit-overflow-scrolling: touch; padding-bottom: calc(env(safe-area-inset-bottom) + 16px); }
+    .section { display: none; padding: 1rem; }
+    .section.active { display: block; }
+    .section-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; color: var(--text); margin-bottom: 0.75rem; }
+
+    /* CARDS */
+    .card { background: var(--bg3); border-radius: 12px; border: 0.5px solid var(--border2); padding: 1rem 1.125rem; margin-bottom: 0.75rem; }
+    .card.green-accent { border-left: 2px solid var(--green); border-radius: 0 12px 12px 0; }
+    .card.amber-accent { border-left: 2px solid var(--amber); border-radius: 0 12px 12px 0; }
+    .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+    .lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; }
+    .lbl.g { color: var(--green); } .lbl.a { color: var(--amber); }
+
+    /* MILESTONES */
+    .ms-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid var(--border); }
+    .ms-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ms-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--text3); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; margin-top: 1px; transition: background 0.2s, border-color 0.2s; }
+    .ms-check.done { background: var(--green); border-color: var(--green); }
+    .ms-check i { font-size: 11px; color: transparent; }
+    .ms-check.done i { color: #000; }
+    .ms-label p { font-size: 14px; color: var(--text); line-height: 1.4; }
+    .ms-label span { font-size: 11px; color: var(--text3); }
+    .progress-row { display: flex; align-items: center; gap: 12px; padding-top: 12px; margin-top: 10px; border-top: 0.5px solid var(--border); }
+    .ring-wrap { position: relative; width: 48px; height: 48px; flex-shrink: 0; }
+    .ring-wrap svg { transform: rotate(-90deg); }
+    .ring-center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--green); }
+    .ring-info p { font-size: 13px; color: var(--text); font-weight: 500; }
+    .ring-info span { font-size: 11px; color: var(--text3); }
+
+    /* AI */
+    .ai-loading { display: flex; align-items: center; gap: 8px; padding: 0.5rem 0; color: var(--text3); font-size: 13px; }
+    .dots { display: flex; gap: 3px; }
+    .dots span { width: 4px; height: 4px; border-radius: 50%; background: var(--green); opacity: 0.3; animation: dp 1.2s infinite; }
+    .dots span:nth-child(2) { animation-delay: 0.2s; }
+    .dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes dp { 0%,80%,100%{opacity:0.3;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
+    .ai-body { font-size: 13px; line-height: 1.65; color: var(--text); }
+    .ai-body h4 { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 400; color: var(--green); margin: 0.75rem 0 0.25rem; }
+    .ai-body h4:first-child { margin-top: 0; }
+    .ai-body ul { padding-left: 1.1rem; margin: 0.2rem 0 0.4rem; }
+    .ai-body li { margin-bottom: 0.3rem; color: var(--text2); font-size: 13px; }
+    .ai-body p { margin-bottom: 0.35rem; color: var(--text2); font-size: 13px; }
+    .ai-body strong { color: var(--text); font-weight: 500; }
+    .refresh-btn { background: var(--bg4); border: 0.5px solid var(--border2); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-family: 'DM Sans', sans-serif; color: var(--text2); cursor: pointer; display: flex; align-items: center; gap: 4px; }
+
+    /* HOME TWO COL */
+    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; margin-bottom: 0.75rem; }
+    .sub-card { background: var(--bg3); border-radius: 10px; padding: 10px 12px; border: 0.5px solid var(--border); }
+
+    /* JOURNAL */
+    .j-textarea { width: 100%; border: 0.5px solid var(--border2); border-radius: 8px; padding: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--bg4); resize: none; outline: none; margin-top: 0.5rem; }
+    .j-textarea:focus { border-color: var(--green); }
+    .save-btn { background: var(--green); color: #000; border: none; border-radius: 8px; padding: 9px 18px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; margin-top: 0.5rem; }
+    .mem-item { border-bottom: 0.5px solid var(--border); padding: 10px 0; }
+    .mem-item:last-child { border-bottom: none; }
+    .mem-date { font-size: 10px; color: var(--text3); margin-bottom: 3px; }
+    .mem-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
+  </style>
+</head>
+<body>
+<div class="app">
+
+  <div class="header">
+    <div class="header-row">
+      <div>
+        <div class="child-name">Your <em>little one</em></div>
+        <div class="sub-line">Born June 15, 2024 · turning 2 soon</div>
+      </div>
+      <div class="age-pill" id="age-pill">23 months</div>
+    </div>
+    <div class="custody-bar">
+      <div class="custody-dot"></div>
+      <div class="custody-text"><strong>Your week</strong> — next handoff in <span id="handoff-days">...</span></div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showTab('milestones')"><i class="ti ti-star"></i>Milestones</button>
+    <button class="nav-btn" onclick="showTab('research')"><i class="ti ti-microscope"></i>Research</button>
+    <button class="nav-btn" onclick="showTab('toys')"><i class="ti ti-puzzle"></i>Toys</button>
+    <button class="nav-btn" onclick="showTab('tips')"><i class="ti ti-message-circle"></i>Tips</button>
+    <button class="nav-btn" onclick="showTab('home')"><i class="ti ti-home"></i>Home &amp; Health</button>
+    <button class="nav-btn" onclick="showTab('journal')"><i class="ti ti-notebook"></i>Journal</button>
+  </nav>
+
+  <div class="content">
+
+    <div id="milestones" class="section active">
+      <p class="section-title">Milestone tracker</p>
+      <div class="card green-accent">
+        <div class="card-head">
+          <span class="lbl g">At 24 months</span>
+          <span id="ms-count" style="font-size:11px;color:var(--text3)">0 / 8 done</span>
+        </div>
+        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Uses 2-word phrases ("more milk", "go bye-bye")</p><span>Language</span></div></div>
+        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Points to things or pictures when named</p><span>Communication</span></div></div>
+        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Kicks a ball, runs with more control</p><span>Gross motor</span></div></div>
+        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Stacks 4+ blocks, uses spoon independently</p><span>Fine motor</span></div></div>
+        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Shows defiant behavior ("No!")</p><span>Social / emotional</span></div></div>
+        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Parallel play alongside other children</p><span>Social</span></div></div>
+        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Follows 2-step instructions</p><span>Cognitive</span></div></div>
+        <div class="ms-item"><div class="ms-check" onclick="toggleMs(this)"><i class="ti ti-check"></i></div><div class="ms-label"><p>Pretend play (feeds doll, talks on toy phone)</p><span>Cognitive</span></div></div>
+        <div class="progress-row">
+          <div class="ring-wrap">
+            <svg width="48" height="48" viewBox="0 0 48 48">
+              <circle cx="24" cy="24" r="19" fill="none" stroke="#1a3d24" stroke-width="4"/>
+              <circle id="progress-arc" cx="24" cy="24" r="19" fill="none" stroke="#30d158" stroke-width="4" stroke-dasharray="119.4" stroke-dashoffset="119.4" stroke-linecap="round" style="transition:stroke-dashoffset 0.4s ease"/>
+            </svg>
+            <div class="ring-center" id="ring-pct">0%</div>
+          </div>
+          <div class="ring-info"><p>Development progress</p><span>CDC guidelines · age 2</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="research" class="section">
+      <p class="section-title">Latest research</p>
+      <div class="card green-accent">
+        <div class="card-head">
+          <span class="lbl g">AI-curated for his age</span>
+          <button class="refresh-btn" onclick="loadAI('research')"><i class="ti ti-refresh"></i>Refresh</button>
+        </div>
+        <div id="research-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+      </div>
+    </div>
+
+    <div id="toys" class="section">
+      <p class="section-title">Toy recommendations</p>
+      <div class="card amber-accent">
+        <div class="card-head">
+          <span class="lbl a">Best for his age range</span>
+          <button class="refresh-btn" onclick="loadAI('toys')"><i class="ti ti-refresh"></i>Refresh</button>
+        </div>
+        <div id="toys-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+      </div>
+    </div>
+
+    <div id="tips" class="section">
+      <p class="section-title">Communication &amp; learning</p>
+      <div class="card green-accent">
+        <div class="card-head">
+          <span class="lbl g">Tips for co-parenting at this age</span>
+          <button class="refresh-btn" onclick="loadAI('tips')"><i class="ti ti-refresh"></i>Refresh</button>
+        </div>
+        <div id="tips-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+      </div>
+    </div>
+
+    <div id="home" class="section">
+      <p class="section-title">Home &amp; health</p>
+      <div class="two-col">
+        <div class="sub-card" style="border-left:2px solid var(--green);border-radius:0 10px 10px 0">
+          <div class="lbl g" style="margin-bottom:6px">Lifestyle</div>
+          <div id="lifestyle-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+        </div>
+        <div class="sub-card" style="border-left:2px solid var(--amber);border-radius:0 10px 10px 0">
+          <div class="lbl a" style="margin-bottom:6px">Health kit</div>
+          <div id="health-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="refresh-btn" onclick="loadAI('lifestyle');loadAI('health')"><i class="ti ti-refresh"></i>Refresh both</button>
+      </div>
+    </div>
+
+    <div id="journal" class="section">
+      <p class="section-title">Memory journal</p>
+      <div class="card">
+        <div class="lbl g" style="margin-bottom:6px">Add a memory</div>
+        <textarea class="j-textarea" id="journal-input" rows="3" placeholder="Write something he did today..."></textarea>
+        <button class="save-btn" onclick="saveMemory()">Save memory</button>
+      </div>
+      <div class="card">
+        <div class="lbl g" style="margin-bottom:10px">Saved memories</div>
+        <div id="memories-list"><p style="font-size:13px;color:var(--text3)">No memories yet — add your first one above.</p></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const BIRTH = new Date('2024-06-15');
+const API_KEY = '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';
+
+function getAge() {
+  const n = new Date();
+  return (n.getFullYear() - BIRTH.getFullYear()) * 12 + (n.getMonth() - BIRTH.getMonth());
+}
+
+const PROMPTS = {
+  research: () => `Child development expert. My son is ${getAge()} months old. Dad-friendly summary of current research: brain development, sleep needs, language explosion, emotional regulation. Use <h4> headers, <ul><li> bullets. Max 280 words. HTML only, no preamble.`,
+  toys:     () => `Child development toy specialist. Son is ${getAge()} months. Recommend 5 developmental toys: name, why valuable, price range. Use <h4> names, <p> description. Max 260 words. HTML only, no preamble.`,
+  tips:     () => `Child development specialist. Son is ${getAge()} months, co-parenting every-other-week. Give 5 specific communication and learning tips, accounting for the schedule. Use <h4> headers and <p>. Max 260 words. HTML only, no preamble.`,
+  lifestyle:() => `Parenting lifestyle expert. Son ${getAge()} months. SHORT bullet recs: toddler bed transition, bedding safety, sleep setup. <ul><li> only. Max 100 words. HTML only, no preamble.`,
+  health:   () => `Pediatric health advisor. Son ${getAge()} months. Essential medicine cabinet and supplement list with brief notes. <ul><li> only. End: always verify with your pediatrician. Max 100 words. HTML only, no preamble.`
+};
+
+function updateHeader() {
+  document.getElementById('age-pill').textContent = getAge() + ' months';
+  const d = new Date().getDay();
+  const days = d === 0 ? 7 : 7 - d;
+  document.getElementById('handoff-days').textContent = days === 1 ? 'tomorrow' : days + ' days';
+}
+
+const loaded = {};
+async function loadAI(key) {
+  const el = document.getElementById(key + '-content');
+  if (!el) return;
+  el.innerHTML = '<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div>';
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, messages: [{ role: 'user', content: PROMPTS[key]() }] })
+    });
+    const data = await res.json();
+    const text = data.content?.map(c => c.text || '').join('') || 'Unable to load.';
+    el.innerHTML = '<div class="ai-body">' + text + '</div>';
+    loaded[key] = true;
+  } catch(e) {
+    el.innerHTML = '<p style="font-size:12px;color:var(--text3)">Could not load — check your API key.</p>';
+  }
+}
+
+function showTab(tab) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => {
+    if (b.getAttribute('onclick').includes("'" + tab + "'")) b.classList.add('active');
+  });
+  if (!loaded[tab] && PROMPTS[tab]) loadAI(tab);
+  if (tab === 'home') {
+    if (!loaded.lifestyle) loadAI('lifestyle');
+    if (!loaded.health) loadAI('health');
+  }
+}
+
+function toggleMs(el) {
+  el.classList.toggle('done');
+  const all = document.querySelectorAll('.ms-check');
+  const done = document.querySelectorAll('.ms-check.done').length;
+  const pct = Math.round(done / all.length * 100);
+  const circ = 2 * Math.PI * 19;
+  document.getElementById('progress-arc').setAttribute('stroke-dashoffset', circ - circ * pct / 100);
+  document.getElementById('ring-pct').textContent = pct + '%';
+  document.getElementById('ms-count').textContent = done + ' / ' + all.length + ' done';
+  localStorage.setItem('ms', JSON.stringify([...all].map(e => e.classList.contains('done'))));
+}
+
+function loadMilestones() {
+  const saved = JSON.parse(localStorage.getItem('ms') || '[]');
+  document.querySelectorAll('.ms-check').forEach((el, i) => { if (saved[i]) el.classList.add('done'); });
+  const done = document.querySelectorAll('.ms-check.done').length;
+  const all = document.querySelectorAll('.ms-check').length;
+  const pct = Math.round(done / all * 100);
+  const circ = 2 * Math.PI * 19;
+  document.getElementById('progress-arc').setAttribute('stroke-dashoffset', circ - circ * pct / 100);
+  document.getElementById('ring-pct').textContent = pct + '%';
+  document.getElementById('ms-count').textContent = done + ' / ' + all + ' done';
+}
+
+const memories = JSON.parse(localStorage.getItem('memories') || '[]');
+
+function saveMemory() {
+  const input = document.getElementById('journal-input');
+  const text = input.value.trim();
+  if (!text) return;
+  memories.unshift({ text, date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) });
+  localStorage.setItem('memories', JSON.stringify(memories));
+  input.value = '';
+  renderMemories();
+}
+
+function renderMemories() {
+  const list = document.getElementById('memories-list');
+  if (!memories.length) { list.innerHTML = '<p style="font-size:13px;color:var(--text3)">No memories yet — add your first one above.</p>'; return; }
+  list.innerHTML = memories.map(m => `<div class="mem-item"><div class="mem-date">${m.date}</div><div class="mem-text">${m.text}</div></div>`).join('');
+}
+
+updateHeader();
+loadMilestones();
+renderMemories();
+</script>
+</body>
+</html>
