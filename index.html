@@ -473,7 +473,8 @@ async function loadTab(tab) {
     if (data.error) throw new Error(data.error);
     const html = data.content?.map(c => c.text || '').join('') || '';
     if (!html) throw new Error('empty');
-    const wrapped = '<div class="ai-body">' + html + '</div>';
+    const clean = html.replace(/^```html\s*/i, '').replace(/```\s*$/i, '');
+const wrapped = '<div class="ai-body">' + clean + '</div>';
     tabCache[cacheKey] = wrapped;
     el.innerHTML = wrapped;
   } catch(e) {
