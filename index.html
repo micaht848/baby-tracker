@@ -89,6 +89,10 @@
     .ms-save-note { background:var(--green-dim); color:var(--green); border:none; border-radius:6px; padding:4px 10px; font-size:11px; font-family:'DM Sans',sans-serif; cursor:pointer; margin-top:4px; }
     .ms-achieved { font-size:11px; color:var(--green); margin-top:4px; }
     .ms-note-display { font-size:12px; color:var(--text2); margin-top:4px; font-style:italic; line-height:1.5; }
+    .ms-comparison { display:inline-block; font-size:10px; font-weight:500; padding:2px 7px; border-radius:10px; margin-left:6px; vertical-align:middle; }
+    .ms-comparison.early    { background:#0a2a1a; color:#30d158; }
+    .ms-comparison.on-track { background:#0a2a4a; color:#0a84ff; }
+    .ms-comparison.watch    { background:#3a3000; color:#ffd60a; }
     .progress-row { display:flex; align-items:center; gap:12px; padding-top:12px; margin-top:10px; border-top:0.5px solid var(--border); }
     .ring-wrap { position:relative; width:48px; height:48px; flex-shrink:0; }
     .ring-wrap svg { transform:rotate(-90deg); }
@@ -350,63 +354,64 @@ let chatMode = 'local';
 const tabCache = {};
 
 // ── MILESTONES ────────────────────────────────
+// each milestone has: text, cat, typical age range in months [earliest, onTrackEnd, latestOk]
 const MILESTONES = {
   '2': [
-    { text:'Uses 2-word phrases ("more milk", "go bye-bye")', cat:'Language' },
-    { text:'Vocabulary of 50+ words', cat:'Language' },
-    { text:'Points to things or pictures when named', cat:'Communication' },
-    { text:'Kicks a ball forward, runs without falling often', cat:'Gross motor' },
-    { text:'Climbs onto and down from furniture without help', cat:'Gross motor' },
-    { text:'Stacks 6+ blocks', cat:'Fine motor' },
-    { text:'Uses spoon and fork independently', cat:'Fine motor' },
-    { text:'Shows defiant behavior ("No!")', cat:'Social / emotional' },
-    { text:'Plays alongside other children (parallel play)', cat:'Social' },
-    { text:'Follows 2-step instructions', cat:'Cognitive' },
-    { text:'Pretend play — feeds doll, talks on toy phone', cat:'Cognitive' },
-    { text:'Begins to show signs of potty awareness', cat:'Self-care' },
+    { text:'Uses 2-word phrases ("more milk", "go bye-bye")', cat:'Language',           range:[18,24,30] },
+    { text:'Vocabulary of 50+ words',                         cat:'Language',           range:[18,24,30] },
+    { text:'Points to things or pictures when named',         cat:'Communication',      range:[12,18,24] },
+    { text:'Kicks a ball forward, runs without falling often',cat:'Gross motor',        range:[18,24,30] },
+    { text:'Climbs onto and down from furniture without help',cat:'Gross motor',        range:[18,24,30] },
+    { text:'Stacks 6+ blocks',                                cat:'Fine motor',         range:[18,24,30] },
+    { text:'Uses spoon and fork independently',               cat:'Fine motor',         range:[18,24,30] },
+    { text:'Shows defiant behavior ("No!")',                  cat:'Social / emotional', range:[18,24,30] },
+    { text:'Plays alongside other children (parallel play)',  cat:'Social',             range:[18,24,36] },
+    { text:'Follows 2-step instructions',                     cat:'Cognitive',          range:[18,24,30] },
+    { text:'Pretend play — feeds doll, talks on toy phone',   cat:'Cognitive',          range:[18,24,30] },
+    { text:'Begins to show signs of potty awareness',         cat:'Self-care',          range:[18,30,36] },
   ],
   '3': [
-    { text:'Speaks in sentences of 4–5 words', cat:'Language' },
-    { text:'Strangers can understand most of what they say', cat:'Language' },
-    { text:'Says first and last name when asked', cat:'Communication' },
-    { text:'Climbs stairs alternating feet', cat:'Gross motor' },
-    { text:'Pedals a tricycle', cat:'Gross motor' },
-    { text:'Draws a circle, copies a cross shape', cat:'Fine motor' },
-    { text:'Turns pages of a book one at a time', cat:'Fine motor' },
-    { text:'Takes turns in simple games', cat:'Social' },
-    { text:'Shows affection for friends spontaneously', cat:'Social / emotional' },
-    { text:'Understands "mine", "his", "hers"', cat:'Cognitive' },
-    { text:'Names familiar colors', cat:'Cognitive' },
-    { text:'Dresses and undresses with some help', cat:'Self-care' },
-    { text:'Uses toilet independently most of the time', cat:'Self-care' },
+    { text:'Speaks in sentences of 4–5 words',                cat:'Language',           range:[30,36,42] },
+    { text:'Strangers can understand most of what they say',  cat:'Language',           range:[30,36,48] },
+    { text:'Says first and last name when asked',             cat:'Communication',      range:[30,36,42] },
+    { text:'Climbs stairs alternating feet',                  cat:'Gross motor',        range:[24,36,42] },
+    { text:'Pedals a tricycle',                               cat:'Gross motor',        range:[24,36,48] },
+    { text:'Draws a circle, copies a cross shape',            cat:'Fine motor',         range:[30,36,48] },
+    { text:'Turns pages of a book one at a time',             cat:'Fine motor',         range:[24,30,36] },
+    { text:'Takes turns in simple games',                     cat:'Social',             range:[30,36,48] },
+    { text:'Shows affection for friends spontaneously',       cat:'Social / emotional', range:[30,36,48] },
+    { text:'Understands "mine", "his", "hers"',               cat:'Cognitive',          range:[24,36,42] },
+    { text:'Names familiar colors',                           cat:'Cognitive',          range:[30,36,48] },
+    { text:'Dresses and undresses with some help',            cat:'Self-care',          range:[30,36,48] },
+    { text:'Uses toilet independently most of the time',      cat:'Self-care',          range:[24,36,48] },
   ],
   '4': [
-    { text:'Tells stories and talks about daily activities', cat:'Language' },
-    { text:'Uses sentences of 5+ words, future tense appears', cat:'Language' },
-    { text:'Can say full name, age, and address', cat:'Communication' },
-    { text:'Hops and stands on one foot for up to 2 seconds', cat:'Gross motor' },
-    { text:'Catches a bounced ball most of the time', cat:'Gross motor' },
-    { text:'Draws a person with 2–4 body parts', cat:'Fine motor' },
-    { text:'Uses scissors', cat:'Fine motor' },
-    { text:'Cooperates with other children', cat:'Social' },
-    { text:'Understands "same" and "different"', cat:'Cognitive' },
-    { text:'Follows 3-step instructions', cat:'Cognitive' },
-    { text:'Counts to 10 or higher', cat:'Cognitive' },
-    { text:'Uses toilet independently, including wiping', cat:'Self-care' },
+    { text:'Tells stories and talks about daily activities',  cat:'Language',           range:[36,48,54] },
+    { text:'Uses sentences of 5+ words, future tense appears',cat:'Language',           range:[36,48,54] },
+    { text:'Can say full name, age, and address',             cat:'Communication',      range:[36,48,54] },
+    { text:'Hops and stands on one foot for up to 2 seconds', cat:'Gross motor',        range:[36,48,54] },
+    { text:'Catches a bounced ball most of the time',         cat:'Gross motor',        range:[36,48,54] },
+    { text:'Draws a person with 2–4 body parts',              cat:'Fine motor',         range:[36,48,54] },
+    { text:'Uses scissors',                                   cat:'Fine motor',         range:[36,48,60] },
+    { text:'Cooperates with other children',                  cat:'Social',             range:[36,48,54] },
+    { text:'Understands "same" and "different"',              cat:'Cognitive',          range:[36,48,54] },
+    { text:'Follows 3-step instructions',                     cat:'Cognitive',          range:[36,48,54] },
+    { text:'Counts to 10 or higher',                          cat:'Cognitive',          range:[36,48,60] },
+    { text:'Uses toilet independently, including wiping',     cat:'Self-care',          range:[36,48,60] },
   ],
   '5': [
-    { text:'Speaks very clearly; tells a complete story', cat:'Language' },
-    { text:'Uses future tense correctly', cat:'Language' },
-    { text:'Can have a back-and-forth conversation', cat:'Communication' },
-    { text:'Stands on one foot for 10+ seconds', cat:'Gross motor' },
-    { text:'Does somersaults, hops, swings, climbs', cat:'Gross motor' },
-    { text:'Copies a triangle, writes some letters and numbers', cat:'Fine motor' },
-    { text:'Draws a person with at least 6 body parts', cat:'Fine motor' },
-    { text:'Wants to please and be like friends', cat:'Social' },
-    { text:'Can distinguish fantasy from reality', cat:'Cognitive' },
-    { text:'Counts 10+ objects, basic math concepts', cat:'Cognitive' },
-    { text:'Uses fork, spoon, and sometimes a knife', cat:'Self-care' },
-    { text:'Uses the toilet without any help', cat:'Self-care' },
+    { text:'Speaks very clearly; tells a complete story',     cat:'Language',           range:[48,60,66] },
+    { text:'Uses future tense correctly',                     cat:'Language',           range:[42,60,66] },
+    { text:'Can have a back-and-forth conversation',          cat:'Communication',      range:[42,60,66] },
+    { text:'Stands on one foot for 10+ seconds',              cat:'Gross motor',        range:[48,60,66] },
+    { text:'Does somersaults, hops, swings, climbs',          cat:'Gross motor',        range:[42,60,66] },
+    { text:'Copies a triangle, writes some letters/numbers',  cat:'Fine motor',         range:[48,60,66] },
+    { text:'Draws a person with at least 6 body parts',       cat:'Fine motor',         range:[48,60,72] },
+    { text:'Wants to please and be like friends',             cat:'Social',             range:[48,60,72] },
+    { text:'Can distinguish fantasy from reality',            cat:'Cognitive',          range:[48,60,66] },
+    { text:'Counts 10+ objects, basic math concepts',         cat:'Cognitive',          range:[48,60,72] },
+    { text:'Uses fork, spoon, and sometimes a knife',         cat:'Self-care',          range:[48,60,72] },
+    { text:'Uses the toilet without any help',                cat:'Self-care',          range:[42,60,72] },
   ]
 };
 
@@ -546,6 +551,22 @@ function saveMsData(data) {
   localStorage.setItem('ms-data-' + currentBand, JSON.stringify(data));
 }
 
+function getComparison(m, isDone) {
+  if (!m.range) return '';
+  const ageMonths = getAgeMonths();
+  const [earliest, onTrackEnd, latestOk] = m.range;
+  if (isDone) {
+    if (ageMonths <= earliest + 2) return '<span class="ms-comparison early">Early</span>';
+    if (ageMonths <= onTrackEnd)   return '<span class="ms-comparison on-track">On track</span>';
+    return '<span class="ms-comparison on-track">On track</span>';
+  } else {
+    if (ageMonths < onTrackEnd)    return '<span class="ms-comparison on-track">Expected soon</span>';
+    if (ageMonths <= latestOk)     return '<span class="ms-comparison watch">Worth watching</span>';
+    if (ageMonths > latestOk)      return '<span class="ms-comparison watch">Mention to doctor</span>';
+    return '';
+  }
+}
+
 function toggleView(view) {
   msView = view;
   ['checklist','history','concerns'].forEach(v => {
@@ -562,11 +583,12 @@ function renderMilestones() {
   const data  = getMsData();
 
   list.innerHTML = items.map((m, i) => {
-    const d     = data[i] || {};
-    const done  = d.done || false;
+    const d       = data[i] || {};
+    const done    = d.done || false;
     const flagged = d.flag || false;
-    const note  = d.note || '';
-    const date  = d.date || '';
+    const note    = d.note || '';
+    const date    = d.date || '';
+    const pill    = getComparison(m, done);
     return `
     <div class="ms-item${flagged ? ' flagged' : ''}" id="ms-item-${i}">
       <div class="ms-row">
@@ -575,7 +597,7 @@ function renderMilestones() {
         </div>
         <div class="ms-label">
           <p>${m.text}</p>
-          <span>${m.cat}</span>
+          <span>${m.cat}${pill}</span>
           ${done && date ? `<div class="ms-achieved"><i class="ti ti-calendar-check"></i> ${date}</div>` : ''}
           ${note ? `<div class="ms-note-display">"${note}"</div>` : ''}
         </div>
