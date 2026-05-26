@@ -275,12 +275,26 @@
     .sub-card { background:var(--bg3); border-radius:10px; padding:10px 12px; border:0.5px solid var(--border); }
     .ai-body a { color:var(--green); text-decoration:none; border-bottom:1px solid var(--green-dim); }
 
-    /* MALACHI PHOTO */
-    .malachi-avatar { width:52px; height:52px; border-radius:50%; border:2px solid var(--green); overflow:hidden; flex-shrink:0; cursor:pointer; position:relative; background:var(--bg3); display:flex; align-items:center; justify-content:center; }
+    /* MALACHI PHOTO BACKGROUND */
+    .app-bg { position:fixed; inset:0; z-index:0; background-size:cover; background-position:center top; background-repeat:no-repeat; transition:opacity 0.5s ease; opacity:0; }
+    .app-bg.loaded { opacity:1; }
+    .app-bg::after { content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.75) 100%); }
+    .app { position:relative; z-index:1; }
+    .header { background:rgba(10,10,10,0.7) !important; backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); }
+    .age-selector { background:rgba(20,20,20,0.7) !important; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+    .parent-bar { background:rgba(20,20,20,0.7) !important; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+    .nav { background:rgba(20,20,20,0.75) !important; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+    .content { background:transparent !important; }
+    .section { }
+    .card, .tab-card, .sub-card, .history-card { background:rgba(28,28,30,0.82) !important; backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+
+    /* PHOTO UPLOAD BUTTON */
+    .photo-upload-btn { position:fixed; bottom:calc(env(safe-area-inset-bottom) + 14px); right:14px; z-index:10; background:rgba(28,28,30,0.85); border:0.5px solid var(--border2); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; cursor:pointer; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); font-size:18px; }
+    .photo-upload-btn input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; border-radius:50%; }
+    .malachi-avatar { width:48px; height:48px; border-radius:50%; border:2px solid var(--green); overflow:hidden; flex-shrink:0; cursor:pointer; position:relative; background:var(--bg3); display:flex; align-items:center; justify-content:center; }
     .malachi-avatar img { width:100%; height:100%; object-fit:cover; }
-    .malachi-avatar .avatar-placeholder { font-size:22px; }
+    .malachi-avatar .avatar-placeholder { font-size:20px; }
     .malachi-avatar input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-    .malachi-avatar:hover::after { content:'📷'; position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; font-size:18px; border-radius:50%; }
   .parent-bar { background:var(--bg2); padding:6px 1.25rem; border-bottom:0.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; gap:8px; }
   .parent-bar-label { font-size:11px; color:var(--text3); white-space:nowrap; flex-shrink:0; }
   .parent-btn { flex:none; padding:5px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); background:var(--bg3); border:0.5px solid var(--border2); border-radius:20px; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
@@ -298,6 +312,7 @@
   </style>
 </head>
 <body>
+<div class="app-bg" id="app-bg"></div>
 <div class="app">
 
   <div class="header">
@@ -644,7 +659,11 @@
   </div>
 </div>
 
-<script>
+<!-- Floating photo upload button -->
+<label class="photo-upload-btn" title="Update Malachi's photo">
+  📷
+  <input type="file" accept="image/*" onchange="updateMalachiPhoto(this)" />
+</label>
 // ── CONFIG ────────────────────────────────────
 const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
 const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
@@ -1436,15 +1455,19 @@ function updateMalachiPhoto(input) {
   reader.readAsDataURL(file);
 }
 function showMalachiPhoto(base64) {
-  const img = document.getElementById('malachi-photo');
+  const bg = document.getElementById('app-bg');
+  const avatar = document.getElementById('malachi-photo');
   const placeholder = document.getElementById('avatar-placeholder');
   if (base64) {
-    img.src = base64;
-    img.style.display = 'block';
-    placeholder.style.display = 'none';
+    bg.style.backgroundImage = 'url(' + base64 + ')';
+    bg.classList.add('loaded');
+    if (avatar) { avatar.src = base64; avatar.style.display = 'block'; }
+    if (placeholder) placeholder.style.display = 'none';
   } else {
-    img.style.display = 'none';
-    placeholder.style.display = 'block';
+    bg.style.backgroundImage = '';
+    bg.classList.remove('loaded');
+    if (avatar) avatar.style.display = 'none';
+    if (placeholder) placeholder.style.display = 'block';
   }
 }
 
