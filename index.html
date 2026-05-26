@@ -97,6 +97,9 @@
     .ai-body p { font-size:13px; color:var(--text2); line-height:1.6; margin-bottom:0.4rem; }
     .ai-body strong { color:var(--text); font-weight:500; }
     .ai-error { font-size:12px; color:var(--text3); padding:4px 0; line-height:1.6; }
+    .ai-body a { color:var(--green); text-decoration:none; border-bottom:1px solid var(--green-dim); padding-bottom:1px; }
+    .ai-body a:hover { border-bottom-color:var(--green); }
+    .ai-body a:active { opacity:0.7; }
 
     .two-col { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-bottom:0.75rem; }
     .sub-card { background:var(--bg3); border-radius:10px; padding:10px 12px; border:0.5px solid var(--border); }
@@ -292,8 +295,8 @@
 
 <script>
 // ── CONFIG ────────────────────────────────────
-const SUPABASE_URL = 'https://htnihsrcszpujqajnoyb.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh0bmloc3Jjc3pwdWpxYWpub3liIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MDIzMTYsImV4cCI6MjA5NTM3ODMxNn0.mwqpgcC1LhCluTgoZZCx4qmfTHbGlkAnHGOLOG91lhY';
+const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+const SUPABASE_KEY = 'YOUR_SUPABASE_ANON_KEY';
 const MEMORIES_API = SUPABASE_URL + '/rest/v1/memories';
 
 const BIRTH = new Date('2024-06-15');
@@ -367,15 +370,15 @@ const MILESTONES = {
 
 // ── AI PROMPTS ────────────────────────────────
 const PROMPTS = {
-  research: b => `You are a child development expert. My son Malachi just turned ${b} years old. Write a dad-friendly summary of the most important current research for a ${b}-year-old covering: brain development, sleep needs, language growth, emotional regulation, and social development. Use <h4> for section headers and <ul><li> for bullet points. Be specific to age ${b}. Max 320 words. Return HTML only, no preamble or markdown.`,
+  research: b => `You are a child development expert. My son Malachi just turned ${b} years old. Write a dad-friendly summary of the most important current research for a ${b}-year-old covering: brain development, sleep needs, language growth, emotional regulation, and social development. Use <h4> for section headers and <ul><li> for bullet points. Be specific to age ${b}. After the main content add a section <h4>Further reading</h4> with 3–4 real links to trusted sources (healthychildren.org, zerotothree.org, cdc.gov) relevant to age ${b} development. Format links as <a href="URL" target="_blank" rel="noopener">Title</a> in a <ul><li> list. Max 380 words total. Start your response directly with the first HTML tag, no preamble, no markdown, no code fences.`,
 
-  toys: b => `You are a child development specialist. My son Malachi is ${b} years old. Recommend the 6 best developmental toys or activities specifically for a ${b}-year-old right now. For each: toy name as the header, why it's developmentally valuable at this exact age, and price range. Use <h4> for each toy name and <p> for description. Max 300 words. Return HTML only, no preamble or markdown.`,
+  toys: b => `You are a child development specialist. My son Malachi is ${b} years old. Recommend the 6 best developmental toys or activities for a ${b}-year-old. For each: toy name as <h4>, a <p> with why it's developmentally valuable and price range, and a <p><a href="https://www.amazon.com/s?k=TOYNAME+toddler+${b}+year+old" target="_blank" rel="noopener">Search on Amazon</a></p> where TOYNAME is replaced with the actual toy name (url-encoded, no spaces — use + instead). After all toys add <h4>More toy ideas</h4> with 2 links to trusted toy recommendation sources like commonsensemedia.org or zerotothree.org. Max 380 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`,
 
-  tips: b => `You are a child development specialist. My son Malachi is ${b} years old. Give me 6 specific, actionable communication and learning tips tailored to a ${b}-year-old boy. Focus on things a dad can do day-to-day. Use <h4> for each tip title and <p> for explanation. Max 300 words. Return HTML only, no preamble or markdown.`,
+  tips: b => `You are a child development specialist. My son Malachi is ${b} years old. Give me 6 specific, actionable communication and learning tips for a ${b}-year-old boy — things a dad can do day-to-day. Use <h4> for each tip title and <p> for explanation. After the tips add <h4>Recommended reading</h4> with 3 real book recommendations as links to Amazon searches: <a href="https://www.amazon.com/s?k=BOOKNAME" target="_blank" rel="noopener">Book Title</a> in a <ul><li> list. Choose books genuinely relevant to parenting a ${b}-year-old (e.g. The Whole-Brain Child, How to Talk So Little Kids Will Listen). Max 380 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`,
 
-  lifestyle: b => `Parenting lifestyle expert. My son is ${b} years old. Give SHORT bullet-point recommendations for: bedroom setup, appropriate bed type, bedding safety, and sleep environment for a ${b}-year-old. Use <ul><li> only. Max 120 words. Return HTML only, no preamble or markdown.`,
+  lifestyle: b => `Parenting lifestyle expert. My son is ${b} years old. Give SHORT bullet-point recommendations for: bedroom setup, bed type, bedding safety, and sleep environment for a ${b}-year-old. Use <ul><li> only. Then add a <p><strong>Shop:</strong></p> with 2–3 product links formatted as <a href="https://www.amazon.com/s?k=PRODUCT+toddler" target="_blank" rel="noopener">Product Name</a> for the key items you recommended (e.g. white noise machine, toddler bed rail, Hatch clock). Max 150 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`,
 
-  health: b => `Pediatric health advisor. My son is ${b} years old. List the essential items for my medicine cabinet and any supplements commonly recommended for a ${b}-year-old with brief notes on each. Use <ul><li> only. End with one line: always verify with your pediatrician. Max 120 words. Return HTML only, no preamble or markdown.`
+  health: b => `Pediatric health advisor. My son is ${b} years old. List essential medicine cabinet and supplement items for a ${b}-year-old with brief notes. Use <ul><li> only. Then add a <p><strong>Shop on Amazon:</strong></p> with links for the top 3 items: <a href="https://www.amazon.com/s?k=ITEM+children" target="_blank" rel="noopener">Item Name</a>. End with: <p><em>Always verify doses with your pediatrician. <a href="https://www.healthychildren.org" target="_blank" rel="noopener">HealthyChildren.org</a> is a trusted resource.</em></p>. Max 150 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`
 };
 
 // ── BUILT-IN Q&A ──────────────────────────────
@@ -466,15 +469,18 @@ async function loadTab(tab) {
     const res  = await fetch('/.netlify/functions/ai', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:1000, messages:[{ role:'user', content:PROMPTS[tab](currentBand) }] })
+      body:    JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:1200, messages:[{ role:'user', content:PROMPTS[tab](currentBand) }] })
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
-    const html = data.content?.map(c => c.text || '').join('') || '';
+    let html = data.content?.map(c => c.text || '').join('') || '';
     if (!html) throw new Error('empty');
-    const clean = html.replace(/^```html\s*/i, '').replace(/```\s*$/i, '');
-const wrapped = '<div class="ai-body">' + clean + '</div>';
+    // Strip any markdown code fences the model may have added
+    html = html.replace(/^```html\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
+    // Make sure all links open in a new tab
+    html = html.replace(/<a /g, '<a target="_blank" rel="noopener" ');
+    const wrapped = '<div class="ai-body">' + html + '</div>';
     tabCache[cacheKey] = wrapped;
     el.innerHTML = wrapped;
   } catch(e) {
