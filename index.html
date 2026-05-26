@@ -15,112 +15,65 @@
     :root {
       --bg:#0a0a0a; --bg2:#141414; --bg3:#1c1c1e; --bg4:#2c2c2e;
       --green:#30d158; --green-dim:#1a3d24;
-      --amber:#ffd60a;
+      --amber:#ffd60a; --amber-dim:#3a3000;
       --blue:#0a84ff; --blue-dim:#0a2a4a;
+      --red:#ff453a; --red-dim:#3a0a0a;
+      --purple:#bf5af2; --purple-dim:#2a0a3a;
       --text:#f5f5f7; --text2:#aeaeb2; --text3:#636366;
       --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.13);
     }
     html,body { height:100%; background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; overflow:hidden; }
     .app { display:flex; flex-direction:column; height:100vh; height:100dvh; }
 
-    .header { background:var(--bg2); padding:calc(env(safe-area-inset-top) + 14px) 1.25rem 1rem; border-bottom:0.5px solid var(--border); flex-shrink:0; }
+    /* HEADER */
+    .header { background:var(--bg2); padding:calc(env(safe-area-inset-top) + 12px) 1.25rem 0.875rem; border-bottom:0.5px solid var(--border); flex-shrink:0; }
     .header-row { display:flex; align-items:flex-start; justify-content:space-between; }
     .child-name { font-family:'Fraunces',serif; font-size:26px; font-weight:300; color:var(--text); line-height:1.1; }
     .child-name em { color:var(--green); font-style:italic; }
     .age-pill { background:var(--green-dim); color:var(--green); font-size:11px; font-weight:500; padding:4px 10px; border-radius:20px; white-space:nowrap; margin-top:4px; }
     .sub-line { font-size:12px; color:var(--text3); margin-top:3px; }
+    .age-countdown { font-size:11px; color:var(--text3); margin-top:4px; }
+    .age-countdown span { color:var(--green); font-weight:500; }
 
-    .age-selector { background:var(--bg2); padding:8px 1.25rem; border-bottom:0.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; gap:8px; overflow-x:auto; scrollbar-width:none; }
+    /* AGE SELECTOR */
+    .age-selector { background:var(--bg2); padding:7px 1.25rem; border-bottom:0.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; gap:8px; overflow-x:auto; scrollbar-width:none; }
     .age-selector::-webkit-scrollbar { display:none; }
     .age-selector-label { font-size:11px; color:var(--text3); white-space:nowrap; font-weight:500; flex-shrink:0; }
     .age-btn { flex:none; padding:5px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); background:var(--bg3); border:0.5px solid var(--border2); border-radius:20px; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
     .age-btn.active { background:var(--green-dim); color:var(--green); border-color:var(--green); }
 
+    /* NAV */
     .nav { display:flex; background:var(--bg2); border-bottom:0.5px solid var(--border); overflow-x:auto; scrollbar-width:none; flex-shrink:0; }
     .nav::-webkit-scrollbar { display:none; }
-    .nav-btn { flex:none; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; white-space:nowrap; }
-    .nav-btn i { font-size:14px; vertical-align:-2px; margin-right:4px; }
+    .nav-btn { flex:none; padding:10px 12px; font-family:'DM Sans',sans-serif; font-size:11px; font-weight:500; color:var(--text3); background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; white-space:nowrap; }
+    .nav-btn i { font-size:13px; vertical-align:-2px; margin-right:3px; }
     .nav-btn.active { color:var(--green); border-bottom-color:var(--green); }
 
+    /* CONTENT */
     .content { flex:1; overflow-y:auto; background:var(--bg); -webkit-overflow-scrolling:touch; padding-bottom:calc(env(safe-area-inset-bottom) + 16px); }
     .section { display:none; padding:1rem; }
     .section.active { display:block; }
     .section-title { font-family:'Fraunces',serif; font-size:18px; font-weight:400; color:var(--text); margin-bottom:3px; }
     .section-sub { font-size:12px; color:var(--text3); margin-bottom:0.85rem; }
 
+    /* CARDS */
     .card { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem 1.125rem; margin-bottom:0.75rem; }
     .card.ga { border-left:2px solid var(--green); border-radius:0 12px 12px 0; }
     .card.aa { border-left:2px solid var(--amber); border-radius:0 12px 12px 0; }
+    .card.ba { border-left:2px solid var(--blue); border-radius:0 12px 12px 0; }
+    .card.ra { border-left:2px solid var(--red); border-radius:0 12px 12px 0; }
+    .card.pa { border-left:2px solid var(--purple); border-radius:0 12px 12px 0; }
     .card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
     .lbl { font-size:10px; font-weight:500; letter-spacing:0.8px; text-transform:uppercase; }
     .lbl.g { color:var(--green); } .lbl.a { color:var(--amber); } .lbl.b { color:var(--blue); }
+    .lbl.r { color:var(--red); } .lbl.p { color:var(--purple); }
 
-    .content-body h4 { font-family:'Fraunces',serif; font-size:14px; font-weight:400; color:var(--green); margin:0.8rem 0 0.3rem; }
-    .content-body h4:first-child { margin-top:0; }
-    .content-body ul { padding-left:1.1rem; margin:0.2rem 0 0.5rem; }
-    .content-body li { margin-bottom:0.35rem; color:var(--text2); font-size:13px; line-height:1.5; }
-    .content-body p { font-size:13px; color:var(--text2); line-height:1.6; margin-bottom:0.4rem; }
-    .content-body strong { color:var(--text); font-weight:500; }
-
-    .ms-item { padding:10px 0; border-bottom:0.5px solid var(--border); }
-    .ms-item:last-child { border-bottom:none; padding-bottom:0; }
-    .ms-item.flagged .ms-label p { color:var(--amber); }
-    .ms-row { display:flex; align-items:flex-start; gap:10px; }
-    .ms-check { width:22px; height:22px; border-radius:50%; border:1.5px solid var(--text3); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; margin-top:1px; transition:background 0.2s,border-color 0.2s; }
-    .ms-check.done { background:var(--green); border-color:var(--green); }
-    .ms-check i { font-size:11px; color:transparent; }
-    .ms-check.done i { color:#000; }
-    .ms-label { flex:1; }
-    .ms-label p { font-size:14px; color:var(--text); line-height:1.4; }
-    .ms-label span { font-size:11px; color:var(--text3); }
-    .ms-actions { display:flex; align-items:center; gap:6px; margin-left:auto; flex-shrink:0; }
-    .ms-flag { background:none; border:none; cursor:pointer; padding:2px 4px; font-size:14px; color:var(--text3); transition:color 0.2s; }
-    .ms-flag.active { color:var(--amber); }
-    .ms-expand { background:none; border:none; cursor:pointer; padding:2px 4px; font-size:12px; color:var(--text3); }
-    .ms-details { margin-top:8px; margin-left:32px; display:none; }
-    .ms-details.open { display:block; }
-    .ms-date-row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
-    .ms-date-label { font-size:11px; color:var(--text3); white-space:nowrap; }
-    .ms-date-input { background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:4px 8px; font-family:'DM Sans',sans-serif; font-size:12px; color:var(--text); outline:none; flex:1; }
-    .ms-date-input:focus { border-color:var(--green); }
-    .ms-note-input { width:100%; background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:6px 8px; font-family:'DM Sans',sans-serif; font-size:12px; color:var(--text); outline:none; resize:none; }
-    .ms-note-input:focus { border-color:var(--green); }
-    .ms-note-input::placeholder { color:var(--text3); }
-    .ms-save-note { background:var(--green-dim); color:var(--green); border:none; border-radius:6px; padding:4px 10px; font-size:11px; font-family:'DM Sans',sans-serif; cursor:pointer; margin-top:4px; }
-    .ms-achieved { font-size:11px; color:var(--green); margin-top:4px; }
-    .ms-note-display { font-size:12px; color:var(--text2); margin-top:4px; font-style:italic; line-height:1.5; }
-    .ms-comparison { display:inline-block; font-size:10px; font-weight:500; padding:2px 7px; border-radius:10px; margin-left:6px; vertical-align:middle; }
-    .ms-comparison.early    { background:#0a2a1a; color:#30d158; }
-    .ms-comparison.on-track { background:#0a2a4a; color:#0a84ff; }
-    .ms-comparison.watch    { background:#3a3000; color:#ffd60a; }
-    .progress-row { display:flex; align-items:center; gap:12px; padding-top:12px; margin-top:10px; border-top:0.5px solid var(--border); }
-    .ring-wrap { position:relative; width:48px; height:48px; flex-shrink:0; }
-    .ring-wrap svg { transform:rotate(-90deg); }
-    .ring-center { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:500; color:var(--green); }
-    .ring-info p { font-size:13px; color:var(--text); font-weight:500; }
-    .ring-info span { font-size:11px; color:var(--text3); }
-    .ms-toolbar { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
-    .ms-tool-btn { background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:5px 10px; font-size:11px; font-family:'DM Sans',sans-serif; color:var(--text2); cursor:pointer; display:flex; align-items:center; gap:4px; }
-    .ms-tool-btn.amber { color:var(--amber); border-color:var(--amber-dim); background:var(--amber-dim); }
-    .concerns-card { background:var(--bg3); border-radius:12px; border:1px solid var(--amber); padding:1rem 1.125rem; margin-bottom:0.75rem; }
-    .concerns-card .lbl { color:var(--amber); margin-bottom:8px; display:block; }
-    .concern-item { font-size:13px; color:var(--text2); padding:5px 0; border-bottom:0.5px solid var(--border); line-height:1.4; }
-    .concern-item:last-child { border-bottom:none; }
-    .history-card { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem 1.125rem; margin-bottom:0.75rem; }
-    .history-item { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:0.5px solid var(--border); }
-    .history-item:last-child { border-bottom:none; }
-    .history-dot { width:8px; height:8px; border-radius:50%; background:var(--green); flex-shrink:0; margin-top:4px; }
-    .history-text p { font-size:13px; color:var(--text); line-height:1.4; }
-    .history-text span { font-size:11px; color:var(--text3); }
-    .share-btn { background:var(--blue-dim); color:var(--blue); border:0.5px solid var(--blue); border-radius:8px; padding:8px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; cursor:pointer; display:flex; align-items:center; gap:6px; width:100%; justify-content:center; margin-top:0.5rem; }
-
+    /* AI CONTENT */
     .tab-card { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem 1.125rem; margin-bottom:0.75rem; }
     .tab-card.ga { border-left:2px solid var(--green); border-radius:0 12px 12px 0; }
     .tab-card.aa { border-left:2px solid var(--amber); border-radius:0 12px 12px 0; }
     .tab-card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
     .refresh-btn { background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:5px 10px; font-size:11px; font-family:'DM Sans',sans-serif; color:var(--text2); cursor:pointer; display:flex; align-items:center; gap:4px; }
-    .refresh-btn:active { opacity:0.7; }
-
     .ai-loading { display:flex; align-items:center; gap:8px; padding:0.5rem 0; color:var(--text3); font-size:13px; }
     .dots { display:flex; gap:3px; }
     .dots span { width:4px; height:4px; border-radius:50%; background:var(--green); opacity:0.3; animation:dp 1.2s infinite; }
@@ -135,28 +88,174 @@
     .ai-body strong { color:var(--text); font-weight:500; }
     .ai-error { font-size:12px; color:var(--text3); padding:4px 0; line-height:1.6; }
     .ai-body a { color:var(--green); text-decoration:none; border-bottom:1px solid var(--green-dim); padding-bottom:1px; }
-    .ai-body a:hover { border-bottom-color:var(--green); }
-    .ai-body a:active { opacity:0.7; }
 
-    .two-col { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-bottom:0.75rem; }
-    .sub-card { background:var(--bg3); border-radius:10px; padding:10px 12px; border:0.5px solid var(--border); }
+    /* MILESTONES */
+    .ms-item { padding:10px 0; border-bottom:0.5px solid var(--border); }
+    .ms-item:last-child { border-bottom:none; padding-bottom:0; }
+    .ms-item.flagged .ms-label p { color:var(--amber); }
+    .ms-row { display:flex; align-items:flex-start; gap:10px; }
+    .ms-check { width:22px; height:22px; border-radius:50%; border:1.5px solid var(--text3); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; margin-top:1px; transition:background 0.2s,border-color 0.2s; }
+    .ms-check.done { background:var(--green); border-color:var(--green); }
+    .ms-check i { font-size:11px; color:transparent; }
+    .ms-check.done i { color:#000; }
+    .ms-label { flex:1; }
+    .ms-label p { font-size:14px; color:var(--text); line-height:1.4; }
+    .ms-label span { font-size:11px; color:var(--text3); }
+    .ms-actions { display:flex; align-items:center; gap:4px; flex-shrink:0; }
+    .ms-flag { background:none; border:none; cursor:pointer; padding:3px; font-size:14px; color:var(--text3); }
+    .ms-flag.active { color:var(--amber); }
+    .ms-expand { background:none; border:none; cursor:pointer; padding:3px; font-size:13px; color:var(--text3); }
+    .ms-details { margin-top:8px; margin-left:32px; display:none; }
+    .ms-details.open { display:block; }
+    .ms-date-row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+    .ms-date-label { font-size:11px; color:var(--text3); white-space:nowrap; }
+    .ms-date-input { background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:4px 8px; font-family:'DM Sans',sans-serif; font-size:12px; color:var(--text); outline:none; flex:1; }
+    .ms-note-input { width:100%; background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:6px 8px; font-family:'DM Sans',sans-serif; font-size:12px; color:var(--text); outline:none; resize:none; }
+    .ms-note-input::placeholder { color:var(--text3); }
+    .ms-save-note { background:var(--green-dim); color:var(--green); border:none; border-radius:6px; padding:4px 10px; font-size:11px; font-family:'DM Sans',sans-serif; cursor:pointer; margin-top:4px; }
+    .ms-achieved { font-size:11px; color:var(--green); margin-top:3px; }
+    .ms-note-display { font-size:12px; color:var(--text2); margin-top:3px; font-style:italic; line-height:1.5; }
+    .ms-comparison { display:inline-block; font-size:10px; font-weight:500; padding:2px 7px; border-radius:10px; margin-left:5px; vertical-align:middle; }
+    .ms-comparison.early    { background:#0a2a1a; color:#30d158; }
+    .ms-comparison.on-track { background:#0a2a4a; color:#0a84ff; }
+    .ms-comparison.watch    { background:#3a3000; color:#ffd60a; }
+    .ms-comparison.mention  { background:#3a0a0a; color:#ff453a; }
+    .progress-row { display:flex; align-items:center; gap:12px; padding-top:12px; margin-top:10px; border-top:0.5px solid var(--border); }
+    .ring-wrap { position:relative; width:48px; height:48px; flex-shrink:0; }
+    .ring-wrap svg { transform:rotate(-90deg); }
+    .ring-center { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:500; color:var(--green); }
+    .ring-info p { font-size:13px; color:var(--text); font-weight:500; }
+    .ring-info span { font-size:11px; color:var(--text3); }
+    .ms-toolbar { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+    .ms-tool-btn { background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:5px 10px; font-size:11px; font-family:'DM Sans',sans-serif; color:var(--text2); cursor:pointer; display:flex; align-items:center; gap:4px; transition:all 0.2s; }
+    .ms-tool-btn.active { background:var(--green-dim); color:var(--green); border-color:var(--green); }
+    .ms-tool-btn.amber-btn { color:var(--amber); }
+    .history-item { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:0.5px solid var(--border); }
+    .history-item:last-child { border-bottom:none; }
+    .history-dot { width:8px; height:8px; border-radius:50%; background:var(--green); flex-shrink:0; margin-top:4px; }
+    .history-text p { font-size:13px; color:var(--text); line-height:1.4; }
+    .history-text span { font-size:11px; color:var(--text3); }
+    .concern-item { font-size:13px; color:var(--text2); padding:5px 0; border-bottom:0.5px solid var(--border); line-height:1.4; }
+    .concern-item:last-child { border-bottom:none; }
+    .share-btn { background:var(--blue-dim); color:var(--blue); border:0.5px solid var(--blue); border-radius:8px; padding:8px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; cursor:pointer; display:flex; align-items:center; gap:6px; width:100%; justify-content:center; margin-top:0.75rem; }
 
+    /* GROWTH */
+    .growth-inputs { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:8px; }
+    .growth-field { display:flex; flex-direction:column; gap:4px; }
+    .growth-label { font-size:11px; color:var(--text3); }
+    .growth-input { background:var(--bg4); border:0.5px solid var(--border2); border-radius:8px; padding:8px 10px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); outline:none; }
+    .growth-input:focus { border-color:var(--green); }
+    .growth-add-btn { background:var(--green); color:#000; border:none; border-radius:8px; padding:9px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer; width:100%; margin-top:4px; }
+    .growth-entry { display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-bottom:0.5px solid var(--border); }
+    .growth-entry:last-child { border-bottom:none; }
+    .growth-entry-left p { font-size:13px; color:var(--text); }
+    .growth-entry-left span { font-size:11px; color:var(--text3); }
+    .growth-entry-right { font-size:13px; color:var(--text2); text-align:right; }
+    .growth-chart { margin-top:12px; background:var(--bg4); border-radius:8px; padding:10px; }
+    .growth-chart-title { font-size:11px; color:var(--text3); margin-bottom:8px; text-transform:uppercase; letter-spacing:0.5px; }
+    .growth-bar-row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+    .growth-bar-label { font-size:10px; color:var(--text3); width:60px; flex-shrink:0; text-align:right; }
+    .growth-bar-wrap { flex:1; background:var(--bg3); border-radius:4px; height:8px; overflow:hidden; }
+    .growth-bar-fill { height:100%; border-radius:4px; background:var(--green); transition:width 0.5s ease; }
+    .growth-bar-val { font-size:10px; color:var(--text2); width:40px; flex-shrink:0; }
+    .growth-delete { background:none; border:none; color:var(--text3); cursor:pointer; font-size:14px; padding:2px; }
+
+    /* DOCTOR VISITS */
+    .visit-form { display:flex; flex-direction:column; gap:8px; }
+    .form-input { background:var(--bg4); border:0.5px solid var(--border2); border-radius:8px; padding:9px 10px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); outline:none; width:100%; }
+    .form-input:focus { border-color:var(--blue); }
+    .form-textarea { background:var(--bg4); border:0.5px solid var(--border2); border-radius:8px; padding:9px 10px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); outline:none; width:100%; resize:none; }
+    .form-textarea:focus { border-color:var(--blue); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .form-label { font-size:11px; color:var(--text3); margin-bottom:3px; }
+    .add-btn { border:none; border-radius:8px; padding:9px 16px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer; margin-top:4px; width:100%; }
+    .add-btn.blue { background:var(--blue); color:#fff; }
+    .add-btn.green { background:var(--green); color:#000; }
+    .add-btn.red { background:var(--red); color:#fff; }
+    .add-btn.purple { background:var(--purple); color:#fff; }
+    .visit-item { padding:10px 0; border-bottom:0.5px solid var(--border); }
+    .visit-item:last-child { border-bottom:none; }
+    .visit-item-head { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:4px; }
+    .visit-item-title { font-size:14px; color:var(--text); font-weight:500; }
+    .visit-item-date { font-size:11px; color:var(--text3); }
+    .visit-item-detail { font-size:13px; color:var(--text2); line-height:1.5; }
+    .visit-tag { display:inline-block; font-size:10px; padding:2px 7px; border-radius:10px; margin-right:4px; margin-bottom:4px; font-weight:500; }
+    .visit-tag.well  { background:var(--green-dim); color:var(--green); }
+    .visit-tag.sick  { background:var(--red-dim); color:var(--red); }
+    .visit-tag.vacc  { background:var(--blue-dim); color:var(--blue); }
+    .visit-tag.other { background:var(--bg4); color:var(--text3); }
+    .item-delete { background:none; border:none; color:var(--text3); cursor:pointer; font-size:14px; padding:2px; }
+
+    /* MED LOG */
+    .med-item { display:flex; align-items:flex-start; justify-content:space-between; padding:9px 0; border-bottom:0.5px solid var(--border); }
+    .med-item:last-child { border-bottom:none; }
+    .med-item-left p { font-size:13px; color:var(--text); font-weight:500; }
+    .med-item-left span { font-size:11px; color:var(--text3); }
+    .med-item-right { font-size:12px; color:var(--text2); text-align:right; flex-shrink:0; margin-left:10px; }
+
+    /* PACKING LIST */
+    .pack-item { display:flex; align-items:center; gap:10px; padding:8px 0; border-bottom:0.5px solid var(--border); }
+    .pack-item:last-child { border-bottom:none; }
+    .pack-check { width:20px; height:20px; border-radius:5px; border:1.5px solid var(--text3); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; transition:all 0.2s; }
+    .pack-check.done { background:var(--green); border-color:var(--green); }
+    .pack-check i { font-size:11px; color:transparent; }
+    .pack-check.done i { color:#000; }
+    .pack-text { font-size:13px; color:var(--text); flex:1; }
+    .pack-text.done { text-decoration:line-through; color:var(--text3); }
+    .pack-category { font-size:10px; color:var(--text3); margin-left:auto; flex-shrink:0; }
+
+    /* MOOD LOG */
+    .mood-row { display:flex; gap:8px; margin-bottom:8px; justify-content:space-between; }
+    .mood-btn { flex:1; padding:10px 4px; border-radius:8px; border:0.5px solid var(--border2); background:var(--bg3); font-size:20px; cursor:pointer; text-align:center; transition:all 0.2s; }
+    .mood-btn.active { border-color:var(--green); background:var(--green-dim); }
+    .mood-item { display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:0.5px solid var(--border); }
+    .mood-item:last-child { border-bottom:none; }
+    .mood-item-left { display:flex; align-items:center; gap:10px; }
+    .mood-emoji { font-size:20px; }
+    .mood-item-text p { font-size:13px; color:var(--text); }
+    .mood-item-text span { font-size:11px; color:var(--text3); }
+
+    /* JOURNAL */
     .j-textarea { width:100%; border:0.5px solid var(--border2); border-radius:8px; padding:10px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--bg4); resize:none; outline:none; margin-top:0.5rem; }
     .j-textarea:focus { border-color:var(--green); }
     .save-btn { background:var(--green); color:#000; border:none; border-radius:8px; padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer; margin-top:0.5rem; }
-    .save-btn:disabled { opacity:0.5; cursor:not-allowed; }
+    .save-btn:disabled { opacity:0.5; }
+    .photo-btn { background:var(--bg4); border:0.5px solid var(--border2); border-radius:8px; padding:9px 14px; font-family:'DM Sans',sans-serif; font-size:13px; color:var(--text2); cursor:pointer; margin-top:0.5rem; display:flex; align-items:center; gap:6px; }
     .mem-item { border-bottom:0.5px solid var(--border); padding:10px 0; }
     .mem-item:last-child { border-bottom:none; }
     .mem-date { font-size:10px; color:var(--text3); margin-bottom:3px; }
-    .mem-text { font-size:13px; color:var(--text2); line-height:1.5; }
+    .mem-text { font-size:13px; color:var(--text2); line-height:1.5; margin-bottom:6px; }
+    .mem-photo { width:100%; max-height:180px; object-fit:cover; border-radius:8px; margin-top:6px; }
     .mem-age-tag { display:inline-block; background:var(--green-dim); color:var(--green); font-size:10px; padding:2px 7px; border-radius:10px; margin-left:6px; }
     .j-status { font-size:11px; margin-top:6px; min-height:16px; }
-    .j-status.ok { color:var(--green); } .j-status.err { color:#ff453a; } .j-status.pending { color:var(--text3); }
+    .j-status.ok { color:var(--green); } .j-status.err { color:var(--red); } .j-status.pending { color:var(--text3); }
 
+    /* TIMELINE */
+    .timeline-item { display:flex; gap:12px; padding-bottom:16px; position:relative; }
+    .timeline-item::before { content:''; position:absolute; left:15px; top:28px; bottom:0; width:1px; background:var(--border2); }
+    .timeline-item:last-child::before { display:none; }
+    .timeline-dot { width:30px; height:30px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:14px; }
+    .timeline-dot.milestone { background:var(--green-dim); }
+    .timeline-dot.journal   { background:var(--blue-dim); }
+    .timeline-dot.doctor    { background:var(--red-dim); }
+    .timeline-dot.growth    { background:var(--amber-dim); }
+    .timeline-dot.mood      { background:var(--purple-dim); }
+    .timeline-content { flex:1; padding-top:4px; }
+    .timeline-content p { font-size:13px; color:var(--text); line-height:1.4; margin-bottom:2px; }
+    .timeline-content span { font-size:11px; color:var(--text3); }
+
+    /* EMERGENCY */
+    .contact-item { padding:10px 0; border-bottom:0.5px solid var(--border); }
+    .contact-item:last-child { border-bottom:none; }
+    .contact-name { font-size:14px; color:var(--text); font-weight:500; margin-bottom:2px; }
+    .contact-detail { font-size:13px; color:var(--text2); }
+    .contact-phone { font-size:13px; color:var(--blue); text-decoration:none; }
+
+    /* CHAT */
     .chat-mode-bar { display:flex; gap:8px; margin-bottom:0.75rem; }
     .mode-btn { flex:1; padding:8px; border-radius:8px; border:0.5px solid var(--border2); background:var(--bg3); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); cursor:pointer; text-align:center; transition:all 0.2s; }
     .mode-btn.active { background:var(--blue-dim); color:var(--blue); border-color:var(--blue); }
-    .chat-messages { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem; margin-bottom:0.75rem; min-height:240px; max-height:340px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
+    .chat-messages { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem; margin-bottom:0.75rem; min-height:220px; max-height:300px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
     .msg { max-width:85%; padding:9px 12px; border-radius:12px; font-size:13px; line-height:1.55; }
     .msg.user { background:var(--blue); color:#fff; align-self:flex-end; border-radius:12px 12px 3px 12px; }
     .msg.bot { background:var(--bg4); color:var(--text2); align-self:flex-start; border-radius:12px 12px 12px 3px; }
@@ -165,11 +264,20 @@
     .chat-input-row { display:flex; gap:8px; }
     .chat-input { flex:1; background:var(--bg3); border:0.5px solid var(--border2); border-radius:10px; padding:10px 12px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); outline:none; }
     .chat-input:focus { border-color:var(--blue); }
-    .chat-send { background:var(--blue); color:#fff; border:none; border-radius:10px; padding:10px 14px; font-size:18px; cursor:pointer; flex-shrink:0; }
-    .chat-send:disabled { opacity:0.4; cursor:not-allowed; }
+    .chat-send { background:var(--blue); color:#fff; border:none; border-radius:10px; padding:10px 14px; font-size:16px; cursor:pointer; flex-shrink:0; }
+    .chat-send:disabled { opacity:0.4; }
     .suggested-qs { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:0.75rem; }
     .sq { background:var(--bg3); border:0.5px solid var(--border2); border-radius:20px; padding:5px 11px; font-size:12px; color:var(--text2); cursor:pointer; }
     .chat-notice { font-size:11px; color:var(--text3); text-align:center; padding:3px 0 8px; }
+
+    /* TWO COL */
+    .two-col { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-bottom:0.75rem; }
+    .sub-card { background:var(--bg3); border-radius:10px; padding:10px 12px; border:0.5px solid var(--border); }
+    .ai-body a { color:var(--green); text-decoration:none; border-bottom:1px solid var(--green-dim); }
+
+    /* UTILS */
+    .empty-state { font-size:13px; color:var(--text3); padding:8px 0; line-height:1.6; }
+    .section-divider { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:0.8px; font-weight:500; margin:12px 0 8px; }
   </style>
 </head>
 <body>
@@ -183,6 +291,7 @@
       </div>
       <div class="age-pill" id="age-pill">2 yr</div>
     </div>
+    <div class="age-countdown" id="age-countdown"></div>
   </div>
 
   <div class="age-selector">
@@ -195,11 +304,18 @@
 
   <nav class="nav">
     <button class="nav-btn active" onclick="showTab('milestones')"><i class="ti ti-star"></i>Milestones</button>
+    <button class="nav-btn" onclick="showTab('growth')"><i class="ti ti-ruler"></i>Growth</button>
+    <button class="nav-btn" onclick="showTab('doctor')"><i class="ti ti-stethoscope"></i>Doctor</button>
+    <button class="nav-btn" onclick="showTab('meds')"><i class="ti ti-pill"></i>Meds</button>
     <button class="nav-btn" onclick="showTab('research')"><i class="ti ti-microscope"></i>Research</button>
     <button class="nav-btn" onclick="showTab('toys')"><i class="ti ti-puzzle"></i>Toys</button>
     <button class="nav-btn" onclick="showTab('tips')"><i class="ti ti-message-circle"></i>Tips</button>
-    <button class="nav-btn" onclick="showTab('home')"><i class="ti ti-home"></i>Home &amp; Health</button>
+    <button class="nav-btn" onclick="showTab('home')"><i class="ti ti-home"></i>Home</button>
+    <button class="nav-btn" onclick="showTab('packing')"><i class="ti ti-backpack"></i>Pack</button>
+    <button class="nav-btn" onclick="showTab('mood')"><i class="ti ti-mood-smile"></i>Mood</button>
     <button class="nav-btn" onclick="showTab('journal')"><i class="ti ti-notebook"></i>Journal</button>
+    <button class="nav-btn" onclick="showTab('timeline')"><i class="ti ti-timeline"></i>Story</button>
+    <button class="nav-btn" onclick="showTab('emergency')"><i class="ti ti-alert-circle"></i>SOS</button>
     <button class="nav-btn" onclick="showTab('chat')"><i class="ti ti-robot"></i>Ask</button>
   </nav>
 
@@ -209,16 +325,15 @@
     <div id="milestones" class="section active">
       <p class="section-title">Milestone tracker</p>
       <p class="section-sub" id="ms-sub">Age 2 milestones</p>
-
       <div class="card ga">
         <div class="card-head">
           <span class="lbl g">CDC checkpoints</span>
           <span id="ms-count" style="font-size:11px;color:var(--text3)">0 / 0 done</span>
         </div>
         <div class="ms-toolbar">
-          <button class="ms-tool-btn" onclick="toggleView('checklist')" id="view-checklist"><i class="ti ti-list-check"></i> Checklist</button>
-          <button class="ms-tool-btn" onclick="toggleView('history')" id="view-history"><i class="ti ti-timeline"></i> Timeline</button>
-          <button class="ms-tool-btn amber" onclick="toggleView('concerns')" id="view-concerns"><i class="ti ti-alert-triangle"></i> Concerns</button>
+          <button class="ms-tool-btn active" onclick="toggleMsView('checklist')" id="view-checklist"><i class="ti ti-list-check"></i> Checklist</button>
+          <button class="ms-tool-btn" onclick="toggleMsView('history')" id="view-history"><i class="ti ti-timeline"></i> Timeline</button>
+          <button class="ms-tool-btn amber-btn" onclick="toggleMsView('concerns')" id="view-concerns"><i class="ti ti-flag"></i> Concerns</button>
         </div>
         <div id="ms-list"></div>
         <div id="ms-history" style="display:none"></div>
@@ -237,15 +352,90 @@
       </div>
     </div>
 
+    <!-- GROWTH -->
+    <div id="growth" class="section">
+      <p class="section-title">Growth tracker</p>
+      <p class="section-sub">Height and weight over time</p>
+      <div class="card ga">
+        <div class="lbl g" style="margin-bottom:10px">Log a measurement</div>
+        <div class="growth-inputs">
+          <div class="growth-field"><div class="form-label">Date</div><input class="growth-input" type="date" id="growth-date" /></div>
+          <div class="growth-field"><div class="form-label">Age at measurement</div><input class="growth-input" type="text" id="growth-age-label" placeholder="e.g. 2y 3m" /></div>
+          <div class="growth-field"><div class="form-label">Height (inches)</div><input class="growth-input" type="number" id="growth-height" placeholder="e.g. 34.5" step="0.1" /></div>
+          <div class="growth-field"><div class="form-label">Weight (lbs)</div><input class="growth-input" type="number" id="growth-weight" placeholder="e.g. 28.5" step="0.1" /></div>
+        </div>
+        <input class="growth-input" type="text" id="growth-note" placeholder="Notes (e.g. 2-year well visit)" style="width:100%;margin-bottom:8px" />
+        <button class="growth-add-btn" onclick="addGrowth()"><i class="ti ti-plus"></i> Save measurement</button>
+      </div>
+      <div class="card ba" id="growth-chart-card" style="display:none">
+        <div class="lbl b" style="margin-bottom:8px">Growth chart</div>
+        <div id="growth-chart"></div>
+      </div>
+      <div class="card">
+        <div class="lbl g" style="margin-bottom:10px">History</div>
+        <div id="growth-list"><p class="empty-state">No measurements yet — add the first one above.</p></div>
+      </div>
+    </div>
+
+    <!-- DOCTOR -->
+    <div id="doctor" class="section">
+      <p class="section-title">Doctor visits</p>
+      <p class="section-sub">Well visits, sick visits, vaccinations</p>
+      <div class="card ba">
+        <div class="lbl b" style="margin-bottom:10px">Log a visit</div>
+        <div class="visit-form">
+          <div><div class="form-label">Date</div><input class="form-input" type="date" id="visit-date" /></div>
+          <div><div class="form-label">Visit type</div>
+            <select class="form-input" id="visit-type">
+              <option value="well">Well visit</option>
+              <option value="sick">Sick visit</option>
+              <option value="vacc">Vaccination only</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div><div class="form-label">Doctor / clinic</div><input class="form-input" type="text" id="visit-doctor" placeholder="Dr. Smith, Pediatrics Plus..." /></div>
+          <div><div class="form-label">Vaccinations given</div><input class="form-input" type="text" id="visit-vaccines" placeholder="e.g. MMR, DTaP, flu shot" /></div>
+          <div><div class="form-label">Notes / what doctor said</div><textarea class="form-textarea" id="visit-notes" rows="3" placeholder="Growth looks great, ear infection, follow up in 2 weeks..."></textarea></div>
+          <div><div class="form-label">Follow-up needed</div><input class="form-input" type="text" id="visit-followup" placeholder="e.g. Recheck ears in 2 weeks" /></div>
+          <button class="add-btn blue" onclick="addVisit()"><i class="ti ti-plus"></i> Save visit</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="lbl b" style="margin-bottom:10px">Visit history</div>
+        <div id="visit-list"><p class="empty-state">No visits logged yet.</p></div>
+      </div>
+    </div>
+
+    <!-- MEDS -->
+    <div id="meds" class="section">
+      <p class="section-title">Medication log</p>
+      <p class="section-sub">Track what you gave him and when</p>
+      <div class="card ra">
+        <div class="lbl r" style="margin-bottom:10px">Log a medication</div>
+        <div class="visit-form">
+          <div class="form-row">
+            <div><div class="form-label">Date</div><input class="form-input" type="date" id="med-date" /></div>
+            <div><div class="form-label">Time</div><input class="form-input" type="time" id="med-time" /></div>
+          </div>
+          <div><div class="form-label">Medication</div><input class="form-input" type="text" id="med-name" placeholder="e.g. Children's Tylenol" /></div>
+          <div><div class="form-label">Dose</div><input class="form-input" type="text" id="med-dose" placeholder="e.g. 5ml / 160mg" /></div>
+          <div><div class="form-label">Reason</div><input class="form-input" type="text" id="med-reason" placeholder="e.g. Fever 102.4°F" /></div>
+          <div><div class="form-label">Notes</div><input class="form-input" type="text" id="med-notes" placeholder="e.g. Felt better within 1 hour" /></div>
+          <button class="add-btn red" onclick="addMed()"><i class="ti ti-plus"></i> Save medication</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="lbl r" style="margin-bottom:10px">Medication history</div>
+        <div id="med-list"><p class="empty-state">No medications logged yet.</p></div>
+      </div>
+    </div>
+
     <!-- RESEARCH -->
     <div id="research" class="section">
       <p class="section-title">Development research</p>
       <p class="section-sub" id="research-sub">AI-curated for age 2</p>
       <div class="tab-card ga">
-        <div class="tab-card-head">
-          <span class="lbl g" id="research-lbl">Age 2 · research</span>
-          <button class="refresh-btn" onclick="refreshTab('research')"><i class="ti ti-refresh"></i> Refresh</button>
-        </div>
+        <div class="tab-card-head"><span class="lbl g" id="research-lbl">Age 2 · research</span><button class="refresh-btn" onclick="refreshTab('research')"><i class="ti ti-refresh"></i> Refresh</button></div>
         <div id="research-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
       </div>
     </div>
@@ -255,10 +445,7 @@
       <p class="section-title">Toy recommendations</p>
       <p class="section-sub" id="toys-sub">AI picks for age 2</p>
       <div class="tab-card aa">
-        <div class="tab-card-head">
-          <span class="lbl a" id="toys-lbl">Age 2 · toys</span>
-          <button class="refresh-btn" onclick="refreshTab('toys')"><i class="ti ti-refresh"></i> Refresh</button>
-        </div>
+        <div class="tab-card-head"><span class="lbl a" id="toys-lbl">Age 2 · toys</span><button class="refresh-btn" onclick="refreshTab('toys')"><i class="ti ti-refresh"></i> Refresh</button></div>
         <div id="toys-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
       </div>
     </div>
@@ -268,10 +455,7 @@
       <p class="section-title">Communication &amp; learning</p>
       <p class="section-sub" id="tips-sub">AI tips for age 2</p>
       <div class="tab-card ga">
-        <div class="tab-card-head">
-          <span class="lbl g" id="tips-lbl">Age 2 · tips</span>
-          <button class="refresh-btn" onclick="refreshTab('tips')"><i class="ti ti-refresh"></i> Refresh</button>
-        </div>
+        <div class="tab-card-head"><span class="lbl g" id="tips-lbl">Age 2 · tips</span><button class="refresh-btn" onclick="refreshTab('tips')"><i class="ti ti-refresh"></i> Refresh</button></div>
         <div id="tips-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
       </div>
     </div>
@@ -282,19 +466,46 @@
       <p class="section-sub" id="home-sub">AI recommendations for age 2</p>
       <div class="two-col">
         <div class="sub-card" style="border-left:2px solid var(--green);border-radius:0 10px 10px 0">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <span class="lbl g">Lifestyle</span>
-            <button class="refresh-btn" style="padding:3px 7px;font-size:10px" onclick="refreshTab('lifestyle')"><i class="ti ti-refresh"></i></button>
-          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span class="lbl g">Lifestyle</span><button class="refresh-btn" style="padding:3px 7px;font-size:10px" onclick="refreshTab('lifestyle')"><i class="ti ti-refresh"></i></button></div>
           <div id="lifestyle-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
         </div>
         <div class="sub-card" style="border-left:2px solid var(--amber);border-radius:0 10px 10px 0">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
-            <span class="lbl a">Health kit</span>
-            <button class="refresh-btn" style="padding:3px 7px;font-size:10px" onclick="refreshTab('health')"><i class="ti ti-refresh"></i></button>
-          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span class="lbl a">Health kit</span><button class="refresh-btn" style="padding:3px 7px;font-size:10px" onclick="refreshTab('health')"><i class="ti ti-refresh"></i></button></div>
           <div id="health-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
         </div>
+      </div>
+    </div>
+
+    <!-- PACKING LIST -->
+    <div id="packing" class="section">
+      <p class="section-title">Packing list</p>
+      <p class="section-sub" id="packing-sub">What to have ready at your house — age 2</p>
+      <div style="display:flex;gap:8px;margin-bottom:0.75rem;flex-wrap:wrap">
+        <button class="refresh-btn" onclick="resetPacking()"><i class="ti ti-refresh"></i> Reset list</button>
+        <button class="refresh-btn" onclick="checkAllPacking()"><i class="ti ti-check"></i> Check all</button>
+      </div>
+      <div class="card" id="packing-list"></div>
+    </div>
+
+    <!-- MOOD LOG -->
+    <div id="mood" class="section">
+      <p class="section-title">Mood &amp; behavior log</p>
+      <p class="section-sub">Track how Malachi's doing emotionally</p>
+      <div class="card pa">
+        <div class="lbl p" style="margin-bottom:8px">How is he today?</div>
+        <div class="mood-row">
+          <button class="mood-btn" onclick="selectMood('😄')" id="mood-😄">😄</button>
+          <button class="mood-btn" onclick="selectMood('🙂')" id="mood-🙂">🙂</button>
+          <button class="mood-btn" onclick="selectMood('😐')" id="mood-😐">😐</button>
+          <button class="mood-btn" onclick="selectMood('😢')" id="mood-😢">😢</button>
+          <button class="mood-btn" onclick="selectMood('😠')" id="mood-😠">😠</button>
+        </div>
+        <input class="form-input" type="text" id="mood-note" placeholder="Any notes? (sleep, tantrums, big wins...)" style="margin-bottom:8px" />
+        <button class="add-btn purple" onclick="addMood()"><i class="ti ti-plus"></i> Log mood</button>
+      </div>
+      <div class="card">
+        <div class="lbl p" style="margin-bottom:10px">Mood history</div>
+        <div id="mood-list"><p class="empty-state">No mood entries yet.</p></div>
       </div>
     </div>
 
@@ -305,14 +516,57 @@
       <div class="card">
         <div class="lbl g" style="margin-bottom:6px">Add a memory</div>
         <textarea class="j-textarea" id="journal-input" rows="3" placeholder="Write something Malachi did today..."></textarea>
-        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
           <button class="save-btn" id="save-btn" onclick="saveMemory()">Save memory</button>
+          <label class="photo-btn"><i class="ti ti-camera"></i> Add photo<input type="file" accept="image/*" id="photo-input" style="display:none" onchange="previewPhoto(this)" /></label>
         </div>
+        <div id="photo-preview" style="margin-top:8px"></div>
         <div class="j-status" id="j-status"></div>
       </div>
       <div class="card">
         <div class="lbl g" style="margin-bottom:10px">Saved memories</div>
-        <div id="memories-list"><p style="font-size:13px;color:var(--text3)">Loading...</p></div>
+        <div id="memories-list"><p class="empty-state">Loading...</p></div>
+      </div>
+    </div>
+
+    <!-- TIMELINE / STORY -->
+    <div id="timeline" class="section">
+      <p class="section-title">Malachi's story</p>
+      <p class="section-sub">Everything in one place, chronologically</p>
+      <div id="timeline-list"><p class="empty-state">Your entries will appear here as you add them across all tabs.</p></div>
+    </div>
+
+    <!-- EMERGENCY / SOS -->
+    <div id="emergency" class="section">
+      <p class="section-title">Emergency contacts</p>
+      <p class="section-sub">Everything you need in one place</p>
+      <div class="card ra">
+        <div class="lbl r" style="margin-bottom:10px">Quick dial</div>
+        <div class="contact-item">
+          <div class="contact-name">Poison Control</div>
+          <a class="contact-phone" href="tel:18002221222"><i class="ti ti-phone"></i> 1-800-222-1222</a>
+        </div>
+        <div class="contact-item">
+          <div class="contact-name">Emergency</div>
+          <a class="contact-phone" href="tel:911"><i class="ti ti-phone"></i> 911</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><span class="lbl g">Saved contacts</span><button class="refresh-btn" onclick="showAddContact()"><i class="ti ti-plus"></i> Add</button></div>
+        <div id="contact-form" style="display:none;margin-bottom:12px">
+          <div class="form-label" style="margin-bottom:4px">Name / role</div>
+          <input class="form-input" type="text" id="contact-name" placeholder="e.g. Dr. Smith — Pediatrician" style="margin-bottom:6px" />
+          <div class="form-label" style="margin-bottom:4px">Phone</div>
+          <input class="form-input" type="tel" id="contact-phone" placeholder="e.g. (555) 123-4567" style="margin-bottom:6px" />
+          <div class="form-label" style="margin-bottom:4px">Notes</div>
+          <input class="form-input" type="text" id="contact-notes" placeholder="e.g. Clinic hours 8am–5pm" style="margin-bottom:8px" />
+          <button class="add-btn green" onclick="addContact()"><i class="ti ti-plus"></i> Save contact</button>
+        </div>
+        <div id="contact-list"><p class="empty-state">Add your pediatrician, pharmacy, and any other important contacts.</p></div>
+      </div>
+      <div class="card ba">
+        <div class="lbl b" style="margin-bottom:10px">Insurance &amp; info</div>
+        <textarea class="form-textarea" id="insurance-info" rows="4" placeholder="Insurance provider, policy number, group number, pharmacy name and address..." onchange="saveInsurance()"></textarea>
       </div>
     </div>
 
@@ -349,12 +603,11 @@ const BIRTH = new Date('2024-06-15');
 let currentBand = '2';
 let activeTab = 'milestones';
 let chatMode = 'local';
-
-// Cache: tabKey -> { band, html }
+let selectedMood = '';
+let pendingPhotoBase64 = '';
 const tabCache = {};
 
 // ── MILESTONES ────────────────────────────────
-// each milestone has: text, cat, typical age range in months [earliest, onTrackEnd, latestOk]
 const MILESTONES = {
   '2': [
     { text:'Uses 2-word phrases ("more milk", "go bye-bye")', cat:'Language',           range:[18,24,30] },
@@ -415,48 +668,111 @@ const MILESTONES = {
   ]
 };
 
+// ── PACKING LISTS ─────────────────────────────
+const PACKING_LISTS = {
+  '2': [
+    { text:'Diapers or pull-ups + wipes', cat:'Essentials' },
+    { text:'Change of clothes (x2)', cat:'Essentials' },
+    { text:'Sippy cup / water bottle', cat:'Essentials' },
+    { text:'Favorite snacks', cat:'Food' },
+    { text:'Bib / spill mat', cat:'Food' },
+    { text:'Toddler spoon and fork', cat:'Food' },
+    { text:'Comfort item (stuffed animal, blanket)', cat:'Sleep' },
+    { text:'White noise machine or app', cat:'Sleep' },
+    { text:'Sleep sack or toddler blanket', cat:'Sleep' },
+    { text:'Sunscreen SPF 30+', cat:'Health' },
+    { text:'Children\'s Tylenol + Motrin', cat:'Health' },
+    { text:'Thermometer', cat:'Health' },
+    { text:'Band-aids + antiseptic', cat:'Health' },
+    { text:'Blocks or stacking toys', cat:'Play' },
+    { text:'Board books (3–4)', cat:'Play' },
+    { text:'Crayons + paper', cat:'Play' },
+  ],
+  '3': [
+    { text:'Underwear or pull-ups (x3)', cat:'Essentials' },
+    { text:'Change of clothes (x2)', cat:'Essentials' },
+    { text:'Water bottle', cat:'Essentials' },
+    { text:'Favorite snacks', cat:'Food' },
+    { text:'Toddler utensils', cat:'Food' },
+    { text:'Comfort item', cat:'Sleep' },
+    { text:'Toddler blanket / pillow', cat:'Sleep' },
+    { text:'Nightlight', cat:'Sleep' },
+    { text:'Sunscreen SPF 30+', cat:'Health' },
+    { text:'Children\'s Tylenol + Motrin', cat:'Health' },
+    { text:'Allergy med (if needed)', cat:'Health' },
+    { text:'Playdough', cat:'Play' },
+    { text:'Books (chapter + picture)', cat:'Play' },
+    { text:'Art supplies', cat:'Play' },
+    { text:'Small tricycle or balance bike', cat:'Play' },
+  ],
+  '4': [
+    { text:'Change of clothes (x2)', cat:'Essentials' },
+    { text:'Water bottle', cat:'Essentials' },
+    { text:'Underwear (x3)', cat:'Essentials' },
+    { text:'Favorite snacks', cat:'Food' },
+    { text:'Regular fork, spoon, small knife', cat:'Food' },
+    { text:'Blanket + pillow', cat:'Sleep' },
+    { text:'Nightlight', cat:'Sleep' },
+    { text:'Sunscreen SPF 30+', cat:'Health' },
+    { text:'Children\'s Tylenol + Motrin', cat:'Health' },
+    { text:'Allergy med (if needed)', cat:'Health' },
+    { text:'Lego or Duplo set', cat:'Play' },
+    { text:'Books (chapter books)', cat:'Play' },
+    { text:'Art supplies + scissors', cat:'Play' },
+    { text:'Board game', cat:'Play' },
+    { text:'Outdoor equipment (ball, chalk)', cat:'Play' },
+  ],
+  '5': [
+    { text:'Change of clothes', cat:'Essentials' },
+    { text:'Water bottle', cat:'Essentials' },
+    { text:'Underwear (x2)', cat:'Essentials' },
+    { text:'Favorite snacks', cat:'Food' },
+    { text:'Blanket + pillow', cat:'Sleep' },
+    { text:'Small alarm / Hatch clock', cat:'Sleep' },
+    { text:'Sunscreen SPF 30+', cat:'Health' },
+    { text:'Children\'s Tylenol + Motrin', cat:'Health' },
+    { text:'Allergy med (if needed)', cat:'Health' },
+    { text:'Books (beginning readers + chapter)', cat:'Play' },
+    { text:'Lego set', cat:'Play' },
+    { text:'Art + craft kit', cat:'Play' },
+    { text:'Sports equipment (ball, t-ball)', cat:'Play' },
+    { text:'Board game', cat:'Play' },
+  ]
+};
+
 // ── AI PROMPTS ────────────────────────────────
 const PROMPTS = {
   research: b => `You are a child development expert. My son Malachi just turned ${b} years old. Write a dad-friendly summary of the most important current research for a ${b}-year-old covering: brain development, sleep needs, language growth, emotional regulation, and social development. Use <h4> for section headers and <ul><li> for bullet points. Be specific to age ${b}. After the main content add a section <h4>Further reading</h4> with 3–4 real links to trusted sources (healthychildren.org, zerotothree.org, cdc.gov) relevant to age ${b} development. Format links as <a href="URL" target="_blank" rel="noopener">Title</a> in a <ul><li> list. Max 380 words total. Start your response directly with the first HTML tag, no preamble, no markdown, no code fences.`,
-
-  toys: b => `You are a child development specialist. My son Malachi is ${b} years old. Recommend the 6 best developmental toys or activities for a ${b}-year-old. For each: toy name as <h4>, a <p> with why it's developmentally valuable and price range, and a <p><a href="https://www.amazon.com/s?k=TOYNAME+toddler+${b}+year+old" target="_blank" rel="noopener">Search on Amazon</a></p> where TOYNAME is replaced with the actual toy name (url-encoded, no spaces — use + instead). After all toys add <h4>More toy ideas</h4> with 2 links to trusted toy recommendation sources like commonsensemedia.org or zerotothree.org. Max 380 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`,
-
-  tips: b => `You are a child development specialist. My son Malachi is ${b} years old. Give me 6 specific, actionable communication and learning tips for a ${b}-year-old boy — things a dad can do day-to-day. Use <h4> for each tip title and <p> for explanation. After the tips add <h4>Recommended reading</h4> with 3 real book recommendations as links to Amazon searches: <a href="https://www.amazon.com/s?k=BOOKNAME" target="_blank" rel="noopener">Book Title</a> in a <ul><li> list. Choose books genuinely relevant to parenting a ${b}-year-old (e.g. The Whole-Brain Child, How to Talk So Little Kids Will Listen). Max 380 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`,
-
-  lifestyle: b => `Parenting lifestyle expert. My son is ${b} years old. Give SHORT bullet-point recommendations for: bedroom setup, bed type, bedding safety, and sleep environment for a ${b}-year-old. Use <ul><li> only. Then add a <p><strong>Shop:</strong></p> with 2–3 product links formatted as <a href="https://www.amazon.com/s?k=PRODUCT+toddler" target="_blank" rel="noopener">Product Name</a> for the key items you recommended (e.g. white noise machine, toddler bed rail, Hatch clock). Max 150 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`,
-
-  health: b => `Pediatric health advisor. My son is ${b} years old. List essential medicine cabinet and supplement items for a ${b}-year-old with brief notes. Use <ul><li> only. Then add a <p><strong>Shop on Amazon:</strong></p> with links for the top 3 items: <a href="https://www.amazon.com/s?k=ITEM+children" target="_blank" rel="noopener">Item Name</a>. End with: <p><em>Always verify doses with your pediatrician. <a href="https://www.healthychildren.org" target="_blank" rel="noopener">HealthyChildren.org</a> is a trusted resource.</em></p>. Max 150 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`
+  toys: b => `You are a child development specialist. My son Malachi is ${b} years old. Recommend the 6 best developmental toys or activities for a ${b}-year-old. For each: toy name as <h4>, a <p> with why it's developmentally valuable and price range, and a <p><a href="https://www.amazon.com/s?k=TOYNAME+toddler+${b}+year+old" target="_blank" rel="noopener">Search on Amazon</a></p> where TOYNAME is replaced with the actual toy name url-encoded with + for spaces. After all toys add <h4>More toy ideas</h4> with 2 links to trusted toy recommendation sources. Max 380 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`,
+  tips: b => `You are a child development specialist. My son Malachi is ${b} years old. Give me 6 specific, actionable communication and learning tips for a ${b}-year-old boy. Use <h4> for each tip title and <p> for explanation. After the tips add <h4>Recommended reading</h4> with 3 real book recommendations as links to Amazon searches. Max 380 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`,
+  lifestyle: b => `Parenting lifestyle expert. My son is ${b} years old. Give SHORT bullet-point recommendations for: bedroom setup, bed type, bedding safety, sleep environment. Use <ul><li> only. Then add a <p><strong>Shop:</strong></p> with 2–3 product links formatted as <a href="https://www.amazon.com/s?k=PRODUCT+toddler" target="_blank" rel="noopener">Product Name</a>. Max 150 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`,
+  health: b => `Pediatric health advisor. My son is ${b} years old. List essential medicine cabinet and supplement items with brief notes. Use <ul><li> only. Then add a <p><strong>Shop on Amazon:</strong></p> with links for top 3 items. End with: <p><em>Always verify doses with your pediatrician. <a href="https://www.healthychildren.org" target="_blank" rel="noopener">HealthyChildren.org</a></em></p>. Max 150 words. Start directly with the first HTML tag, no preamble, no markdown, no code fences.`
 };
 
-// ── BUILT-IN Q&A ──────────────────────────────
+// ── Q&A ───────────────────────────────────────
 const QA = [
-  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'2', a:`<strong>Sleep at age 2:</strong> Malachi needs <strong>11–14 hours total</strong> including one nap (usually 1–2 hours early afternoon). Bedtime between 7–8pm works best. Night wakings are still normal — respond briefly and calmly. A white noise machine and dim amber nightlight help significantly.` },
-  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'3', a:`<strong>Sleep at age 3:</strong> He needs <strong>10–13 hours total</strong>. Many 3-year-olds start dropping naps but still benefit from rest time. Nighttime fears are very common — totally normal. Bath → book → bed routine is the most effective wind-down.` },
-  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'4', a:`<strong>Sleep at age 4:</strong> He needs <strong>10–13 hours per night</strong> — most 4-year-olds no longer nap. Bedtime resistance is common; giving him some control (which book, which pajamas) helps. Night terrors can occur but he won't remember them.` },
-  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'5', a:`<strong>Sleep at age 5:</strong> He needs <strong>10–13 hours per night</strong>, no nap. No screens 1 hour before bed — blue light significantly delays sleep onset. A consistent 7:30–8pm bedtime builds a strong sleep rhythm.` },
-  { tags:['tantrum','meltdown','behavior','angry','mad','hitting','biting','aggressive'], band:'any', a:`<strong>Tantrums &amp; big behavior:</strong> Completely normal through age 4–5. His brain literally cannot stop the emotional flood yet. Stay calm yourself, get on his level, name the feeling, and wait it out. Don't reason during the meltdown — his brain can't process logic in that state. Connect first, correct after.` },
-  { tags:['food','eating','picky','meal','nutrition','vegetable'], band:'any', a:`<strong>Picky eating:</strong> Extremely common from age 2–5. You decide what's offered and when — he decides whether and how much to eat. Keep offering rejected foods without pressure. It takes 10–15 exposures before a child accepts a new food. Never force eating.` },
-  { tags:['potty','toilet','training','pee','poop','diaper','accident'], band:'any', a:`<strong>Potty training:</strong> Readiness signs: staying dry 2+ hours, interest in the toilet, hiding to poop. Once started, go all-in with underwear (pull-ups at night only). Accidents are normal for weeks. Celebrate successes, ignore accidents matter-of-factly.` },
-  { tags:['language','talking','words','speech','sentences','reading','say'], band:'any', a:`<strong>Language development:</strong> Talk to him constantly and read together every day. Narrate what you're doing. Expand his sentences back naturally — "Dog runned!" → "Yes, the dog ran so fast!" If he's not combining 2 words by age 2 or sentences by age 3, mention it to his pediatrician.` },
-  { tags:['screen','tv','tablet','ipad','phone','youtube','video'], band:'any', a:`<strong>Screen time:</strong> AAP recommends no more than 1 hour/day for ages 2–5. The bigger issue is what screens displace — outdoor play, reading, and real conversation matter far more developmentally. No screens 1 hour before bed.` },
-  { tags:['friend','social','play','sharing','kids','playdate'], band:'any', a:`<strong>Social development:</strong> Parallel play (next to kids, not with them) is normal through age 2–3. Cooperative play develops gradually from age 3–4. Sharing is a skill that takes years — don't shame him for not sharing. Coach him through conflicts instead of solving them.` },
-  { tags:['discipline','timeout','consequence','rules','boundaries','listen'], band:'any', a:`<strong>Discipline:</strong> Connection before correction. Natural consequences work better than arbitrary punishments. Time-outs: 1 minute per year of age, followed by reconnection. Consistency matters more than severity — calm, predictable responses every time are far more effective than occasional big reactions.` },
-  { tags:['anxiety','worry','scared','fear','nervous','separation','dark','monster'], band:'any', a:`<strong>Anxiety &amp; fears:</strong> Very common from age 2–5. Take fears seriously without amplifying them. Validate first: "That does seem scary." Then offer safety: "I'm right here." Gradual, gentle exposure works better than forcing him to confront fears.` },
-  { tags:['doctor','sick','fever','cold','medicine','health','cough'], band:'any', a:`<strong>When to call the doctor:</strong> Call for fever over 104°F, fever lasting more than 3 days, difficulty breathing, severe or unusual behavior, or any gut feeling something is seriously wrong. Check the <em>Home &amp; Health</em> tab for his age-specific medicine cabinet list.` },
-  { tags:['milestone','development','behind','delay','normal','developing'], band:'any', a:`<strong>Developmental milestones:</strong> Check the <strong>Milestones tab</strong> for his current age-specific checkpoints. Remember milestones are ranges, not deadlines. If concerned about a specific area, bring it up at his next well visit. Early support when genuinely needed is always more effective than waiting.` },
-  { tags:['school','kindergarten','preschool','learn','ready','readiness'], band:'any', a:`<strong>School readiness:</strong> The most important skills are emotional regulation, following multi-step instructions, and basic self-care. Academic skills like letters and numbers matter less than social-emotional readiness. Play is still the best way to build all of these at this age.` },
+  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'2', a:`<strong>Sleep at age 2:</strong> Malachi needs <strong>11–14 hours total</strong> including one nap. Bedtime 7–8pm works best. Night wakings are still normal. White noise and dim amber nightlight help.` },
+  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'3', a:`<strong>Sleep at age 3:</strong> He needs <strong>10–13 hours total</strong>. Many 3-year-olds start dropping naps. Nighttime fears are very common — totally normal. Bath → book → bed is the most effective wind-down.` },
+  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'4', a:`<strong>Sleep at age 4:</strong> He needs <strong>10–13 hours per night</strong>, most 4-year-olds no longer nap. Bedtime resistance is common; giving him some control helps. Night terrors can occur but he won't remember them.` },
+  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'5', a:`<strong>Sleep at age 5:</strong> He needs <strong>10–13 hours per night</strong>, no nap. No screens 1 hour before bed. A consistent 7:30–8pm bedtime builds a strong sleep rhythm.` },
+  { tags:['tantrum','meltdown','behavior','angry','mad','hitting','biting','aggressive'], band:'any', a:`<strong>Tantrums &amp; big behavior:</strong> Completely normal through age 4–5. Stay calm yourself, name the feeling, wait it out. Don't reason during the meltdown — his brain can't process logic then. Connect first, correct after.` },
+  { tags:['food','eating','picky','meal','nutrition','vegetable'], band:'any', a:`<strong>Picky eating:</strong> Very common ages 2–5. You decide what's offered; he decides whether and how much to eat. Keep offering rejected foods without pressure — 10–15 exposures before acceptance is normal.` },
+  { tags:['potty','toilet','training','pee','poop','diaper','accident'], band:'any', a:`<strong>Potty training:</strong> Readiness: staying dry 2+ hours, interest in toilet, hiding to poop. Once started, go all-in with underwear. Accidents are normal for weeks. Celebrate successes, ignore accidents matter-of-factly.` },
+  { tags:['language','talking','words','speech','sentences','reading','say'], band:'any', a:`<strong>Language development:</strong> Talk to him constantly and read together every day. Expand his sentences naturally. If not combining 2 words by age 2 or sentences by age 3, mention it to his pediatrician.` },
+  { tags:['screen','tv','tablet','ipad','phone','youtube','video'], band:'any', a:`<strong>Screen time:</strong> AAP recommends max 1 hour/day for ages 2–5. No screens 1 hour before bed. What screens displace — outdoor play, reading, real conversation — matters more than screen time itself.` },
+  { tags:['friend','social','play','sharing','kids','playdate'], band:'any', a:`<strong>Social development:</strong> Parallel play is normal through 2–3. Cooperative play develops from 3–4. Sharing is a skill that takes years. Coach conflicts rather than solving them.` },
+  { tags:['discipline','timeout','consequence','rules','boundaries','listen'], band:'any', a:`<strong>Discipline:</strong> Connection before correction. Time-outs: 1 minute per year of age, followed by reconnection. Consistency matters more than severity.` },
+  { tags:['anxiety','worry','scared','fear','nervous','separation','dark','monster'], band:'any', a:`<strong>Anxiety &amp; fears:</strong> Very common 2–5. Validate: "That does seem scary." Then offer safety: "I'm right here." Gradual exposure works better than forcing confrontation.` },
+  { tags:['doctor','sick','fever','cold','medicine','health','cough'], band:'any', a:`<strong>When to call the doctor:</strong> Fever over 104°F, fever lasting 3+ days, difficulty breathing, severe/unusual behavior, or any gut feeling something is seriously wrong. Check the <em>Home</em> tab for his age-specific medicine list.` },
+  { tags:['milestone','development','behind','delay','normal','developing'], band:'any', a:`<strong>Milestones:</strong> Check the <strong>Milestones tab</strong> for his current checkpoints. Milestones are ranges, not deadlines. Concerned about a specific area? Bring it up at his next well visit.` },
+  { tags:['school','kindergarten','preschool','learn','ready','readiness'], band:'any', a:`<strong>School readiness:</strong> Most important skills are emotional regulation, following multi-step instructions, and basic self-care. Academic skills matter less than social-emotional readiness. Play is still the best way to build all of these.` },
 ];
 
-const SUGGESTED = [
-  'Why does he throw tantrums?','How much sleep does he need?',
-  'How do I handle picky eating?','When should I worry about speech?',
-  'How much screen time is okay?','How do I handle hitting?',
-];
+const SUGGESTED = ['Why does he throw tantrums?','How much sleep does he need?','How do I handle picky eating?','When should I worry about speech?','How much screen time is okay?','How do I handle hitting?'];
 
-// ── HEADER ────────────────────────────────────
+// ── AGE HELPERS ───────────────────────────────
 function getAgeYears() {
-  const n = new Date();
-  let y = n.getFullYear() - BIRTH.getFullYear();
+  const n = new Date(); let y = n.getFullYear() - BIRTH.getFullYear();
   const m = n.getMonth() - BIRTH.getMonth();
   if (m < 0 || (m === 0 && n.getDate() < BIRTH.getDate())) y--;
   return y;
@@ -469,6 +785,17 @@ function updateHeader() {
   const years = getAgeYears(), months = getAgeMonths() - getAgeYears() * 12;
   document.getElementById('age-pill').textContent = years + ' yr' + (months > 0 ? ' ' + months + 'm' : '');
   document.getElementById('exact-age').textContent = years + ' years' + (months > 0 ? ', ' + months + ' months old' : ' old');
+  // Age countdown
+  const nextBirthday = new Date(BIRTH);
+  nextBirthday.setFullYear(new Date().getFullYear());
+  if (nextBirthday < new Date()) nextBirthday.setFullYear(nextBirthday.getFullYear() + 1);
+  const daysUntil = Math.ceil((nextBirthday - new Date()) / 86400000);
+  const nextAge = years + 1;
+  const monthsLeft = Math.round(months > 0 ? (12 - months) : 0);
+  let countdown = '';
+  if (daysUntil <= 30) countdown = `🎂 Birthday in <span>${daysUntil} days</span>`;
+  else if (monthsLeft > 0) countdown = `<span>${monthsLeft} months</span> until age ${nextAge}`;
+  document.getElementById('age-countdown').innerHTML = countdown;
   setAgeBand(String(Math.min(5, Math.max(2, years))), true);
 }
 
@@ -477,15 +804,17 @@ function setAgeBand(band, silent) {
   currentBand = band;
   document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('band-' + band).classList.add('active');
-  document.getElementById('ms-sub').textContent       = 'Age ' + band + ' milestones (CDC guidelines)';
+  document.getElementById('ms-sub').textContent = 'Age ' + band + ' milestones (CDC guidelines)';
   document.getElementById('research-sub').textContent = 'AI-curated for age ' + band;
   document.getElementById('research-lbl').textContent = 'Age ' + band + ' · research';
-  document.getElementById('toys-sub').textContent     = 'AI picks for age ' + band;
-  document.getElementById('toys-lbl').textContent     = 'Age ' + band + ' · toys';
-  document.getElementById('tips-sub').textContent     = 'AI tips for age ' + band;
-  document.getElementById('tips-lbl').textContent     = 'Age ' + band + ' · tips';
-  document.getElementById('home-sub').textContent     = 'AI recommendations for age ' + band;
+  document.getElementById('toys-sub').textContent = 'AI picks for age ' + band;
+  document.getElementById('toys-lbl').textContent = 'Age ' + band + ' · toys';
+  document.getElementById('tips-sub').textContent = 'AI tips for age ' + band;
+  document.getElementById('tips-lbl').textContent = 'Age ' + band + ' · tips';
+  document.getElementById('home-sub').textContent = 'AI recommendations for age ' + band;
+  document.getElementById('packing-sub').textContent = 'What to have ready at your house — age ' + band;
   renderMilestones();
+  renderPacking();
   if (!silent) loadTab(activeTab);
 }
 
@@ -500,122 +829,95 @@ function showTab(tab) {
   });
   if (['research','toys','tips'].includes(tab)) loadTab(tab);
   if (tab === 'home') { loadTab('lifestyle'); loadTab('health'); }
+  if (tab === 'timeline') renderTimeline();
 }
 
-function spin() {
-  return '<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div>';
-}
+function spin() { return '<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div>'; }
 
 async function loadTab(tab) {
   const el = document.getElementById(tab + '-content');
   if (!el) return;
-  const cacheKey = tab + '-' + currentBand;
-  if (tabCache[cacheKey]) { el.innerHTML = tabCache[cacheKey]; return; }
+  const key = tab + '-' + currentBand;
+  if (tabCache[key]) { el.innerHTML = tabCache[key]; return; }
   el.innerHTML = spin();
   try {
-    const res  = await fetch('/.netlify/functions/ai', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:1200, messages:[{ role:'user', content:PROMPTS[tab](currentBand) }] })
+    const res = await fetch('/.netlify/functions/ai', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:1200, messages:[{ role:'user', content:PROMPTS[tab](currentBand) }] })
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (data.error) throw new Error(data.error);
-    let html = data.content?.map(c => c.text || '').join('') || '';
+    let html = data.content?.map(c => c.text||'').join('') || '';
     if (!html) throw new Error('empty');
-    // Strip any markdown code fences the model may have added
-    html = html.replace(/^```html\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
-    // Make sure all links open in a new tab
+    html = html.replace(/^```html\s*/i,'').replace(/^```\s*/i,'').replace(/```\s*$/i,'').trim();
     html = html.replace(/<a /g, '<a target="_blank" rel="noopener" ');
     const wrapped = '<div class="ai-body">' + html + '</div>';
-    tabCache[cacheKey] = wrapped;
+    tabCache[key] = wrapped;
     el.innerHTML = wrapped;
   } catch(e) {
-    el.innerHTML = '<p class="ai-error">Could not load AI content — tap <strong>Refresh</strong> to try again. Make sure your Netlify function and API key are set up correctly.</p>';
+    el.innerHTML = '<p class="ai-error">Could not load — tap <strong>Refresh</strong> to try again.</p>';
   }
 }
-
-function refreshTab(tab) {
-  const cacheKey = tab + '-' + currentBand;
-  delete tabCache[cacheKey];
-  loadTab(tab);
-}
+function refreshTab(tab) { delete tabCache[tab + '-' + currentBand]; loadTab(tab); }
 
 // ── MILESTONES ────────────────────────────────
 let msView = 'checklist';
-
-function getMsData() {
-  return JSON.parse(localStorage.getItem('ms-data-' + currentBand) || '{}');
-}
-function saveMsData(data) {
-  localStorage.setItem('ms-data-' + currentBand, JSON.stringify(data));
-}
+function getMsData() { return JSON.parse(localStorage.getItem('ms-data-' + currentBand) || '{}'); }
+function saveMsData(d) { localStorage.setItem('ms-data-' + currentBand, JSON.stringify(d)); }
 
 function getComparison(m, isDone) {
   if (!m.range) return '';
-  const ageMonths = getAgeMonths();
+  const age = getAgeMonths();
   const [earliest, onTrackEnd, latestOk] = m.range;
   if (isDone) {
-    if (ageMonths <= earliest + 2) return '<span class="ms-comparison early">Early</span>';
-    if (ageMonths <= onTrackEnd)   return '<span class="ms-comparison on-track">On track</span>';
+    if (age <= earliest + 2) return '<span class="ms-comparison early">Early</span>';
     return '<span class="ms-comparison on-track">On track</span>';
   } else {
-    if (ageMonths < onTrackEnd)    return '<span class="ms-comparison on-track">Expected soon</span>';
-    if (ageMonths <= latestOk)     return '<span class="ms-comparison watch">Worth watching</span>';
-    if (ageMonths > latestOk)      return '<span class="ms-comparison watch">Mention to doctor</span>';
-    return '';
+    if (age < onTrackEnd)  return '<span class="ms-comparison on-track">Expected soon</span>';
+    if (age <= latestOk)   return '<span class="ms-comparison watch">Worth watching</span>';
+    return '<span class="ms-comparison mention">Mention to doctor</span>';
   }
 }
 
-function toggleView(view) {
+function toggleMsView(view) {
   msView = view;
   ['checklist','history','concerns'].forEach(v => {
     document.getElementById('ms-' + (v === 'checklist' ? 'list' : v)).style.display = v === view ? 'block' : 'none';
-    document.getElementById('view-' + v).style.opacity = v === view ? '1' : '0.5';
+    const btn = document.getElementById('view-' + v);
+    btn.classList.toggle('active', v === view);
   });
-  if (view === 'history') renderHistory();
-  if (view === 'concerns') renderConcerns();
+  if (view === 'history') renderMsHistory();
+  if (view === 'concerns') renderMsConcerns();
 }
 
 function renderMilestones() {
-  const list  = document.getElementById('ms-list');
+  const list = document.getElementById('ms-list');
   const items = MILESTONES[currentBand] || [];
-  const data  = getMsData();
-
+  const data = getMsData();
   list.innerHTML = items.map((m, i) => {
-    const d       = data[i] || {};
-    const done    = d.done || false;
-    const flagged = d.flag || false;
-    const note    = d.note || '';
-    const date    = d.date || '';
-    const pill    = getComparison(m, done);
-    return `
-    <div class="ms-item${flagged ? ' flagged' : ''}" id="ms-item-${i}">
+    const d = data[i] || {};
+    const done = d.done || false, flagged = d.flag || false, note = d.note || '', date = d.date || '';
+    const pill = getComparison(m, done);
+    return `<div class="ms-item${flagged ? ' flagged' : ''}">
       <div class="ms-row">
-        <div class="ms-check${done ? ' done' : ''}" onclick="toggleMs(${i})">
-          <i class="ti ti-check"></i>
-        </div>
+        <div class="ms-check${done ? ' done' : ''}" onclick="toggleMs(${i})"><i class="ti ti-check"></i></div>
         <div class="ms-label">
-          <p>${m.text}</p>
-          <span>${m.cat}${pill}</span>
+          <p>${m.text}</p><span>${m.cat}${pill}</span>
           ${done && date ? `<div class="ms-achieved"><i class="ti ti-calendar-check"></i> ${date}</div>` : ''}
           ${note ? `<div class="ms-note-display">"${note}"</div>` : ''}
         </div>
         <div class="ms-actions">
-          <button class="ms-flag${flagged ? ' active' : ''}" onclick="toggleFlag(${i})" title="Flag concern"><i class="ti ti-flag"></i></button>
-          <button class="ms-expand" onclick="toggleDetails(${i})" title="Add note / date"><i class="ti ti-pencil"></i></button>
+          <button class="ms-flag${flagged ? ' active' : ''}" onclick="toggleMsFlag(${i})"><i class="ti ti-flag"></i></button>
+          <button class="ms-expand" onclick="toggleMsDetails(${i})"><i class="ti ti-pencil"></i></button>
         </div>
       </div>
       <div class="ms-details" id="ms-details-${i}">
-        <div class="ms-date-row">
-          <span class="ms-date-label">Date achieved:</span>
-          <input class="ms-date-input" type="date" id="ms-date-${i}" value="${date}" onchange="saveDetail(${i})" />
-        </div>
-        <textarea class="ms-note-input" id="ms-note-${i}" rows="2" placeholder="Add a note about this milestone...">${note}</textarea>
-        <button class="ms-save-note" onclick="saveDetail(${i})">Save note</button>
+        <div class="ms-date-row"><span class="ms-date-label">Date achieved:</span><input class="ms-date-input" type="date" id="ms-date-${i}" value="${date}" /></div>
+        <textarea class="ms-note-input" id="ms-note-${i}" rows="2" placeholder="Add a note...">${note}</textarea>
+        <button class="ms-save-note" onclick="saveMsDetail(${i})">Save note</button>
       </div>
-    </div>`; }).join('');
-
+    </div>`;}).join('');
   updateProgress();
 }
 
@@ -623,187 +925,356 @@ function toggleMs(idx) {
   const data = getMsData();
   if (!data[idx]) data[idx] = {};
   data[idx].done = !data[idx].done;
-  if (data[idx].done && !data[idx].date) {
-    data[idx].date = new Date().toISOString().split('T')[0];
-  }
-  saveMsData(data);
-  renderMilestones();
-  if (msView === 'history') renderHistory();
+  if (data[idx].done && !data[idx].date) data[idx].date = new Date().toISOString().split('T')[0];
+  saveMsData(data); renderMilestones();
 }
-
-function toggleFlag(idx) {
-  const data = getMsData();
-  if (!data[idx]) data[idx] = {};
-  data[idx].flag = !data[idx].flag;
-  saveMsData(data);
-  renderMilestones();
-  if (msView === 'concerns') renderConcerns();
+function toggleMsFlag(idx) {
+  const data = getMsData(); if (!data[idx]) data[idx] = {};
+  data[idx].flag = !data[idx].flag; saveMsData(data); renderMilestones();
 }
-
-function toggleDetails(idx) {
-  const el = document.getElementById('ms-details-' + idx);
-  el.classList.toggle('open');
+function toggleMsDetails(idx) { document.getElementById('ms-details-' + idx).classList.toggle('open'); }
+function saveMsDetail(idx) {
+  const data = getMsData(); if (!data[idx]) data[idx] = {};
+  const d = document.getElementById('ms-date-' + idx); const n = document.getElementById('ms-note-' + idx);
+  if (d) data[idx].date = d.value; if (n) data[idx].note = n.value.trim();
+  saveMsData(data); renderMilestones();
 }
-
-function saveDetail(idx) {
-  const data  = getMsData();
-  if (!data[idx]) data[idx] = {};
-  const dateEl = document.getElementById('ms-date-' + idx);
-  const noteEl = document.getElementById('ms-note-' + idx);
-  if (dateEl) data[idx].date = dateEl.value;
-  if (noteEl) data[idx].note = noteEl.value.trim();
-  saveMsData(data);
-  renderMilestones();
+function renderMsHistory() {
+  const el = document.getElementById('ms-history');
+  const items = MILESTONES[currentBand] || [], data = getMsData();
+  const done = items.map((m,i) => ({...m,...(data[i]||{}),i})).filter(m => m.done).sort((a,b) => (a.date||'').localeCompare(b.date||''));
+  if (!done.length) { el.innerHTML = '<p class="empty-state">No milestones completed yet.</p>'; return; }
+  el.innerHTML = done.map(m => `<div class="history-item"><div class="history-dot"></div><div class="history-text"><p>${m.text}</p><span>${m.cat}${m.date ? ' · ' + m.date : ''}${m.note ? ' · "' + m.note + '"' : ''}</span></div></div>`).join('');
 }
-
-function renderHistory() {
-  const el    = document.getElementById('ms-history');
-  const items = MILESTONES[currentBand] || [];
-  const data  = getMsData();
-  const done  = items.map((m, i) => ({ ...m, ...data[i], idx: i }))
-    .filter(m => m.done)
-    .sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-
-  if (!done.length) {
-    el.innerHTML = '<p style="font-size:13px;color:var(--text3);padding:8px 0">No milestones completed yet — check some off to see them here.</p>';
-    return;
-  }
-  el.innerHTML = '<div class="history-card">' + done.map(m => `
-    <div class="history-item">
-      <div class="history-dot"></div>
-      <div class="history-text">
-        <p>${m.text}</p>
-        <span>${m.cat}${m.date ? ' · ' + m.date : ''}${m.note ? ' · "' + m.note + '"' : ''}</span>
-      </div>
-    </div>`).join('') + '</div>';
+function renderMsConcerns() {
+  const el = document.getElementById('ms-concerns');
+  const items = MILESTONES[currentBand] || [], data = getMsData();
+  const flagged = items.map((m,i) => ({...m,...(data[i]||{})})).filter(m => m.flag);
+  if (!flagged.length) { el.innerHTML = '<p class="empty-state">No flagged concerns. Tap the flag icon on any milestone to flag it.</p>'; return; }
+  el.innerHTML = '<div style="margin-bottom:8px">' + flagged.map(m => `<div class="concern-item">${m.text} <span style="color:var(--text3);font-size:11px">(${m.cat})</span></div>`).join('') + '</div><p style="font-size:12px;color:var(--text3)">Use Share below to send this to your pediatrician.</p>';
 }
-
-function renderConcerns() {
-  const el    = document.getElementById('ms-concerns');
-  const items = MILESTONES[currentBand] || [];
-  const data  = getMsData();
-  const flagged = items.map((m, i) => ({ ...m, ...data[i], idx: i })).filter(m => m.flag);
-
-  if (!flagged.length) {
-    el.innerHTML = '<p style="font-size:13px;color:var(--text3);padding:8px 0">No flagged concerns — tap the <i class="ti ti-flag"></i> on any milestone to flag it for your pediatrician.</p>';
-    return;
-  }
-  el.innerHTML = `
-    <div class="concerns-card">
-      <span class="lbl">⚑ Flagged for pediatrician</span>
-      ${flagged.map(m => `<div class="concern-item">${m.text} <span style="color:var(--text3);font-size:11px">(${m.cat})</span></div>`).join('')}
-    </div>
-    <p style="font-size:12px;color:var(--text3);margin-top:4px">Tap "Share with pediatrician" below to copy a summary.</p>`;
-}
-
 function updateProgress() {
-  const items = MILESTONES[currentBand] || [];
-  const data  = getMsData();
-  const done  = items.filter((_, i) => data[i] && data[i].done).length;
-  const total = items.length;
-  const pct   = total ? Math.round(done / total * 100) : 0;
-  const circ  = 2 * Math.PI * 19;
-  document.getElementById('progress-arc').setAttribute('stroke-dashoffset', circ - circ * pct / 100);
+  const items = MILESTONES[currentBand] || [], data = getMsData();
+  const done = items.filter((_,i) => data[i] && data[i].done).length, total = items.length;
+  const pct = total ? Math.round(done/total*100) : 0, circ = 2*Math.PI*19;
+  document.getElementById('progress-arc').setAttribute('stroke-dashoffset', circ - circ*pct/100);
   document.getElementById('ring-pct').textContent = pct + '%';
   document.getElementById('ms-count').textContent = done + ' / ' + total + ' done';
 }
-
 function shareMilestones() {
-  const items   = MILESTONES[currentBand] || [];
-  const data    = getMsData();
-  const done    = items.filter((_, i) => data[i] && data[i].done);
-  const notDone = items.filter((_, i) => !data[i] || !data[i].done);
-  const flagged = items.filter((_, i) => data[i] && data[i].flag);
-  const age     = getAgeYears();
-  const months  = getAgeMonths() - age * 12;
-
-  let text = `MALACHI — Age ${age}${months > 0 ? 'y ' + months + 'm' : ''} — Milestone Summary\n`;
-  text += `Date: ${new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' })}\n\n`;
+  const items = MILESTONES[currentBand] || [], data = getMsData();
+  const done = items.filter((_,i) => data[i] && data[i].done);
+  const notDone = items.filter((_,i) => !data[i] || !data[i].done);
+  const flagged = items.filter((_,i) => data[i] && data[i].flag);
+  const years = getAgeYears(), months = getAgeMonths() - years * 12;
+  let text = `MALACHI — Age ${years}y${months > 0 ? months + 'm' : ''} — Milestone Summary\nDate: ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}\n\n`;
   text += `COMPLETED (${done.length}/${items.length}):\n`;
-  done.forEach(m => {
-    const d = data[items.indexOf(m)];
-    text += `✓ ${m.text}${d && d.date ? ' (' + d.date + ')' : ''}${d && d.note ? ' — ' + d.note : ''}\n`;
-  });
-  if (flagged.length) {
-    text += `\nCONCERNS TO DISCUSS (${flagged.length}):\n`;
-    flagged.forEach(m => { text += `⚑ ${m.text}\n`; });
-  }
-  if (notDone.length) {
-    text += `\nNOT YET (${notDone.length}):\n`;
-    notDone.forEach(m => { text += `○ ${m.text}\n`; });
-  }
-
-  if (navigator.share) {
-    navigator.share({ title: 'Malachi Milestone Summary', text });
-  } else {
-    navigator.clipboard.writeText(text).then(() => {
-      alert('Milestone summary copied to clipboard — paste it in an email or message to your pediatrician.');
-    });
-  }
+  done.forEach((m,i) => { const d = data[items.indexOf(m)] || {}; text += `✓ ${m.text}${d.date?' ('+d.date+')':''}${d.note?' — '+d.note:''}\n`; });
+  if (flagged.length) { text += `\nCONCERNS TO DISCUSS:\n`; flagged.forEach(m => { text += `⚑ ${m.text}\n`; }); }
+  if (notDone.length) { text += `\nNOT YET (${notDone.length}):\n`; notDone.forEach(m => { text += `○ ${m.text}\n`; }); }
+  if (navigator.share) navigator.share({ title:'Malachi Milestone Summary', text });
+  else navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard — paste into an email to your pediatrician.'));
 }
 
-// ── JOURNAL — Supabase ────────────────────────
+// ── GROWTH ────────────────────────────────────
+let growthData = JSON.parse(localStorage.getItem('growth') || '[]');
+function addGrowth() {
+  const date = document.getElementById('growth-date').value;
+  const height = document.getElementById('growth-height').value;
+  const weight = document.getElementById('growth-weight').value;
+  const note = document.getElementById('growth-note').value.trim();
+  const ageLabel = document.getElementById('growth-age-label').value.trim();
+  if (!date || (!height && !weight)) { alert('Please enter a date and at least one measurement.'); return; }
+  growthData.unshift({ date, height: height ? parseFloat(height) : null, weight: weight ? parseFloat(weight) : null, note, ageLabel, id: Date.now() });
+  localStorage.setItem('growth', JSON.stringify(growthData));
+  document.getElementById('growth-height').value = '';
+  document.getElementById('growth-weight').value = '';
+  document.getElementById('growth-note').value = '';
+  document.getElementById('growth-age-label').value = '';
+  renderGrowth();
+}
+function deleteGrowth(id) {
+  growthData = growthData.filter(g => g.id !== id);
+  localStorage.setItem('growth', JSON.stringify(growthData)); renderGrowth();
+}
+function renderGrowth() {
+  const list = document.getElementById('growth-list');
+  if (!growthData.length) { list.innerHTML = '<p class="empty-state">No measurements yet.</p>'; document.getElementById('growth-chart-card').style.display = 'none'; return; }
+  document.getElementById('growth-chart-card').style.display = 'block';
+  list.innerHTML = growthData.map(g => `
+    <div class="growth-entry">
+      <div class="growth-entry-left"><p>${g.ageLabel || g.date}</p><span>${g.date}${g.note ? ' · ' + g.note : ''}</span></div>
+      <div class="growth-entry-right">${g.height ? g.height + '"' : ''} ${g.weight ? g.weight + ' lbs' : ''}</div>
+      <button class="growth-delete" onclick="deleteGrowth(${g.id})"><i class="ti ti-trash"></i></button>
+    </div>`).join('');
+  renderGrowthChart();
+}
+function renderGrowthChart() {
+  const chart = document.getElementById('growth-chart');
+  const withH = growthData.filter(g => g.height).slice(0,5).reverse();
+  const withW = growthData.filter(g => g.weight).slice(0,5).reverse();
+  if (!withH.length && !withW.length) { chart.innerHTML = ''; return; }
+  const maxH = Math.max(...withH.map(g => g.height), 48);
+  const maxW = Math.max(...withW.map(g => g.weight), 50);
+  let html = '';
+  if (withH.length) {
+    html += '<div class="growth-chart-title">Height (inches)</div>';
+    html += withH.map(g => `<div class="growth-bar-row"><div class="growth-bar-label">${g.ageLabel || g.date.slice(5)}</div><div class="growth-bar-wrap"><div class="growth-bar-fill" style="width:${Math.round(g.height/maxH*100)}%"></div></div><div class="growth-bar-val">${g.height}"</div></div>`).join('');
+  }
+  if (withW.length) {
+    html += '<div class="growth-chart-title" style="margin-top:10px">Weight (lbs)</div>';
+    html += withW.map(g => `<div class="growth-bar-row"><div class="growth-bar-label">${g.ageLabel || g.date.slice(5)}</div><div class="growth-bar-wrap"><div class="growth-bar-fill" style="width:${Math.round(g.weight/maxW*100)};background:var(--amber)"></div></div><div class="growth-bar-val">${g.weight} lbs</div></div>`).join('');
+  }
+  chart.innerHTML = html;
+}
+
+// ── DOCTOR VISITS ─────────────────────────────
+let visits = JSON.parse(localStorage.getItem('visits') || '[]');
+function addVisit() {
+  const date = document.getElementById('visit-date').value;
+  const type = document.getElementById('visit-type').value;
+  const doctor = document.getElementById('visit-doctor').value.trim();
+  const vaccines = document.getElementById('visit-vaccines').value.trim();
+  const notes = document.getElementById('visit-notes').value.trim();
+  const followup = document.getElementById('visit-followup').value.trim();
+  if (!date) { alert('Please enter a date.'); return; }
+  visits.unshift({ date, type, doctor, vaccines, notes, followup, id: Date.now() });
+  localStorage.setItem('visits', JSON.stringify(visits));
+  ['visit-date','visit-doctor','visit-vaccines','visit-notes','visit-followup'].forEach(id => { document.getElementById(id).value = ''; });
+  renderVisits();
+}
+function deleteVisit(id) { visits = visits.filter(v => v.id !== id); localStorage.setItem('visits', JSON.stringify(visits)); renderVisits(); }
+function renderVisits() {
+  const list = document.getElementById('visit-list');
+  if (!visits.length) { list.innerHTML = '<p class="empty-state">No visits logged yet.</p>'; return; }
+  const typeMap = { well:'Well visit', sick:'Sick visit', vacc:'Vaccination', other:'Other' };
+  list.innerHTML = visits.map(v => `
+    <div class="visit-item">
+      <div class="visit-item-head">
+        <div><span class="visit-tag ${v.type}">${typeMap[v.type]||v.type}</span><div class="visit-item-title">${v.doctor || 'Doctor visit'}</div></div>
+        <div style="display:flex;align-items:center;gap:6px"><span class="visit-item-date">${v.date}</span><button class="item-delete" onclick="deleteVisit(${v.id})"><i class="ti ti-trash"></i></button></div>
+      </div>
+      ${v.vaccines ? `<div class="visit-item-detail"><strong>Vaccines:</strong> ${v.vaccines}</div>` : ''}
+      ${v.notes ? `<div class="visit-item-detail">${v.notes}</div>` : ''}
+      ${v.followup ? `<div class="visit-item-detail" style="color:var(--amber)"><i class="ti ti-clock"></i> Follow-up: ${v.followup}</div>` : ''}
+    </div>`).join('');
+}
+
+// ── MED LOG ───────────────────────────────────
+let meds = JSON.parse(localStorage.getItem('meds') || '[]');
+function addMed() {
+  const date = document.getElementById('med-date').value;
+  const time = document.getElementById('med-time').value;
+  const name = document.getElementById('med-name').value.trim();
+  const dose = document.getElementById('med-dose').value.trim();
+  const reason = document.getElementById('med-reason').value.trim();
+  const notes = document.getElementById('med-notes').value.trim();
+  if (!date || !name) { alert('Please enter a date and medication name.'); return; }
+  meds.unshift({ date, time, name, dose, reason, notes, id: Date.now() });
+  localStorage.setItem('meds', JSON.stringify(meds));
+  ['med-name','med-dose','med-reason','med-notes'].forEach(id => { document.getElementById(id).value = ''; });
+  renderMeds();
+}
+function deleteMed(id) { meds = meds.filter(m => m.id !== id); localStorage.setItem('meds', JSON.stringify(meds)); renderMeds(); }
+function renderMeds() {
+  const list = document.getElementById('med-list');
+  if (!meds.length) { list.innerHTML = '<p class="empty-state">No medications logged yet.</p>'; return; }
+  list.innerHTML = meds.map(m => `
+    <div class="med-item">
+      <div class="med-item-left">
+        <p>${m.name}${m.dose ? ' · ' + m.dose : ''}</p>
+        <span>${m.date}${m.time ? ' at ' + m.time : ''}${m.reason ? ' · ' + m.reason : ''}</span>
+        ${m.notes ? `<div style="font-size:12px;color:var(--text3);margin-top:2px">${m.notes}</div>` : ''}
+      </div>
+      <button class="item-delete" onclick="deleteMed(${m.id})"><i class="ti ti-trash"></i></button>
+    </div>`).join('');
+}
+
+// ── PACKING LIST ──────────────────────────────
+function getPackingState() { return JSON.parse(localStorage.getItem('packing-' + currentBand) || '{}'); }
+function savePackingState(s) { localStorage.setItem('packing-' + currentBand, JSON.stringify(s)); }
+function renderPacking() {
+  const items = PACKING_LISTS[currentBand] || [];
+  const state = getPackingState();
+  const cats = [...new Set(items.map(i => i.cat))];
+  const list = document.getElementById('packing-list');
+  list.innerHTML = cats.map(cat => {
+    const catItems = items.filter(i => i.cat === cat);
+    return `<div class="section-divider">${cat}</div>` + catItems.map((item, rawIdx) => {
+      const idx = items.indexOf(item);
+      const done = state[idx] || false;
+      return `<div class="pack-item">
+        <div class="pack-check${done ? ' done' : ''}" onclick="togglePack(${idx})"><i class="ti ti-check"></i></div>
+        <div class="pack-text${done ? ' done' : ''}">${item.text}</div>
+        <div class="pack-category">${item.cat}</div>
+      </div>`;}).join('');
+  }).join('');
+}
+function togglePack(idx) { const s = getPackingState(); s[idx] = !s[idx]; savePackingState(s); renderPacking(); }
+function resetPacking() { savePackingState({}); renderPacking(); }
+function checkAllPacking() {
+  const items = PACKING_LISTS[currentBand] || [], s = {};
+  items.forEach((_, i) => { s[i] = true; }); savePackingState(s); renderPacking();
+}
+
+// ── MOOD LOG ──────────────────────────────────
+let moods = JSON.parse(localStorage.getItem('moods') || '[]');
+function selectMood(emoji) {
+  selectedMood = emoji;
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('mood-' + emoji);
+  if (btn) btn.classList.add('active');
+}
+function addMood() {
+  if (!selectedMood) { alert('Please select a mood first.'); return; }
+  const note = document.getElementById('mood-note').value.trim();
+  moods.unshift({ emoji: selectedMood, note, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), time: new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}), id: Date.now() });
+  localStorage.setItem('moods', JSON.stringify(moods));
+  document.getElementById('mood-note').value = '';
+  selectedMood = '';
+  document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+  renderMoods();
+}
+function deleteMood(id) { moods = moods.filter(m => m.id !== id); localStorage.setItem('moods', JSON.stringify(moods)); renderMoods(); }
+function renderMoods() {
+  const list = document.getElementById('mood-list');
+  if (!moods.length) { list.innerHTML = '<p class="empty-state">No mood entries yet.</p>'; return; }
+  list.innerHTML = moods.map(m => `
+    <div class="mood-item">
+      <div class="mood-item-left">
+        <div class="mood-emoji">${m.emoji}</div>
+        <div class="mood-item-text"><p>${m.note || 'No note'}</p><span>${m.date} · ${m.time || ''}</span></div>
+      </div>
+      <button class="item-delete" onclick="deleteMood(${m.id})"><i class="ti ti-trash"></i></button>
+    </div>`).join('');
+}
+
+// ── JOURNAL ───────────────────────────────────
 const sbH = () => ({ 'Content-Type':'application/json', 'apikey':SUPABASE_KEY, 'Authorization':'Bearer ' + SUPABASE_KEY, 'Prefer':'return=representation' });
 let memories = [];
 
+function previewPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    pendingPhotoBase64 = e.target.result;
+    document.getElementById('photo-preview').innerHTML = `<img src="${pendingPhotoBase64}" style="width:100%;max-height:150px;object-fit:cover;border-radius:8px;margin-top:4px" />`;
+  };
+  reader.readAsDataURL(file);
+}
+
 async function loadMemories() {
   if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') {
-    memories = JSON.parse(localStorage.getItem('memories') || '[]');
-    renderMemories(); return;
+    memories = JSON.parse(localStorage.getItem('memories') || '[]'); renderMemories(); return;
   }
   try {
-    const res  = await fetch(MEMORIES_API + '?order=created_at.desc', { headers: sbH() });
+    const res = await fetch(MEMORIES_API + '?order=created_at.desc', { headers: sbH() });
     const data = await res.json();
     if (!res.ok) throw new Error('fetch failed');
     memories = data; renderMemories();
-  } catch(e) {
-    memories = JSON.parse(localStorage.getItem('memories') || '[]');
-    renderMemories();
-  }
+  } catch(e) { memories = JSON.parse(localStorage.getItem('memories') || '[]'); renderMemories(); }
 }
 
 async function saveMemory() {
   const input = document.getElementById('journal-input');
-  const text  = input.value.trim();
+  const text = input.value.trim();
   if (!text) return;
-  const btn   = document.getElementById('save-btn');
-  btn.disabled = true;
+  const btn = document.getElementById('save-btn'); btn.disabled = true;
   setJStatus('Saving...', 'pending');
-  const years  = getAgeYears(), months = getAgeMonths() - getAgeYears() * 12;
-  const entry  = { text, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), age: years+'y'+(months>0?months+'m':'') };
+  const years = getAgeYears(), months = getAgeMonths() - years * 12;
+  const entry = { text, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), age: years+'y'+(months>0?months+'m':''), photo: pendingPhotoBase64 || null };
   if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
     try {
-      const res  = await fetch(MEMORIES_API, { method:'POST', headers:sbH(), body:JSON.stringify(entry) });
+      const res = await fetch(MEMORIES_API, { method:'POST', headers:sbH(), body:JSON.stringify(entry) });
       const data = await res.json();
       if (!res.ok) throw new Error('save failed');
       memories.unshift(Array.isArray(data) ? data[0] : data);
       setJStatus('Saved ✓', 'ok');
-    } catch(e) {
-      memories.unshift(entry);
-      localStorage.setItem('memories', JSON.stringify(memories));
-      setJStatus('Saved locally (offline)', 'err');
-    }
-  } else {
-    memories.unshift(entry);
-    localStorage.setItem('memories', JSON.stringify(memories));
-    setJStatus('Saved locally ✓', 'ok');
-  }
-  input.value = ''; btn.disabled = false; renderMemories();
-  setTimeout(() => setJStatus('', ''), 3000);
+    } catch(e) { memories.unshift(entry); localStorage.setItem('memories', JSON.stringify(memories)); setJStatus('Saved locally', 'err'); }
+  } else { memories.unshift(entry); localStorage.setItem('memories', JSON.stringify(memories)); setJStatus('Saved ✓', 'ok'); }
+  input.value = ''; btn.disabled = false; pendingPhotoBase64 = '';
+  document.getElementById('photo-preview').innerHTML = '';
+  document.getElementById('photo-input').value = '';
+  renderMemories(); setTimeout(() => setJStatus('',''), 3000);
 }
 
 function setJStatus(msg, cls) {
-  const el = document.getElementById('j-status');
-  el.textContent = msg;
-  el.className   = 'j-status' + (cls ? ' ' + cls : '');
+  const el = document.getElementById('j-status'); el.textContent = msg;
+  el.className = 'j-status' + (cls ? ' ' + cls : '');
 }
+
 function renderMemories() {
   const list = document.getElementById('memories-list');
-  if (!memories.length) { list.innerHTML = '<p style="font-size:13px;color:var(--text3)">No memories yet — add your first one above.</p>'; return; }
-  list.innerHTML = memories.map(m =>
-    `<div class="mem-item"><div class="mem-date">${m.date}<span class="mem-age-tag">${m.age||''}</span></div><div class="mem-text">${m.text}</div></div>`
-  ).join('');
+  if (!memories.length) { list.innerHTML = '<p class="empty-state">No memories yet — add your first one above.</p>'; return; }
+  list.innerHTML = memories.map(m => `
+    <div class="mem-item">
+      <div class="mem-date">${m.date}<span class="mem-age-tag">${m.age||''}</span></div>
+      <div class="mem-text">${m.text}</div>
+      ${m.photo ? `<img src="${m.photo}" class="mem-photo" />` : ''}
+    </div>`).join('');
 }
+
+// ── TIMELINE ──────────────────────────────────
+function renderTimeline() {
+  const el = document.getElementById('timeline-list');
+  const allItems = [];
+  memories.forEach(m => allItems.push({ date:m.date, type:'journal', icon:'📝', text:m.text, sub:'Memory', photo:m.photo }));
+  visits.forEach(v => allItems.push({ date:v.date, type:'doctor', icon:'🩺', text:(v.doctor||'Doctor visit') + (v.vaccines ? ' · ' + v.vaccines : ''), sub:v.type }));
+  growthData.forEach(g => allItems.push({ date:g.date, type:'growth', icon:'📏', text:(g.height?g.height+'"':'') + (g.height&&g.weight?' · ':'') + (g.weight?g.weight+' lbs':''), sub:g.ageLabel||'Measurement' }));
+  moods.forEach(m => allItems.push({ date:m.date, type:'mood', icon:m.emoji, text:m.note||'Mood logged', sub:m.date }));
+  meds.forEach(m => allItems.push({ date:m.date, type:'doctor', icon:'💊', text:m.name + (m.dose?' · '+m.dose:''), sub:'Medication' }));
+  // Milestones across all bands
+  ['2','3','4','5'].forEach(band => {
+    const data = JSON.parse(localStorage.getItem('ms-data-' + band) || '{}');
+    const items = MILESTONES[band] || [];
+    items.forEach((m, i) => {
+      const d = data[i] || {};
+      if (d.done && d.date) allItems.push({ date:d.date, type:'milestone', icon:'⭐', text:m.text, sub:'Milestone · Age ' + band });
+    });
+  });
+  allItems.sort((a,b) => new Date(b.date) - new Date(a.date));
+  if (!allItems.length) { el.innerHTML = '<p class="empty-state">Your entries will appear here as you add them across all tabs.</p>'; return; }
+  el.innerHTML = allItems.slice(0, 50).map(item => `
+    <div class="timeline-item">
+      <div class="timeline-dot ${item.type}" style="font-size:16px;background:var(--bg3)">${item.icon}</div>
+      <div class="timeline-content">
+        <p>${item.text}</p>
+        <span>${item.sub} · ${item.date}</span>
+        ${item.photo ? `<img src="${item.photo}" class="mem-photo" />` : ''}
+      </div>
+    </div>`).join('');
+}
+
+// ── EMERGENCY ─────────────────────────────────
+let contacts = JSON.parse(localStorage.getItem('contacts') || '[]');
+function showAddContact() { const f = document.getElementById('contact-form'); f.style.display = f.style.display === 'none' ? 'block' : 'none'; }
+function addContact() {
+  const name = document.getElementById('contact-name').value.trim();
+  const phone = document.getElementById('contact-phone').value.trim();
+  const notes = document.getElementById('contact-notes').value.trim();
+  if (!name) return;
+  contacts.push({ name, phone, notes, id: Date.now() });
+  localStorage.setItem('contacts', JSON.stringify(contacts));
+  ['contact-name','contact-phone','contact-notes'].forEach(id => { document.getElementById(id).value = ''; });
+  document.getElementById('contact-form').style.display = 'none';
+  renderContacts();
+}
+function deleteContact(id) { contacts = contacts.filter(c => c.id !== id); localStorage.setItem('contacts', JSON.stringify(contacts)); renderContacts(); }
+function renderContacts() {
+  const list = document.getElementById('contact-list');
+  if (!contacts.length) { list.innerHTML = '<p class="empty-state">Add your pediatrician, pharmacy, and other important contacts.</p>'; return; }
+  list.innerHTML = contacts.map(c => `
+    <div class="contact-item">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between">
+        <div class="contact-name">${c.name}</div>
+        <button class="item-delete" onclick="deleteContact(${c.id})"><i class="ti ti-trash"></i></button>
+      </div>
+      ${c.phone ? `<a class="contact-phone" href="tel:${c.phone.replace(/\D/g,'')}"><i class="ti ti-phone"></i> ${c.phone}</a>` : ''}
+      ${c.notes ? `<div class="contact-detail">${c.notes}</div>` : ''}
+    </div>`).join('');
+}
+function saveInsurance() { localStorage.setItem('insurance', document.getElementById('insurance-info').value); }
 
 // ── CHATBOT ───────────────────────────────────
 function setMode(mode) {
@@ -811,44 +1282,37 @@ function setMode(mode) {
   document.getElementById('mode-local').classList.toggle('active', mode==='local');
   document.getElementById('mode-ai').classList.toggle('active', mode==='ai');
   document.getElementById('local-notice').style.display = mode==='local' ? 'block' : 'none';
-  document.getElementById('ai-notice').style.display    = mode==='ai'    ? 'block' : 'none';
+  document.getElementById('ai-notice').style.display = mode==='ai' ? 'block' : 'none';
 }
 function renderSuggestedQs() {
   document.getElementById('suggested-qs').innerHTML = SUGGESTED.map(q =>
-    `<div class="sq" onclick="askQ('${q.replace(/'/g,"\\'")}')">${q}</div>`).join('');
+    `<div class="sq" onclick="askQ('${q.replace(/'/g,"\\'")}'">${q}</div>`).join('');
 }
 function askQ(q) { document.getElementById('chat-input').value = q; sendChat(); }
-
 function addMsg(html, role) {
   const msgs = document.getElementById('chat-messages');
-  const div  = document.createElement('div');
-  div.className = 'msg ' + role; div.innerHTML = html;
-  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
-  return div;
+  const div = document.createElement('div'); div.className = 'msg ' + role; div.innerHTML = html;
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight; return div;
 }
 function localAnswer(query) {
-  const q = query.toLowerCase();
-  let best = null, bestScore = 0;
+  const q = query.toLowerCase(); let best = null, bestScore = 0;
   for (const item of QA) {
     if (item.band !== 'any' && item.band !== currentBand) continue;
     const score = item.tags.filter(t => q.includes(t)).length;
     if (score > bestScore) { bestScore = score; best = item; }
   }
   if (best && bestScore > 0) return best.a;
-  return `I don't have a built-in answer for that. Switch to <strong>Live AI</strong> mode for a detailed response, or browse the other tabs for age ${currentBand} content.`;
+  return `I don't have a built-in answer for that. Switch to <strong>Live AI</strong> mode for a detailed response.`;
 }
 async function sendChat() {
-  const input = document.getElementById('chat-input');
-  const send  = document.getElementById('chat-send');
-  const query = input.value.trim();
-  if (!query) return;
-  input.value = '';
-  addMsg(query, 'user');
+  const input = document.getElementById('chat-input'), send = document.getElementById('chat-send');
+  const query = input.value.trim(); if (!query) return;
+  input.value = ''; addMsg(query, 'user');
   if (chatMode === 'local') { addMsg(localAnswer(query), 'bot'); return; }
   send.disabled = true; input.disabled = true;
   const typing = addMsg('<em>Thinking...</em>', 'bot typing');
   try {
-    const res  = await fetch('/.netlify/functions/ai', {
+    const res = await fetch('/.netlify/functions/ai', {
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ model:'claude-haiku-4-5-20251001', max_tokens:600, messages:[{ role:'user', content:
         `You are a helpful child development assistant. My son Malachi is ${getAgeYears()} years old (born June 15, 2024). Answer this in a warm, dad-friendly tone. Keep it concise — 3–5 sentences max unless a list is genuinely needed. Question: ${query}`
@@ -858,16 +1322,25 @@ async function sendChat() {
     const text = data.content?.map(c=>c.text||'').join('') || 'Sorry, no response received.';
     typing.classList.remove('typing'); typing.innerHTML = text;
   } catch(e) {
-    typing.classList.remove('typing');
-    typing.innerHTML = 'Could not reach AI — switch to <strong>Built-in Q&A</strong> for an offline answer.';
+    typing.classList.remove('typing'); typing.innerHTML = 'Could not reach AI — switch to <strong>Built-in Q&A</strong> for an offline answer.';
   }
   send.disabled = false; input.disabled = false; input.focus();
 }
 
 // ── INIT ──────────────────────────────────────
+document.getElementById('growth-date').value = new Date().toISOString().split('T')[0];
+document.getElementById('visit-date').value = new Date().toISOString().split('T')[0];
+document.getElementById('med-date').value = new Date().toISOString().split('T')[0];
+document.getElementById('insurance-info').value = localStorage.getItem('insurance') || '';
 updateHeader();
 renderMilestones();
+renderPacking();
+renderGrowth();
+renderVisits();
+renderMeds();
+renderMoods();
 loadMemories();
+renderContacts();
 renderSuggestedQs();
 loadTab('research');
 </script>
