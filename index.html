@@ -77,6 +77,27 @@
     .ring-info p { font-size:13px; color:var(--text); font-weight:500; }
     .ring-info span { font-size:11px; color:var(--text3); }
 
+    .tab-card { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem 1.125rem; margin-bottom:0.75rem; }
+    .tab-card.ga { border-left:2px solid var(--green); border-radius:0 12px 12px 0; }
+    .tab-card.aa { border-left:2px solid var(--amber); border-radius:0 12px 12px 0; }
+    .tab-card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .refresh-btn { background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:5px 10px; font-size:11px; font-family:'DM Sans',sans-serif; color:var(--text2); cursor:pointer; display:flex; align-items:center; gap:4px; }
+    .refresh-btn:active { opacity:0.7; }
+
+    .ai-loading { display:flex; align-items:center; gap:8px; padding:0.5rem 0; color:var(--text3); font-size:13px; }
+    .dots { display:flex; gap:3px; }
+    .dots span { width:4px; height:4px; border-radius:50%; background:var(--green); opacity:0.3; animation:dp 1.2s infinite; }
+    .dots span:nth-child(2) { animation-delay:0.2s; }
+    .dots span:nth-child(3) { animation-delay:0.4s; }
+    @keyframes dp { 0%,80%,100%{opacity:0.3;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
+    .ai-body h4 { font-family:'Fraunces',serif; font-size:14px; font-weight:400; color:var(--green); margin:0.8rem 0 0.3rem; }
+    .ai-body h4:first-child { margin-top:0; }
+    .ai-body ul { padding-left:1.1rem; margin:0.2rem 0 0.5rem; }
+    .ai-body li { margin-bottom:0.35rem; color:var(--text2); font-size:13px; line-height:1.5; }
+    .ai-body p { font-size:13px; color:var(--text2); line-height:1.6; margin-bottom:0.4rem; }
+    .ai-body strong { color:var(--text); font-weight:500; }
+    .ai-error { font-size:12px; color:var(--text3); padding:4px 0; line-height:1.6; }
+
     .two-col { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-bottom:0.75rem; }
     .sub-card { background:var(--bg3); border-radius:10px; padding:10px 12px; border:0.5px solid var(--border); }
 
@@ -89,23 +110,17 @@
     .mem-date { font-size:10px; color:var(--text3); margin-bottom:3px; }
     .mem-text { font-size:13px; color:var(--text2); line-height:1.5; }
     .mem-age-tag { display:inline-block; background:var(--green-dim); color:var(--green); font-size:10px; padding:2px 7px; border-radius:10px; margin-left:6px; }
-    .journal-status { font-size:11px; margin-top:6px; min-height:16px; }
-    .journal-status.ok { color:var(--green); }
-    .journal-status.err { color:#ff453a; }
-    .journal-status.pending { color:var(--text3); }
+    .j-status { font-size:11px; margin-top:6px; min-height:16px; }
+    .j-status.ok { color:var(--green); } .j-status.err { color:#ff453a; } .j-status.pending { color:var(--text3); }
 
     .chat-mode-bar { display:flex; gap:8px; margin-bottom:0.75rem; }
     .mode-btn { flex:1; padding:8px; border-radius:8px; border:0.5px solid var(--border2); background:var(--bg3); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); cursor:pointer; text-align:center; transition:all 0.2s; }
     .mode-btn.active { background:var(--blue-dim); color:var(--blue); border-color:var(--blue); }
-    .chat-messages { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem; margin-bottom:0.75rem; min-height:260px; max-height:360px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
+    .chat-messages { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem; margin-bottom:0.75rem; min-height:240px; max-height:340px; overflow-y:auto; display:flex; flex-direction:column; gap:10px; }
     .msg { max-width:85%; padding:9px 12px; border-radius:12px; font-size:13px; line-height:1.55; }
     .msg.user { background:var(--blue); color:#fff; align-self:flex-end; border-radius:12px 12px 3px 12px; }
     .msg.bot { background:var(--bg4); color:var(--text2); align-self:flex-start; border-radius:12px 12px 12px 3px; }
     .msg.bot strong { color:var(--text); }
-    .msg.bot h4 { font-family:'Fraunces',serif; font-size:13px; color:var(--green); margin:0.5rem 0 0.2rem; }
-    .msg.bot h4:first-child { margin-top:0; }
-    .msg.bot ul { padding-left:1rem; margin:0.2rem 0; }
-    .msg.bot li { margin-bottom:0.25rem; }
     .msg.typing { opacity:0.5; font-style:italic; }
     .chat-input-row { display:flex; gap:8px; }
     .chat-input { flex:1; background:var(--bg3); border:0.5px solid var(--border2); border-radius:10px; padding:10px 12px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); outline:none; }
@@ -114,7 +129,6 @@
     .chat-send:disabled { opacity:0.4; cursor:not-allowed; }
     .suggested-qs { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:0.75rem; }
     .sq { background:var(--bg3); border:0.5px solid var(--border2); border-radius:20px; padding:5px 11px; font-size:12px; color:var(--text2); cursor:pointer; }
-    .sq:active { background:var(--blue-dim); color:var(--blue); }
     .chat-notice { font-size:11px; color:var(--text3); text-align:center; padding:3px 0 8px; }
   </style>
 </head>
@@ -151,6 +165,7 @@
 
   <div class="content">
 
+    <!-- MILESTONES -->
     <div id="milestones" class="section active">
       <p class="section-title">Milestone tracker</p>
       <p class="section-sub" id="ms-sub">Age 2 milestones</p>
@@ -173,39 +188,68 @@
       </div>
     </div>
 
+    <!-- RESEARCH -->
     <div id="research" class="section">
       <p class="section-title">Development research</p>
-      <p class="section-sub" id="research-sub">What to know about age 2</p>
-      <div id="research-body"></div>
+      <p class="section-sub" id="research-sub">AI-curated for age 2</p>
+      <div class="tab-card ga">
+        <div class="tab-card-head">
+          <span class="lbl g" id="research-lbl">Age 2 · research</span>
+          <button class="refresh-btn" onclick="refreshTab('research')"><i class="ti ti-refresh"></i> Refresh</button>
+        </div>
+        <div id="research-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+      </div>
     </div>
 
+    <!-- TOYS -->
     <div id="toys" class="section">
       <p class="section-title">Toy recommendations</p>
-      <p class="section-sub" id="toys-sub">Best picks for age 2</p>
-      <div id="toys-body"></div>
+      <p class="section-sub" id="toys-sub">AI picks for age 2</p>
+      <div class="tab-card aa">
+        <div class="tab-card-head">
+          <span class="lbl a" id="toys-lbl">Age 2 · toys</span>
+          <button class="refresh-btn" onclick="refreshTab('toys')"><i class="ti ti-refresh"></i> Refresh</button>
+        </div>
+        <div id="toys-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+      </div>
     </div>
 
+    <!-- TIPS -->
     <div id="tips" class="section">
       <p class="section-title">Communication &amp; learning</p>
-      <p class="section-sub" id="tips-sub">Tips for age 2</p>
-      <div id="tips-body"></div>
+      <p class="section-sub" id="tips-sub">AI tips for age 2</p>
+      <div class="tab-card ga">
+        <div class="tab-card-head">
+          <span class="lbl g" id="tips-lbl">Age 2 · tips</span>
+          <button class="refresh-btn" onclick="refreshTab('tips')"><i class="ti ti-refresh"></i> Refresh</button>
+        </div>
+        <div id="tips-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+      </div>
     </div>
 
+    <!-- HOME & HEALTH -->
     <div id="home" class="section">
       <p class="section-title">Home &amp; health</p>
-      <p class="section-sub" id="home-sub">Recommendations for age 2</p>
+      <p class="section-sub" id="home-sub">AI recommendations for age 2</p>
       <div class="two-col">
         <div class="sub-card" style="border-left:2px solid var(--green);border-radius:0 10px 10px 0">
-          <div class="lbl g" style="margin-bottom:8px">Lifestyle</div>
-          <div id="lifestyle-body"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span class="lbl g">Lifestyle</span>
+            <button class="refresh-btn" style="padding:3px 7px;font-size:10px" onclick="refreshTab('lifestyle')"><i class="ti ti-refresh"></i></button>
+          </div>
+          <div id="lifestyle-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
         </div>
         <div class="sub-card" style="border-left:2px solid var(--amber);border-radius:0 10px 10px 0">
-          <div class="lbl a" style="margin-bottom:8px">Health kit</div>
-          <div id="health-body"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+            <span class="lbl a">Health kit</span>
+            <button class="refresh-btn" style="padding:3px 7px;font-size:10px" onclick="refreshTab('health')"><i class="ti ti-refresh"></i></button>
+          </div>
+          <div id="health-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
         </div>
       </div>
     </div>
 
+    <!-- JOURNAL -->
     <div id="journal" class="section">
       <p class="section-title">Memory journal</p>
       <p class="section-sub">Every moment with Malachi, saved forever</p>
@@ -215,7 +259,7 @@
         <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
           <button class="save-btn" id="save-btn" onclick="saveMemory()">Save memory</button>
         </div>
-        <div class="journal-status" id="journal-status"></div>
+        <div class="j-status" id="j-status"></div>
       </div>
       <div class="card">
         <div class="lbl g" style="margin-bottom:10px">Saved memories</div>
@@ -223,6 +267,7 @@
       </div>
     </div>
 
+    <!-- CHAT -->
     <div id="chat" class="section">
       <p class="section-title">Ask about Malachi</p>
       <p class="section-sub">Built-in answers · live AI chat</p>
@@ -231,10 +276,10 @@
         <button class="mode-btn" id="mode-ai" onclick="setMode('ai')"><i class="ti ti-sparkles" style="margin-right:4px"></i>Live AI</button>
       </div>
       <div id="local-notice" class="chat-notice">Instant answers — works offline</div>
-      <div id="ai-notice" class="chat-notice" style="display:none">Live Claude AI · requires internet &amp; Netlify setup</div>
+      <div id="ai-notice" class="chat-notice" style="display:none">Live Claude AI · requires internet</div>
       <div class="suggested-qs" id="suggested-qs"></div>
       <div class="chat-messages" id="chat-messages">
-        <div class="msg bot">Hi! Ask me anything about Malachi's development — sleep, tantrums, food, learning, behavior, or anything on your mind.</div>
+        <div class="msg bot">Hi! Ask me anything about Malachi's development — sleep, tantrums, food, learning, or anything on your mind.</div>
       </div>
       <div class="chat-input-row">
         <input class="chat-input" id="chat-input" type="text" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendChat()" />
@@ -247,14 +292,17 @@
 
 <script>
 // ── CONFIG ────────────────────────────────────
-const SUPABASE_URL = 'https://htnihsrcszpujqajnoyb.supabase.co/rest/v1/';   // e.g. https://abcdefgh.supabase.co
-const SUPABASE_KEY = 'sb_publishable_NRo42EfOrDWea5_4uZ2vhg_DTAmnDAD';       // the long anon/public key
+const SUPABASE_URL = 'https://htnihsrcszpujqajnoyb.supabase.co/rest/v1/';
+const SUPABASE_KEY = 'sb_publishable_NRo42EfOrDWea5_4uZ2vhg_DTAmnDAD';
 const MEMORIES_API = SUPABASE_URL + '/rest/v1/memories';
 
 const BIRTH = new Date('2024-06-15');
 let currentBand = '2';
 let activeTab = 'milestones';
 let chatMode = 'local';
+
+// Cache: tabKey -> { band, html }
+const tabCache = {};
 
 // ── MILESTONES ────────────────────────────────
 const MILESTONES = {
@@ -317,325 +365,45 @@ const MILESTONES = {
   ]
 };
 
-// ── RESEARCH ──────────────────────────────────
-const RESEARCH = {
-  '2': `<div class="card ga"><div class="content-body">
-    <h4>Brain development</h4>
-    <p>At 2, Malachi's brain is forming over 1 million new neural connections per second. The prefrontal cortex (self-control and decision-making) is still very immature — tantrums are normal brain development, not bad behavior.</p>
-    <h4>Sleep needs</h4>
-    <ul>
-      <li><strong>11–14 hours total</strong> per day including one nap</li>
-      <li>Most 2-year-olds nap 1–2 hours in the early afternoon</li>
-      <li>Consistent bedtime routine dramatically improves sleep quality</li>
-      <li>Night wakings are still common — respond calmly and briefly</li>
-    </ul>
-    <h4>Language explosion</h4>
-    <p>Between 18–24 months, most toddlers go from ~50 words to over 200. Reading aloud daily is the single most effective language booster at this age.</p>
-    <h4>Emotional regulation</h4>
-    <p>He literally cannot regulate his own emotions yet — the brain circuits aren't wired. Your calm response to his big feelings teaches him over time. Name emotions out loud: "You're frustrated because we have to leave."</p>
-    <h4>Social development</h4>
-    <p>Parallel play (playing near but not with other kids) is completely age-appropriate. True cooperative play doesn't emerge until age 3–4. Sharing is a skill, not an instinct — it takes years to develop.</p>
-  </div></div>`,
-  '3': `<div class="card ga"><div class="content-body">
-    <h4>Brain development</h4>
-    <p>Age 3 brings a surge in the prefrontal cortex. Malachi is becoming more capable of self-regulation, but it's still a work in progress. Imaginative play explodes — one of the most critical periods for creativity and problem-solving.</p>
-    <h4>Sleep needs</h4>
-    <ul>
-      <li><strong>10–13 hours total</strong> per day</li>
-      <li>Many 3-year-olds begin dropping naps; rest time is still valuable</li>
-      <li>Nighttime fears and nightmares often begin around this age — totally normal</li>
-      <li>A consistent wind-down routine (bath, book, bed) is very effective</li>
-    </ul>
-    <h4>Language growth</h4>
-    <p>By 3, most children have 200–1,000 words and use 3–5 word sentences. Questions become constant ("Why? Why? Why?") — answer genuinely; it builds trust and vocabulary simultaneously.</p>
-    <h4>Emotional regulation</h4>
-    <p>Tantrums often peak between 18 months and 3 years, then gradually decrease. Naming emotions, offering limited choices, and staying calm remain the most effective tools.</p>
-    <h4>Social development</h4>
-    <p>Cooperative play begins to emerge. He'll start having "best friends" and showing preference for specific peers. Pretend play with others builds empathy, narrative thinking, and social skills simultaneously.</p>
-  </div></div>`,
-  '4': `<div class="card ga"><div class="content-body">
-    <h4>Brain development</h4>
-    <p>At 4, Malachi's brain is significantly more capable of logic and reasoning. He can follow multi-step instructions, understand cause and effect, and think ahead. Working memory is developing rapidly.</p>
-    <h4>Sleep needs</h4>
-    <ul>
-      <li><strong>10–13 hours</strong> per night; most 4-year-olds no longer nap</li>
-      <li>Bedtime resistance is common — give him some control (which book? which pajamas?)</li>
-      <li>Night terrors may occur — scary to watch, but he won't remember them</li>
-    </ul>
-    <h4>Language growth</h4>
-    <p>Sentences become complex with conjunctions ("because", "but", "so"). He can tell a story with a beginning, middle, and end. Vocabulary grows by 5–10 new words per day in a language-rich environment.</p>
-    <h4>Emotional regulation</h4>
-    <p>Emotion coaching is very effective now. Validate feelings first, then problem-solve: "I understand you're angry. What could we do about it?" He can learn basic coping strategies like deep breaths.</p>
-    <h4>Social development</h4>
-    <p>Friendships become important and meaningful. Lies and tall tales emerge — mostly imaginative, not deceptive. He's testing the boundary between reality and fantasy.</p>
-  </div></div>`,
-  '5': `<div class="card ga"><div class="content-body">
-    <h4>Brain development</h4>
-    <p>At 5, Malachi is approaching school-readiness. Executive function (planning, impulse control, working memory) is meaningfully stronger. He can understand rules, apply them, and begin to manage his own emotions with support.</p>
-    <h4>Sleep needs</h4>
-    <ul>
-      <li><strong>10–13 hours</strong> per night, no nap needed</li>
-      <li>Screen-free wind-down is especially important — screens delay melatonin release</li>
-      <li>A consistent sleep schedule helps him feel secure and regulated</li>
-    </ul>
-    <h4>Language growth</h4>
-    <p>By 5, most children speak in grammatically correct sentences and hold real conversations. Reading readiness peaks — this is an ideal time to begin phonics exposure if not already started.</p>
-    <h4>Emotional regulation</h4>
-    <p>He's now capable of identifying emotions in others and beginning to manage his own. Peer relationships matter deeply. Consistent emotional coaching produces the best long-term outcomes.</p>
-    <h4>Social development</h4>
-    <p>Friendships are now his primary social world outside family. He'll be navigating inclusion, exclusion, fairness, and loyalty. Empathy is growing — he can genuinely take another person's perspective.</p>
-  </div></div>`
+// ── AI PROMPTS ────────────────────────────────
+const PROMPTS = {
+  research: b => `You are a child development expert. My son Malachi just turned ${b} years old. Write a dad-friendly summary of the most important current research for a ${b}-year-old covering: brain development, sleep needs, language growth, emotional regulation, and social development. Use <h4> for section headers and <ul><li> for bullet points. Be specific to age ${b}. Max 320 words. Return HTML only, no preamble or markdown.`,
+
+  toys: b => `You are a child development specialist. My son Malachi is ${b} years old. Recommend the 6 best developmental toys or activities specifically for a ${b}-year-old right now. For each: toy name as the header, why it's developmentally valuable at this exact age, and price range. Use <h4> for each toy name and <p> for description. Max 300 words. Return HTML only, no preamble or markdown.`,
+
+  tips: b => `You are a child development specialist. My son Malachi is ${b} years old. Give me 6 specific, actionable communication and learning tips tailored to a ${b}-year-old boy. Focus on things a dad can do day-to-day. Use <h4> for each tip title and <p> for explanation. Max 300 words. Return HTML only, no preamble or markdown.`,
+
+  lifestyle: b => `Parenting lifestyle expert. My son is ${b} years old. Give SHORT bullet-point recommendations for: bedroom setup, appropriate bed type, bedding safety, and sleep environment for a ${b}-year-old. Use <ul><li> only. Max 120 words. Return HTML only, no preamble or markdown.`,
+
+  health: b => `Pediatric health advisor. My son is ${b} years old. List the essential items for my medicine cabinet and any supplements commonly recommended for a ${b}-year-old with brief notes on each. Use <ul><li> only. End with one line: always verify with your pediatrician. Max 120 words. Return HTML only, no preamble or markdown.`
 };
 
-// ── TOYS ──────────────────────────────────────
-const TOYS = {
-  '2': `<div class="card aa"><div class="content-body">
-    <h4>Mega Bloks or Duplo</h4>
-    <p>Builds fine motor skills, spatial reasoning, and creativity. Large enough to be safe. The top pick for this age. <strong>$20–$40</strong></p>
-    <h4>Shape sorters &amp; stacking toys</h4>
-    <p>Problem-solving, hand-eye coordination, geometry understanding. Satisfying when pieces click. <strong>$15–$25</strong></p>
-    <h4>Ride-on toys / push toys</h4>
-    <p>Develops gross motor skills and balance. Ride-on cars he pushes with his feet are excellent. <strong>$30–$60</strong></p>
-    <h4>Board books &amp; touch-and-feel books</h4>
-    <p>The single best investment for language development. Read together every day. <strong>$5–$15 each</strong></p>
-    <h4>Simple puzzles (4–12 pieces, knob-style)</h4>
-    <p>Builds problem-solving, fine motor, shape/color recognition. Knob-style pieces are easiest for small hands. <strong>$10–$20</strong></p>
-    <h4>Jumbo crayons &amp; large paper</h4>
-    <p>Early mark-making is critical for pre-writing skills. Don't worry what he draws — it's all process. <strong>$5–$10</strong></p>
-  </div></div>`,
-  '3': `<div class="card aa"><div class="content-body">
-    <h4>Playdough &amp; molding sets</h4>
-    <p>Exceptional for fine motor development, creativity, and sensory processing. Endless replayability. <strong>$10–$20</strong></p>
-    <h4>Balance bike</h4>
-    <p>Builds gross motor skills and coordination. Balance bikes teach riding faster than tricycles. <strong>$40–$80</strong></p>
-    <h4>Magnetic tiles (Magna-Tiles or Picasso Tiles)</h4>
-    <p>STEM powerhouse — spatial reasoning, creativity, engineering thinking. Works through elementary school. <strong>$30–$80</strong></p>
-    <h4>Dress-up clothes &amp; costume box</h4>
-    <p>Fuels imaginative play, the primary developmental work of age 3. Any clothes — hats, capes, costumes. <strong>$20–$40</strong></p>
-    <h4>Simple board games (Candy Land, Hi Ho Cherry-O)</h4>
-    <p>Teaches turn-taking, rules, counting, and handling losing. Play with him — don't always let him win. <strong>$10–$20</strong></p>
-    <h4>Finger paint, stamps, brushes</h4>
-    <p>Self-expression and fine motor control develop through art. Set up a dedicated art space if you can. <strong>$15–$25</strong></p>
-  </div></div>`,
-  '4': `<div class="card aa"><div class="content-body">
-    <h4>Lego Duplo or starter Lego sets</h4>
-    <p>At 4, kids handle more complex building. Develops spatial reasoning, following instructions, creative thinking. <strong>$20–$50</strong></p>
-    <h4>Puzzles (24–48 pieces)</h4>
-    <p>Working memory, problem-solving, and persistence grow through puzzle completion at this age. <strong>$10–$20</strong></p>
-    <h4>Alphabet and number learning toys</h4>
-    <p>LeapFrog sets, foam bath letters, magnetic fridge letters. School readiness builds now. <strong>$15–$30</strong></p>
-    <h4>Outdoor play equipment</h4>
-    <p>Slide, sandbox, swing. Gross motor, risk assessment, and social skills all come from unstructured outdoor play. <strong>$50–$200</strong></p>
-    <h4>Pretend play sets (kitchen, tool bench, doctor kit)</h4>
-    <p>Role play lets him process the world. Doctor kits are especially good for normalizing medical experiences. <strong>$25–$60</strong></p>
-    <h4>Simple science kits</h4>
-    <p>Baking soda volcanoes, color mixing, magnet exploration. Curiosity and scientific thinking start here. <strong>$15–$30</strong></p>
-  </div></div>`,
-  '5': `<div class="card aa"><div class="content-body">
-    <h4>Beginner reading books (Bob Books, Dr. Seuss)</h4>
-    <p>If Malachi is starting to read, these bridge the gap perfectly. Reading success at 5 strongly predicts academic confidence. <strong>$10–$20</strong></p>
-    <h4>Standard Lego sets (age 5+)</h4>
-    <p>More complex than Duplo — builds fine motor precision, spatial reasoning, and patience. <strong>$15–$40</strong></p>
-    <h4>Strategy board games (Sequence for Kids, Zingo)</h4>
-    <p>Teaches planning ahead, reading cues, graceful winning/losing. Foundational social skills for school. <strong>$15–$25</strong></p>
-    <h4>Art &amp; craft kits</h4>
-    <p>Watercolors, bead sets, weaving kits. Fine motor precision improves rapidly at 5. <strong>$15–$30</strong></p>
-    <h4>Beginner sports equipment (t-ball, soccer goal)</h4>
-    <p>Team sport introduction builds social skills, physical literacy, and self-confidence. <strong>$20–$50</strong></p>
-    <h4>Coding toys (Osmo, Botley the Robot)</h4>
-    <p>Early computational thinking and problem-solving. Screen-adjacent but genuinely educational. <strong>$40–$80</strong></p>
-  </div></div>`
-};
-
-// ── TIPS ──────────────────────────────────────
-const TIPS = {
-  '2': `<div class="card ga"><div class="content-body">
-    <h4>Talk constantly, narrate everything</h4>
-    <p>Describe what you're doing in real time: "Now I'm washing the dishes, using soap and hot water." This builds vocabulary faster than any toy or app. Natural narration throughout the day is the single biggest language booster.</p>
-    <h4>Read together every single day</h4>
-    <p>10–20 minutes of reading daily at age 2 has measurable language and cognitive benefits through elementary school. Let him turn pages, point at pictures, and "read" to you. It's not about finishing the book.</p>
-    <h4>Give simple choices, not open questions</h4>
-    <p>Instead of "What do you want for lunch?" try "Do you want mac and cheese or a sandwich?" Limited choices give him autonomy without overwhelming his decision-making capacity.</p>
-    <h4>Keep transitions predictable</h4>
-    <p>Give Malachi 5-minute warnings before every transition — leaving the park, changing activities, going to bed. Predictability reduces anxiety and meltdowns significantly at this age.</p>
-    <h4>Name his emotions out loud</h4>
-    <p>Say "You're frustrated right now" or "I can see you're really excited." He doesn't have words for feelings yet — you're building that vocabulary for him. This is one of the highest-value things you can do at age 2.</p>
-    <h4>Let him be "bad" at things</h4>
-    <p>Resist helping immediately when he struggles. Give him 30–60 seconds to work through frustration on his own. Productive struggle builds persistence and problem-solving confidence.</p>
-  </div></div>`,
-  '3': `<div class="card ga"><div class="content-body">
-    <h4>Ask "what" questions, not "why"</h4>
-    <p>"What happened?" lands better than "Why did you do that?" at age 3. He can't yet explain his motivations, but he can describe events. This avoids the defensive "I don't know" shutdown.</p>
-    <h4>Expand his sentences back to him</h4>
-    <p>When he says "Dog runned fast," respond naturally: "Yes, the dog ran really fast, didn't he?" This models correct grammar without correcting or shaming him — works better than any grammar lesson.</p>
-    <h4>Establish your own routines</h4>
-    <p>Your bedtime routine, your weekend traditions, your way of doing Saturday breakfast — these become anchors Malachi looks forward to and remembers. Consistency in your home is a powerful form of love.</p>
-    <h4>Let him help with real tasks</h4>
-    <p>Stirring batter, pouring water, carrying groceries, washing vegetables. He feels capable and important. These "jobs" build fine motor skills, attention, and self-esteem.</p>
-    <h4>Validate emotions before solving problems</h4>
-    <p>When he's upset: feelings first, solutions second. "You're really sad that we have to leave the park. That makes sense — it was so fun." After he feels heard: "Should we say goodbye to the swings?"</p>
-    <h4>Play pretend with him</h4>
-    <p>Get on the floor and enter his imaginary world. Let him lead. This builds his narrative thinking, creativity, and — most importantly — your bond with him.</p>
-  </div></div>`,
-  '4': `<div class="card ga"><div class="content-body">
-    <h4>Have real conversations, not just instructions</h4>
-    <p>At 4, Malachi can genuinely discuss things. Ask his opinion, debate what pizza topping is best, ask what his favorite part of the day was. Conversations where he talks more than you do are gold for language and confidence.</p>
-    <h4>Let him take appropriate risks</h4>
-    <p>Climbing a little higher, running a little faster, trying something he might fail at. Risk-taking at this age builds executive function, confidence, and physical literacy. Your job is to spot him, not stop him.</p>
-    <h4>Read chapter books together at bedtime</h4>
-    <p>Start simple ones like "Frog and Toad," "Magic Tree House," or "Mercy Watson." Cliffhangers make him excited for bed. This builds sustained attention, vocabulary, and the love of story.</p>
-    <h4>Teach him to solve social problems</h4>
-    <p>When he reports a conflict with a friend, resist solving it for him. Ask: "What could you do?" and "What do you think would happen?" This builds conflict resolution skills that serve him through school and beyond.</p>
-    <h4>Create a photo book or memory box together</h4>
-    <p>Print photos from your time together and make a book he keeps at your house. A tangible record of your relationship and time together is deeply meaningful to a 4-year-old.</p>
-    <h4>Be consistent with boundaries</h4>
-    <p>At 4, he'll test every limit he can find. The boundary itself matters less than your consistency in holding it. Predictable, calm enforcement makes him feel safe and secure.</p>
-  </div></div>`,
-  '5': `<div class="card ga"><div class="content-body">
-    <h4>Practice school readiness through play</h4>
-    <p>Name letters on signs, count objects, play rhyming games. School skills developed through play stick better than worksheets. He's ready for more structured learning but it should still feel fun.</p>
-    <h4>Give him real responsibility</h4>
-    <p>A regular "job" at your house — setting the table, feeding a pet, watering a plant — builds responsibility, competence, and pride. He's ready for consistent expectations now.</p>
-    <h4>Read together — even as he learns to read</h4>
-    <p>Even as he learns to read independently, continue reading to him above his current level. It builds vocabulary, listening comprehension, and most importantly, it's bonding time both of you will remember.</p>
-    <h4>Talk about feelings with complexity</h4>
-    <p>At 5, he can handle nuanced emotion language: "You seem both excited and a little nervous — that makes total sense." This level of reflection builds emotional intelligence that lasts a lifetime.</p>
-    <h4>Ask about his day with specific questions</h4>
-    <p>"What made you laugh today?" works better than "How was school?" Specific questions get real answers and show him you're genuinely interested in the details of his life.</p>
-    <h4>Be boring together</h4>
-    <p>You don't need to entertain him every moment. Some of the most important development happens in unscheduled time — boredom, imagination, figuring out what to do. Sit nearby. Be available without being directive.</p>
-  </div></div>`
-};
-
-// ── LIFESTYLE ─────────────────────────────────
-const LIFESTYLE = {
-  '2': `<div class="content-body"><ul>
-    <li><strong>Bed:</strong> Toddler bed or crib with rail removed</li>
-    <li><strong>Rail:</strong> Foam side rail prevents rolling out</li>
-    <li><strong>Pillow:</strong> Small toddler pillow is fine now</li>
-    <li><strong>Sheets:</strong> Use a sleep sack or toddler blanket</li>
-    <li><strong>Room temp:</strong> 68–72°F is ideal</li>
-    <li><strong>Noise:</strong> White noise machine helps</li>
-    <li><strong>Nightlight:</strong> Dim amber — blue light disrupts melatonin</li>
-  </ul></div>`,
-  '3': `<div class="content-body"><ul>
-    <li><strong>Bed:</strong> Toddler or twin with rail</li>
-    <li><strong>Pillow:</strong> Toddler or small standard pillow</li>
-    <li><strong>Blanket:</strong> Regular blanket is fine at 3</li>
-    <li><strong>Dresser:</strong> Anchor all furniture to the wall</li>
-    <li><strong>Bedtime:</strong> 7–8pm is ideal</li>
-    <li><strong>Fears:</strong> Nightlight + consistent goodbye ritual</li>
-  </ul></div>`,
-  '4': `<div class="content-body"><ul>
-    <li><strong>Bed:</strong> Twin — he'll use it through early elementary</li>
-    <li><strong>Bedding:</strong> Let him pick his sheets</li>
-    <li><strong>Dresser:</strong> Keep anchored to wall</li>
-    <li><strong>Routine:</strong> Bath → PJs → 2 books → lights out</li>
-    <li><strong>Screens:</strong> Off 1 hour before bed</li>
-    <li><strong>Room:</strong> Declutter; designated toy space helps</li>
-  </ul></div>`,
-  '5': `<div class="content-body"><ul>
-    <li><strong>Bed:</strong> Twin or twin XL</li>
-    <li><strong>Clock:</strong> Kid's clock (Hatch) teaches when to get up</li>
-    <li><strong>Bedtime:</strong> 7:30–8pm consistent schedule</li>
-    <li><strong>Books in bed:</strong> Small lamp + books builds the habit</li>
-    <li><strong>Desk:</strong> Small desk supports school readiness</li>
-    <li><strong>Screens:</strong> Off 1 hour before bed, every night</li>
-  </ul></div>`
-};
-
-// ── HEALTH ────────────────────────────────────
-const HEALTH = {
-  '2': `<div class="content-body"><ul>
-    <li><strong>Children's Tylenol</strong> — fever &amp; pain; dose by weight</li>
-    <li><strong>Children's Motrin</strong> — fever over 102°F; dose by weight</li>
-    <li><strong>Children's Benadryl</strong> — allergic reactions</li>
-    <li><strong>Saline nasal spray</strong> — safe at any age</li>
-    <li><strong>Pedialyte</strong> — vomiting/diarrhea hydration</li>
-    <li><strong>Vitamin D3 (600 IU)</strong> — most toddlers are deficient</li>
-    <li><strong>Thermometer</strong> — ear thermometer is fine</li>
-    <li><strong>First aid kit</strong> — bandages, antiseptic, ointment</li>
-    <li><em>Always verify with your pediatrician</em></li>
-  </ul></div>`,
-  '3': `<div class="content-body"><ul>
-    <li><strong>Tylenol &amp; Motrin</strong> — dose by weight</li>
-    <li><strong>Claritin or Zyrtec</strong> — seasonal allergies</li>
-    <li><strong>Saline nasal spray</strong> — congestion relief</li>
-    <li><strong>Zarbee's cough syrup</strong> — honey-based, safe at 3</li>
-    <li><strong>Pedialyte</strong> — keep one on hand always</li>
-    <li><strong>Vitamin D3 + Omega-3</strong> — brain development</li>
-    <li><strong>Probiotic</strong> — after any antibiotic course</li>
-    <li><strong>Hydrocortisone 1%</strong> — bug bites, rashes</li>
-    <li><em>Always verify with your pediatrician</em></li>
-  </ul></div>`,
-  '4': `<div class="content-body"><ul>
-    <li><strong>Tylenol &amp; Motrin</strong> — know his current weight</li>
-    <li><strong>Claritin or Zyrtec</strong> — allergy season staple</li>
-    <li><strong>Zarbee's cough &amp; mucus</strong> — honey-based</li>
-    <li><strong>Pedialyte</strong> — stomach illness hydration</li>
-    <li><strong>Vitamin D3 (600 IU)</strong> — especially in winter</li>
-    <li><strong>Omega-3 chewable</strong> — brain &amp; attention support</li>
-    <li><strong>Probiotic gummy</strong> — daily gut health</li>
-    <li><strong>Ice pack + bandages</strong> — active 4-year-olds get scrapes</li>
-    <li><em>Always verify with your pediatrician</em></li>
-  </ul></div>`,
-  '5': `<div class="content-body"><ul>
-    <li><strong>Tylenol &amp; Motrin</strong> — confirm strength with pediatrician</li>
-    <li><strong>Allergy med</strong> — school means more allergens</li>
-    <li><strong>Saline spray</strong> — daily use is safe</li>
-    <li><strong>Cough drops (age 5+)</strong> — supervise use</li>
-    <li><strong>Vitamin D3 (600–1000 IU)</strong> — especially without much sun</li>
-    <li><strong>Omega-3 chewable</strong> — focus &amp; brain development</li>
-    <li><strong>Probiotic</strong> — daily immune support</li>
-    <li><strong>First aid kit</strong> — update supplies regularly</li>
-    <li><em>Always verify with your pediatrician</em></li>
-  </ul></div>`
-};
-
-// ── Q&A KNOWLEDGE BASE ────────────────────────
+// ── BUILT-IN Q&A ──────────────────────────────
 const QA = [
-  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'2',
-    a:`<strong>Sleep at age 2:</strong> Malachi needs <strong>11–14 hours total</strong> including one nap (usually 1–2 hours early afternoon). Bedtime between 7–8pm works best. Night wakings are still normal — respond briefly and calmly. A white noise machine and dim amber nightlight help significantly.` },
-  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'3',
-    a:`<strong>Sleep at age 3:</strong> He needs <strong>10–13 hours total</strong>. Many 3-year-olds start dropping naps but still benefit from rest time. Nighttime fears and nightmares are very common — totally normal. Bath → book → bed routine is the most effective wind-down.` },
-  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'4',
-    a:`<strong>Sleep at age 4:</strong> He needs <strong>10–13 hours per night</strong> — most 4-year-olds no longer nap. Bedtime resistance is common; giving him some control (which book, which pajamas) helps. Night terrors can occur — scary to watch but he won't remember them.` },
-  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'5',
-    a:`<strong>Sleep at age 5:</strong> He needs <strong>10–13 hours per night</strong>, no nap. No screens for 1 hour before bed — blue light significantly delays sleep onset. A consistent 7:30–8pm bedtime builds a strong sleep rhythm.` },
-  { tags:['tantrum','meltdown','behavior','angry','mad','hitting','biting','aggressive','yelling'], band:'any',
-    a:`<strong>Tantrums &amp; big behavior:</strong> Completely normal through age 4–5. His brain's emotional center fires before his rational center can respond — he literally can't stop himself yet. Stay calm yourself, get on his level, name the feeling ("I can see you're really angry"), and wait it out. Don't reason during the meltdown — his brain can't process logic in that state. Connect first, correct after.` },
-  { tags:['food','eating','picky','meal','lunch','dinner','snack','nutrition','vegetable','fruit'], band:'any',
-    a:`<strong>Picky eating:</strong> Extremely common from age 2–5. Division of responsibility: <em>you</em> decide what food is offered and when; <em>he</em> decides whether and how much to eat. Keep offering rejected foods without pressure — it takes 10–15 exposures before a child accepts a new food. Never force eating. Keep mealtimes relaxed and positive.` },
-  { tags:['potty','toilet','training','pee','poop','diaper','accident'], band:'any',
-    a:`<strong>Potty training:</strong> Readiness signs include staying dry 2+ hours, interest in the toilet, and hiding to poop. Don't start before he's ready. Once started, go all-in with underwear (pull-ups at night only). Accidents are normal for weeks. Celebrate successes, ignore accidents matter-of-factly. Most kids are fully trained by age 3–3.5.` },
-  { tags:['language','talking','words','speech','sentences','reading','say','talk'], band:'any',
-    a:`<strong>Language development:</strong> Talk to him constantly and read together every day. Narrate what you're doing. Ask questions and wait for answers. Expand his sentences back naturally: "Dog runned!" → "Yes, the dog ran so fast!" If he's not combining 2 words by age 2 or sentences by age 3, mention it to his pediatrician.` },
-  { tags:['screen','tv','tablet','ipad','phone','youtube','video','watch'], band:'any',
-    a:`<strong>Screen time:</strong> AAP recommends no more than 1 hour/day of high-quality programming for ages 2–5, ideally watched together. The bigger concern is what screens displace — outdoor play, reading, and real conversation are far more valuable developmentally. No screens 1 hour before bed regardless of age.` },
-  { tags:['friend','social','play','sharing','kids','other children','playdate'], band:'any',
-    a:`<strong>Social development:</strong> Parallel play (next to kids, not with them) is normal through age 2–3. Cooperative play develops gradually from age 3–4. Sharing is a skill that takes years to develop — don't shame him for not sharing. Coach him through conflicts: "What could you do when your friend takes your toy?"` },
-  { tags:['discipline','punishment','timeout','consequence','rules','boundaries','behavior','listen'], band:'any',
-    a:`<strong>Discipline:</strong> The most effective approach at this age is connection before correction. Natural consequences work better than arbitrary punishments. Time-outs are most effective when brief (1 minute per year of age) and followed by reconnection. Consistency matters more than severity — calm, predictable responses every time are far more effective than occasional big reactions.` },
-  { tags:['anxiety','worry','scared','fear','nervous','separation','scared','dark','monster'], band:'any',
-    a:`<strong>Anxiety &amp; fears:</strong> Very common from age 2–5 — fear of the dark, monsters, separation, loud noises. Take fears seriously without amplifying them. Validate: "That does seem scary." Then offer safety: "I'm right here and I'll keep you safe." Avoid forcing him to confront fears; gradual, gentle exposure works better.` },
-  { tags:['doctor','sick','fever','cold','medicine','health','ill','cough','runny'], band:'any',
-    a:`<strong>When to call the doctor:</strong> Call for any fever over 104°F, fever lasting more than 3 days, difficulty breathing, severe or unusual behavior, or any instinct that something is seriously wrong. Check the <em>Home &amp; Health</em> tab for Malachi's age-specific medicine cabinet list.` },
-  { tags:['milestone','development','behind','delay','normal','developing'], band:'any',
-    a:`<strong>Developmental milestones:</strong> Check the <strong>Milestones tab</strong> for Malachi's current age-specific checkpoints. Remember milestones are ranges, not deadlines — there's wide variation in what's normal. If you're concerned about a specific area (language, motor skills, social), bring it up at his next well visit.` },
-  { tags:['school','kindergarten','preschool','learn','ready','readiness'], band:'any',
-    a:`<strong>School readiness:</strong> The most important school-readiness skills are emotional regulation (can he handle frustration?), following multi-step instructions, and basic self-care (bathroom, eating independently). Academic skills like letters and numbers matter less than social-emotional readiness. Play is still the best way to build all of these.` },
+  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'2', a:`<strong>Sleep at age 2:</strong> Malachi needs <strong>11–14 hours total</strong> including one nap (usually 1–2 hours early afternoon). Bedtime between 7–8pm works best. Night wakings are still normal — respond briefly and calmly. A white noise machine and dim amber nightlight help significantly.` },
+  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'3', a:`<strong>Sleep at age 3:</strong> He needs <strong>10–13 hours total</strong>. Many 3-year-olds start dropping naps but still benefit from rest time. Nighttime fears are very common — totally normal. Bath → book → bed routine is the most effective wind-down.` },
+  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'4', a:`<strong>Sleep at age 4:</strong> He needs <strong>10–13 hours per night</strong> — most 4-year-olds no longer nap. Bedtime resistance is common; giving him some control (which book, which pajamas) helps. Night terrors can occur but he won't remember them.` },
+  { tags:['sleep','nap','bedtime','night','waking','tired'], band:'5', a:`<strong>Sleep at age 5:</strong> He needs <strong>10–13 hours per night</strong>, no nap. No screens 1 hour before bed — blue light significantly delays sleep onset. A consistent 7:30–8pm bedtime builds a strong sleep rhythm.` },
+  { tags:['tantrum','meltdown','behavior','angry','mad','hitting','biting','aggressive'], band:'any', a:`<strong>Tantrums &amp; big behavior:</strong> Completely normal through age 4–5. His brain literally cannot stop the emotional flood yet. Stay calm yourself, get on his level, name the feeling, and wait it out. Don't reason during the meltdown — his brain can't process logic in that state. Connect first, correct after.` },
+  { tags:['food','eating','picky','meal','nutrition','vegetable'], band:'any', a:`<strong>Picky eating:</strong> Extremely common from age 2–5. You decide what's offered and when — he decides whether and how much to eat. Keep offering rejected foods without pressure. It takes 10–15 exposures before a child accepts a new food. Never force eating.` },
+  { tags:['potty','toilet','training','pee','poop','diaper','accident'], band:'any', a:`<strong>Potty training:</strong> Readiness signs: staying dry 2+ hours, interest in the toilet, hiding to poop. Once started, go all-in with underwear (pull-ups at night only). Accidents are normal for weeks. Celebrate successes, ignore accidents matter-of-factly.` },
+  { tags:['language','talking','words','speech','sentences','reading','say'], band:'any', a:`<strong>Language development:</strong> Talk to him constantly and read together every day. Narrate what you're doing. Expand his sentences back naturally — "Dog runned!" → "Yes, the dog ran so fast!" If he's not combining 2 words by age 2 or sentences by age 3, mention it to his pediatrician.` },
+  { tags:['screen','tv','tablet','ipad','phone','youtube','video'], band:'any', a:`<strong>Screen time:</strong> AAP recommends no more than 1 hour/day for ages 2–5. The bigger issue is what screens displace — outdoor play, reading, and real conversation matter far more developmentally. No screens 1 hour before bed.` },
+  { tags:['friend','social','play','sharing','kids','playdate'], band:'any', a:`<strong>Social development:</strong> Parallel play (next to kids, not with them) is normal through age 2–3. Cooperative play develops gradually from age 3–4. Sharing is a skill that takes years — don't shame him for not sharing. Coach him through conflicts instead of solving them.` },
+  { tags:['discipline','timeout','consequence','rules','boundaries','listen'], band:'any', a:`<strong>Discipline:</strong> Connection before correction. Natural consequences work better than arbitrary punishments. Time-outs: 1 minute per year of age, followed by reconnection. Consistency matters more than severity — calm, predictable responses every time are far more effective than occasional big reactions.` },
+  { tags:['anxiety','worry','scared','fear','nervous','separation','dark','monster'], band:'any', a:`<strong>Anxiety &amp; fears:</strong> Very common from age 2–5. Take fears seriously without amplifying them. Validate first: "That does seem scary." Then offer safety: "I'm right here." Gradual, gentle exposure works better than forcing him to confront fears.` },
+  { tags:['doctor','sick','fever','cold','medicine','health','cough'], band:'any', a:`<strong>When to call the doctor:</strong> Call for fever over 104°F, fever lasting more than 3 days, difficulty breathing, severe or unusual behavior, or any gut feeling something is seriously wrong. Check the <em>Home &amp; Health</em> tab for his age-specific medicine cabinet list.` },
+  { tags:['milestone','development','behind','delay','normal','developing'], band:'any', a:`<strong>Developmental milestones:</strong> Check the <strong>Milestones tab</strong> for his current age-specific checkpoints. Remember milestones are ranges, not deadlines. If concerned about a specific area, bring it up at his next well visit. Early support when genuinely needed is always more effective than waiting.` },
+  { tags:['school','kindergarten','preschool','learn','ready','readiness'], band:'any', a:`<strong>School readiness:</strong> The most important skills are emotional regulation, following multi-step instructions, and basic self-care. Academic skills like letters and numbers matter less than social-emotional readiness. Play is still the best way to build all of these at this age.` },
 ];
 
 const SUGGESTED = [
-  'Why does he throw tantrums?',
-  'How much sleep does he need?',
-  'How do I handle picky eating?',
-  'When should I worry about speech?',
-  'How much screen time is okay?',
-  'How do I handle hitting?',
+  'Why does he throw tantrums?','How much sleep does he need?',
+  'How do I handle picky eating?','When should I worry about speech?',
+  'How much screen time is okay?','How do I handle hitting?',
 ];
 
-// ── AGE HELPERS ───────────────────────────────
+// ── HEADER ────────────────────────────────────
 function getAgeYears() {
   const n = new Date();
   let y = n.getFullYear() - BIRTH.getFullYear();
@@ -648,8 +416,7 @@ function getAgeMonths() {
   return (n.getFullYear() - BIRTH.getFullYear()) * 12 + (n.getMonth() - BIRTH.getMonth());
 }
 function updateHeader() {
-  const years = getAgeYears();
-  const months = getAgeMonths() - years * 12;
+  const years = getAgeYears(), months = getAgeMonths() - getAgeYears() * 12;
   document.getElementById('age-pill').textContent = years + ' yr' + (months > 0 ? ' ' + months + 'm' : '');
   document.getElementById('exact-age').textContent = years + ' years' + (months > 0 ? ', ' + months + ' months old' : ' old');
   setAgeBand(String(Math.min(5, Math.max(2, years))), true);
@@ -659,27 +426,20 @@ function updateHeader() {
 function setAgeBand(band, silent) {
   currentBand = band;
   document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
-  const btn = document.getElementById('band-' + band);
-  if (btn) btn.classList.add('active');
-  document.getElementById('ms-sub').textContent      = 'Age ' + band + ' milestones (CDC guidelines)';
-  document.getElementById('research-sub').textContent = 'What to know about age ' + band;
-  document.getElementById('toys-sub').textContent    = 'Best developmental picks for age ' + band;
-  document.getElementById('tips-sub').textContent    = 'Communication & learning tips for age ' + band;
-  document.getElementById('home-sub').textContent    = 'Home and health guide for age ' + band;
+  document.getElementById('band-' + band).classList.add('active');
+  document.getElementById('ms-sub').textContent       = 'Age ' + band + ' milestones (CDC guidelines)';
+  document.getElementById('research-sub').textContent = 'AI-curated for age ' + band;
+  document.getElementById('research-lbl').textContent = 'Age ' + band + ' · research';
+  document.getElementById('toys-sub').textContent     = 'AI picks for age ' + band;
+  document.getElementById('toys-lbl').textContent     = 'Age ' + band + ' · toys';
+  document.getElementById('tips-sub').textContent     = 'AI tips for age ' + band;
+  document.getElementById('tips-lbl').textContent     = 'Age ' + band + ' · tips';
+  document.getElementById('home-sub').textContent     = 'AI recommendations for age ' + band;
   renderMilestones();
-  renderTab(activeTab);
+  if (!silent) loadTab(activeTab);
 }
 
 // ── TABS ──────────────────────────────────────
-function renderTab(tab) {
-  if (tab === 'research') document.getElementById('research-body').innerHTML  = RESEARCH[currentBand]  || '';
-  if (tab === 'toys')     document.getElementById('toys-body').innerHTML      = TOYS[currentBand]      || '';
-  if (tab === 'tips')     document.getElementById('tips-body').innerHTML      = TIPS[currentBand]      || '';
-  if (tab === 'home') {
-    document.getElementById('lifestyle-body').innerHTML = LIFESTYLE[currentBand] || '';
-    document.getElementById('health-body').innerHTML    = HEALTH[currentBand]    || '';
-  }
-}
 function showTab(tab) {
   activeTab = tab;
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -688,7 +448,43 @@ function showTab(tab) {
   document.querySelectorAll('.nav-btn').forEach(b => {
     if (b.getAttribute('onclick').includes("'" + tab + "'")) b.classList.add('active');
   });
-  renderTab(tab);
+  if (['research','toys','tips'].includes(tab)) loadTab(tab);
+  if (tab === 'home') { loadTab('lifestyle'); loadTab('health'); }
+}
+
+function spin() {
+  return '<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div>';
+}
+
+async function loadTab(tab) {
+  const el = document.getElementById(tab + '-content');
+  if (!el) return;
+  const cacheKey = tab + '-' + currentBand;
+  if (tabCache[cacheKey]) { el.innerHTML = tabCache[cacheKey]; return; }
+  el.innerHTML = spin();
+  try {
+    const res  = await fetch('/.netlify/functions/ai', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, messages:[{ role:'user', content:PROMPTS[tab](currentBand) }] })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    const html = data.content?.map(c => c.text || '').join('') || '';
+    if (!html) throw new Error('empty');
+    const wrapped = '<div class="ai-body">' + html + '</div>';
+    tabCache[cacheKey] = wrapped;
+    el.innerHTML = wrapped;
+  } catch(e) {
+    el.innerHTML = '<p class="ai-error">Could not load AI content — tap <strong>Refresh</strong> to try again. Make sure your Netlify function and API key are set up correctly.</p>';
+  }
+}
+
+function refreshTab(tab) {
+  const cacheKey = tab + '-' + currentBand;
+  delete tabCache[cacheKey];
+  loadTab(tab);
 }
 
 // ── MILESTONES ────────────────────────────────
@@ -718,195 +514,138 @@ function updateProgress() {
   const pct  = Math.round(done / checks.length * 100);
   const circ = 2 * Math.PI * 19;
   document.getElementById('progress-arc').setAttribute('stroke-dashoffset', circ - circ * pct / 100);
-  document.getElementById('ring-pct').textContent  = pct + '%';
-  document.getElementById('ms-count').textContent  = done + ' / ' + checks.length + ' done';
+  document.getElementById('ring-pct').textContent = pct + '%';
+  document.getElementById('ms-count').textContent = done + ' / ' + checks.length + ' done';
 }
 
 // ── JOURNAL — Supabase ────────────────────────
-const sbHeaders = () => ({
-  'Content-Type':  'application/json',
-  'apikey':        SUPABASE_KEY,
-  'Authorization': 'Bearer ' + SUPABASE_KEY,
-  'Prefer':        'return=representation'
-});
-
+const sbH = () => ({ 'Content-Type':'application/json', 'apikey':SUPABASE_KEY, 'Authorization':'Bearer ' + SUPABASE_KEY, 'Prefer':'return=representation' });
 let memories = [];
 
 async function loadMemories() {
-  const el = document.getElementById('memories-list');
-  // Fallback to localStorage if keys not set
   if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') {
     memories = JSON.parse(localStorage.getItem('memories') || '[]');
-    renderMemories();
-    return;
+    renderMemories(); return;
   }
   try {
-    const res  = await fetch(MEMORIES_API + '?order=created_at.desc', { headers: sbHeaders() });
+    const res  = await fetch(MEMORIES_API + '?order=created_at.desc', { headers: sbH() });
     const data = await res.json();
-    if (!res.ok) throw new Error(data.message || 'fetch error');
-    memories = data;
-    renderMemories();
+    if (!res.ok) throw new Error('fetch failed');
+    memories = data; renderMemories();
   } catch(e) {
     memories = JSON.parse(localStorage.getItem('memories') || '[]');
     renderMemories();
-    setStatus('Loaded from local backup', 'err');
   }
 }
 
 async function saveMemory() {
-  const input  = document.getElementById('journal-input');
-  const text   = input.value.trim();
+  const input = document.getElementById('journal-input');
+  const text  = input.value.trim();
   if (!text) return;
-  const btn    = document.getElementById('save-btn');
+  const btn   = document.getElementById('save-btn');
   btn.disabled = true;
-  setStatus('Saving...', 'pending');
-
-  const years  = getAgeYears();
-  const months = getAgeMonths() - years * 12;
-  const entry  = {
-    text,
-    date: new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
-    age:  years + 'y' + (months > 0 ? months + 'm' : '')
-  };
-
+  setJStatus('Saving...', 'pending');
+  const years  = getAgeYears(), months = getAgeMonths() - getAgeYears() * 12;
+  const entry  = { text, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), age: years+'y'+(months>0?months+'m':'') };
   if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
     try {
-      const res  = await fetch(MEMORIES_API, {
-        method:  'POST',
-        headers: sbHeaders(),
-        body:    JSON.stringify(entry)
-      });
+      const res  = await fetch(MEMORIES_API, { method:'POST', headers:sbH(), body:JSON.stringify(entry) });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'save error');
+      if (!res.ok) throw new Error('save failed');
       memories.unshift(Array.isArray(data) ? data[0] : data);
-      setStatus('Saved ✓', 'ok');
+      setJStatus('Saved ✓', 'ok');
     } catch(e) {
       memories.unshift(entry);
       localStorage.setItem('memories', JSON.stringify(memories));
-      setStatus('Saved locally (check connection)', 'err');
+      setJStatus('Saved locally (offline)', 'err');
     }
   } else {
     memories.unshift(entry);
     localStorage.setItem('memories', JSON.stringify(memories));
-    setStatus('Saved locally ✓', 'ok');
+    setJStatus('Saved locally ✓', 'ok');
   }
-
-  input.value  = '';
-  btn.disabled = false;
-  renderMemories();
-  setTimeout(() => setStatus('', ''), 3000);
+  input.value = ''; btn.disabled = false; renderMemories();
+  setTimeout(() => setJStatus('', ''), 3000);
 }
 
-function setStatus(msg, cls) {
-  const el = document.getElementById('journal-status');
-  el.textContent  = msg;
-  el.className    = 'journal-status' + (cls ? ' ' + cls : '');
+function setJStatus(msg, cls) {
+  const el = document.getElementById('j-status');
+  el.textContent = msg;
+  el.className   = 'j-status' + (cls ? ' ' + cls : '');
 }
-
 function renderMemories() {
   const list = document.getElementById('memories-list');
-  if (!memories.length) {
-    list.innerHTML = '<p style="font-size:13px;color:var(--text3)">No memories yet — add your first one above.</p>';
-    return;
-  }
+  if (!memories.length) { list.innerHTML = '<p style="font-size:13px;color:var(--text3)">No memories yet — add your first one above.</p>'; return; }
   list.innerHTML = memories.map(m =>
-    `<div class="mem-item">
-      <div class="mem-date">${m.date}<span class="mem-age-tag">${m.age || ''}</span></div>
-      <div class="mem-text">${m.text}</div>
-    </div>`).join('');
+    `<div class="mem-item"><div class="mem-date">${m.date}<span class="mem-age-tag">${m.age||''}</span></div><div class="mem-text">${m.text}</div></div>`
+  ).join('');
 }
 
 // ── CHATBOT ───────────────────────────────────
 function setMode(mode) {
   chatMode = mode;
-  document.getElementById('mode-local').classList.toggle('active', mode === 'local');
-  document.getElementById('mode-ai').classList.toggle('active', mode === 'ai');
-  document.getElementById('local-notice').style.display = mode === 'local' ? 'block' : 'none';
-  document.getElementById('ai-notice').style.display    = mode === 'ai'    ? 'block' : 'none';
+  document.getElementById('mode-local').classList.toggle('active', mode==='local');
+  document.getElementById('mode-ai').classList.toggle('active', mode==='ai');
+  document.getElementById('local-notice').style.display = mode==='local' ? 'block' : 'none';
+  document.getElementById('ai-notice').style.display    = mode==='ai'    ? 'block' : 'none';
 }
-
 function renderSuggestedQs() {
   document.getElementById('suggested-qs').innerHTML = SUGGESTED.map(q =>
-    `<div class="sq" onclick="askSuggested('${q.replace(/'/g,"\\'")}')">${q}</div>`
-  ).join('');
+    `<div class="sq" onclick="askQ('${q.replace(/'/g,"\\'")}')">${q}</div>`).join('');
 }
-
-function askSuggested(q) {
-  document.getElementById('chat-input').value = q;
-  sendChat();
-}
+function askQ(q) { document.getElementById('chat-input').value = q; sendChat(); }
 
 function addMsg(html, role) {
   const msgs = document.getElementById('chat-messages');
   const div  = document.createElement('div');
-  div.className = 'msg ' + role;
-  div.innerHTML = html;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
+  div.className = 'msg ' + role; div.innerHTML = html;
+  msgs.appendChild(div); msgs.scrollTop = msgs.scrollHeight;
   return div;
 }
-
 function localAnswer(query) {
   const q = query.toLowerCase();
   let best = null, bestScore = 0;
   for (const item of QA) {
     if (item.band !== 'any' && item.band !== currentBand) continue;
-    let score = item.tags.filter(t => q.includes(t)).length;
+    const score = item.tags.filter(t => q.includes(t)).length;
     if (score > bestScore) { bestScore = score; best = item; }
   }
   if (best && bestScore > 0) return best.a;
-  return `I don't have a specific built-in answer for that. Try switching to <strong>Live AI</strong> mode for a more detailed response, or check the other tabs for age ${currentBand} content.`;
+  return `I don't have a built-in answer for that. Switch to <strong>Live AI</strong> mode for a detailed response, or browse the other tabs for age ${currentBand} content.`;
 }
-
 async function sendChat() {
-  const input  = document.getElementById('chat-input');
-  const send   = document.getElementById('chat-send');
-  const query  = input.value.trim();
+  const input = document.getElementById('chat-input');
+  const send  = document.getElementById('chat-send');
+  const query = input.value.trim();
   if (!query) return;
-  input.value  = '';
+  input.value = '';
   addMsg(query, 'user');
-
-  if (chatMode === 'local') {
-    addMsg(localAnswer(query), 'bot');
-    return;
-  }
-
-  send.disabled  = true;
-  input.disabled = true;
-  const typing   = addMsg('<em>Thinking...</em>', 'bot typing');
-
+  if (chatMode === 'local') { addMsg(localAnswer(query), 'bot'); return; }
+  send.disabled = true; input.disabled = true;
+  const typing = addMsg('<em>Thinking...</em>', 'bot typing');
   try {
     const res  = await fetch('/.netlify/functions/ai', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
-        model:      'claude-sonnet-4-20250514',
-        max_tokens: 600,
-        messages:   [{ role: 'user', content:
-          `You are a helpful child development assistant. My son Malachi is ${getAgeYears()} years old (born June 15, 2024). Answer this in a warm, dad-friendly tone. Keep it concise — 3–5 sentences max unless a list is genuinely needed. Question: ${query}`
-        }]
-      })
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:600, messages:[{ role:'user', content:
+        `You are a helpful child development assistant. My son Malachi is ${getAgeYears()} years old (born June 15, 2024). Answer this in a warm, dad-friendly tone. Keep it concise — 3–5 sentences max unless a list is genuinely needed. Question: ${query}`
+      }]})
     });
     const data = await res.json();
-    const text = data.content?.map(c => c.text || '').join('') || 'Sorry, no response received.';
-    typing.classList.remove('typing');
-    typing.innerHTML = text;
+    const text = data.content?.map(c=>c.text||'').join('') || 'Sorry, no response received.';
+    typing.classList.remove('typing'); typing.innerHTML = text;
   } catch(e) {
     typing.classList.remove('typing');
     typing.innerHTML = 'Could not reach AI — switch to <strong>Built-in Q&A</strong> for an offline answer.';
   }
-
-  send.disabled  = false;
-  input.disabled = false;
-  input.focus();
+  send.disabled = false; input.disabled = false; input.focus();
 }
 
 // ── INIT ──────────────────────────────────────
 updateHeader();
 renderMilestones();
-renderTab('research');
 loadMemories();
 renderSuggestedQs();
+loadTab('research');
 </script>
 </body>
 </html>
