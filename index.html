@@ -275,7 +275,19 @@
     .sub-card { background:var(--bg3); border-radius:10px; padding:10px 12px; border:0.5px solid var(--border); }
     .ai-body a { color:var(--green); text-decoration:none; border-bottom:1px solid var(--green-dim); }
 
-    /* UTILS */
+    /* PARENT SELECTOR */
+  .parent-bar { background:var(--bg2); padding:6px 1.25rem; border-bottom:0.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; gap:8px; }
+  .parent-bar-label { font-size:11px; color:var(--text3); white-space:nowrap; flex-shrink:0; }
+  .parent-btn { flex:none; padding:5px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); background:var(--bg3); border:0.5px solid var(--border2); border-radius:20px; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
+  .parent-btn.dad  { } .parent-btn.mom  { }
+  .parent-btn.active.dad { background:#0a2a4a; color:#0a84ff; border-color:#0a84ff; }
+  .parent-btn.active.mom { background:#2a0a3a; color:#bf5af2; border-color:#bf5af2; }
+  .parent-tag { display:inline-block; font-size:10px; font-weight:500; padding:2px 7px; border-radius:10px; margin-left:6px; }
+  .parent-tag.dad { background:#0a2a4a; color:#0a84ff; }
+  .parent-tag.mom { background:#2a0a3a; color:#bf5af2; }
+  .filter-bar { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+  .filter-btn { padding:4px 12px; border-radius:20px; border:0.5px solid var(--border2); background:var(--bg4); font-size:11px; font-family:'DM Sans',sans-serif; color:var(--text2); cursor:pointer; transition:all 0.2s; }
+  .filter-btn.active { background:var(--green-dim); color:var(--green); border-color:var(--green); }
     .empty-state { font-size:13px; color:var(--text3); padding:8px 0; line-height:1.6; }
     .section-divider { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:0.8px; font-weight:500; margin:12px 0 8px; }
   </style>
@@ -300,6 +312,13 @@
     <button class="age-btn" onclick="setAgeBand('3')" id="band-3">Age 3</button>
     <button class="age-btn" onclick="setAgeBand('4')" id="band-4">Age 4</button>
     <button class="age-btn" onclick="setAgeBand('5')" id="band-5">Age 5</button>
+  </div>
+
+  <div class="parent-bar">
+    <span class="parent-bar-label">Logging as:</span>
+    <button class="parent-btn dad" id="pbtn-dad" onclick="setParent('dad')">👨 Dad</button>
+    <button class="parent-btn mom" id="pbtn-mom" onclick="setParent('mom')">👩 Mom</button>
+    <span id="parent-indicator" style="font-size:11px;color:var(--text3);margin-left:4px"></span>
   </div>
 
   <nav class="nav">
@@ -401,7 +420,12 @@
         </div>
       </div>
       <div class="card">
-        <div class="lbl b" style="margin-bottom:10px">Visit history</div>
+        <div class="card-head"><span class="lbl b">Visit history</span></div>
+        <div class="filter-bar">
+          <button class="filter-btn active" id="vf-all" onclick="setVisitFilter('all')">All</button>
+          <button class="filter-btn dad" id="vf-dad" onclick="setVisitFilter('dad')">👨 Dad</button>
+          <button class="filter-btn mom" id="vf-mom" onclick="setVisitFilter('mom')">👩 Mom</button>
+        </div>
         <div id="visit-list"><p class="empty-state">No visits logged yet.</p></div>
       </div>
     </div>
@@ -425,7 +449,12 @@
         </div>
       </div>
       <div class="card">
-        <div class="lbl r" style="margin-bottom:10px">Medication history</div>
+        <div class="card-head"><span class="lbl r">Medication history</span></div>
+        <div class="filter-bar">
+          <button class="filter-btn active" id="mf-all" onclick="setMedFilter('all')">All</button>
+          <button class="filter-btn" id="mf-dad" onclick="setMedFilter('dad')">👨 Dad</button>
+          <button class="filter-btn" id="mf-mom" onclick="setMedFilter('mom')">👩 Mom</button>
+        </div>
         <div id="med-list"><p class="empty-state">No medications logged yet.</p></div>
       </div>
     </div>
@@ -504,7 +533,12 @@
         <button class="add-btn purple" onclick="addMood()"><i class="ti ti-plus"></i> Log mood</button>
       </div>
       <div class="card">
-        <div class="lbl p" style="margin-bottom:10px">Mood history</div>
+        <div class="card-head"><span class="lbl p">Mood history</span></div>
+        <div class="filter-bar">
+          <button class="filter-btn active" id="mdf-all" onclick="setMoodFilter('all')">All</button>
+          <button class="filter-btn" id="mdf-dad" onclick="setMoodFilter('dad')">👨 Dad</button>
+          <button class="filter-btn" id="mdf-mom" onclick="setMoodFilter('mom')">👩 Mom</button>
+        </div>
         <div id="mood-list"><p class="empty-state">No mood entries yet.</p></div>
       </div>
     </div>
@@ -524,7 +558,12 @@
         <div class="j-status" id="j-status"></div>
       </div>
       <div class="card">
-        <div class="lbl g" style="margin-bottom:10px">Saved memories</div>
+        <div class="card-head"><span class="lbl g">Saved memories</span></div>
+        <div class="filter-bar">
+          <button class="filter-btn active" id="jf-all" onclick="setJournalFilter('all')">All</button>
+          <button class="filter-btn" id="jf-dad" onclick="setJournalFilter('dad')">👨 Dad</button>
+          <button class="filter-btn" id="jf-mom" onclick="setJournalFilter('mom')">👩 Mom</button>
+        </div>
         <div id="memories-list"><p class="empty-state">Loading...</p></div>
       </div>
     </div>
@@ -606,6 +645,47 @@ let chatMode = 'local';
 let selectedMood = '';
 let pendingPhotoBase64 = '';
 const tabCache = {};
+
+// ── PARENT / FILTER ───────────────────────────
+let currentParent = localStorage.getItem('currentParent') || 'dad';
+let visitFilter = 'all';
+let medFilter = 'all';
+let moodFilter = 'all';
+let journalFilter = 'all';
+
+function setParent(p) {
+  currentParent = p;
+  localStorage.setItem('currentParent', p);
+  document.querySelectorAll('.parent-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pbtn-' + p).classList.add('active');
+  document.getElementById('parent-indicator').textContent = p === 'dad' ? 'Your entries will be tagged 👨 Dad' : 'Your entries will be tagged 👩 Mom';
+}
+
+function setVisitFilter(f) {
+  visitFilter = f;
+  ['all','dad','mom'].forEach(v => document.getElementById('vf-' + v).classList.toggle('active', v === f));
+  renderVisits();
+}
+function setMedFilter(f) {
+  medFilter = f;
+  ['all','dad','mom'].forEach(v => document.getElementById('mf-' + v).classList.toggle('active', v === f));
+  renderMeds();
+}
+function setMoodFilter(f) {
+  moodFilter = f;
+  ['all','dad','mom'].forEach(v => document.getElementById('mdf-' + v).classList.toggle('active', v === f));
+  renderMoods();
+}
+function setJournalFilter(f) {
+  journalFilter = f;
+  ['all','dad','mom'].forEach(v => document.getElementById('jf-' + v).classList.toggle('active', v === f));
+  renderMemories();
+}
+
+function parentTag(parent) {
+  if (!parent) return '';
+  return `<span class="parent-tag ${parent}">${parent === 'dad' ? '👨 Dad' : '👩 Mom'}</span>`;
+}
 
 // ── MILESTONES ────────────────────────────────
 const MILESTONES = {
@@ -985,7 +1065,7 @@ function addGrowth() {
   const note = document.getElementById('growth-note').value.trim();
   const ageLabel = document.getElementById('growth-age-label').value.trim();
   if (!date || (!height && !weight)) { alert('Please enter a date and at least one measurement.'); return; }
-  growthData.unshift({ date, height: height ? parseFloat(height) : null, weight: weight ? parseFloat(weight) : null, note, ageLabel, id: Date.now() });
+  growthData.unshift({ date, height: height ? parseFloat(height) : null, weight: weight ? parseFloat(weight) : null, note, ageLabel, parent: currentParent, id: Date.now() });
   localStorage.setItem('growth', JSON.stringify(growthData));
   document.getElementById('growth-height').value = '';
   document.getElementById('growth-weight').value = '';
@@ -1038,7 +1118,7 @@ function addVisit() {
   const notes = document.getElementById('visit-notes').value.trim();
   const followup = document.getElementById('visit-followup').value.trim();
   if (!date) { alert('Please enter a date.'); return; }
-  visits.unshift({ date, type, doctor, vaccines, notes, followup, id: Date.now() });
+  visits.unshift({ date, type, doctor, vaccines, notes, followup, parent: currentParent, id: Date.now() });
   localStorage.setItem('visits', JSON.stringify(visits));
   ['visit-date','visit-doctor','visit-vaccines','visit-notes','visit-followup'].forEach(id => { document.getElementById(id).value = ''; });
   renderVisits();
@@ -1046,12 +1126,13 @@ function addVisit() {
 function deleteVisit(id) { visits = visits.filter(v => v.id !== id); localStorage.setItem('visits', JSON.stringify(visits)); renderVisits(); }
 function renderVisits() {
   const list = document.getElementById('visit-list');
-  if (!visits.length) { list.innerHTML = '<p class="empty-state">No visits logged yet.</p>'; return; }
+  const filtered = visitFilter === 'all' ? visits : visits.filter(v => v.parent === visitFilter);
+  if (!filtered.length) { list.innerHTML = '<p class="empty-state">No visits logged yet.</p>'; return; }
   const typeMap = { well:'Well visit', sick:'Sick visit', vacc:'Vaccination', other:'Other' };
-  list.innerHTML = visits.map(v => `
+  list.innerHTML = filtered.map(v => `
     <div class="visit-item">
       <div class="visit-item-head">
-        <div><span class="visit-tag ${v.type}">${typeMap[v.type]||v.type}</span><div class="visit-item-title">${v.doctor || 'Doctor visit'}</div></div>
+        <div><span class="visit-tag ${v.type}">${typeMap[v.type]||v.type}</span>${parentTag(v.parent)}<div class="visit-item-title">${v.doctor || 'Doctor visit'}</div></div>
         <div style="display:flex;align-items:center;gap:6px"><span class="visit-item-date">${v.date}</span><button class="item-delete" onclick="deleteVisit(${v.id})"><i class="ti ti-trash"></i></button></div>
       </div>
       ${v.vaccines ? `<div class="visit-item-detail"><strong>Vaccines:</strong> ${v.vaccines}</div>` : ''}
@@ -1070,7 +1151,7 @@ function addMed() {
   const reason = document.getElementById('med-reason').value.trim();
   const notes = document.getElementById('med-notes').value.trim();
   if (!date || !name) { alert('Please enter a date and medication name.'); return; }
-  meds.unshift({ date, time, name, dose, reason, notes, id: Date.now() });
+  meds.unshift({ date, time, name, dose, reason, notes, parent: currentParent, id: Date.now() });
   localStorage.setItem('meds', JSON.stringify(meds));
   ['med-name','med-dose','med-reason','med-notes'].forEach(id => { document.getElementById(id).value = ''; });
   renderMeds();
@@ -1078,11 +1159,12 @@ function addMed() {
 function deleteMed(id) { meds = meds.filter(m => m.id !== id); localStorage.setItem('meds', JSON.stringify(meds)); renderMeds(); }
 function renderMeds() {
   const list = document.getElementById('med-list');
-  if (!meds.length) { list.innerHTML = '<p class="empty-state">No medications logged yet.</p>'; return; }
-  list.innerHTML = meds.map(m => `
+  const filtered = medFilter === 'all' ? meds : meds.filter(m => m.parent === medFilter);
+  if (!filtered.length) { list.innerHTML = '<p class="empty-state">No medications logged yet.</p>'; return; }
+  list.innerHTML = filtered.map(m => `
     <div class="med-item">
       <div class="med-item-left">
-        <p>${m.name}${m.dose ? ' · ' + m.dose : ''}</p>
+        <p>${m.name}${m.dose ? ' · ' + m.dose : ''}${parentTag(m.parent)}</p>
         <span>${m.date}${m.time ? ' at ' + m.time : ''}${m.reason ? ' · ' + m.reason : ''}</span>
         ${m.notes ? `<div style="font-size:12px;color:var(--text3);margin-top:2px">${m.notes}</div>` : ''}
       </div>
@@ -1128,7 +1210,7 @@ function selectMood(emoji) {
 function addMood() {
   if (!selectedMood) { alert('Please select a mood first.'); return; }
   const note = document.getElementById('mood-note').value.trim();
-  moods.unshift({ emoji: selectedMood, note, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), time: new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}), id: Date.now() });
+  moods.unshift({ emoji: selectedMood, note, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), time: new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}), parent: currentParent, id: Date.now() });
   localStorage.setItem('moods', JSON.stringify(moods));
   document.getElementById('mood-note').value = '';
   selectedMood = '';
@@ -1138,12 +1220,13 @@ function addMood() {
 function deleteMood(id) { moods = moods.filter(m => m.id !== id); localStorage.setItem('moods', JSON.stringify(moods)); renderMoods(); }
 function renderMoods() {
   const list = document.getElementById('mood-list');
-  if (!moods.length) { list.innerHTML = '<p class="empty-state">No mood entries yet.</p>'; return; }
-  list.innerHTML = moods.map(m => `
+  const filtered = moodFilter === 'all' ? moods : moods.filter(m => m.parent === moodFilter);
+  if (!filtered.length) { list.innerHTML = '<p class="empty-state">No mood entries yet.</p>'; return; }
+  list.innerHTML = filtered.map(m => `
     <div class="mood-item">
       <div class="mood-item-left">
         <div class="mood-emoji">${m.emoji}</div>
-        <div class="mood-item-text"><p>${m.note || 'No note'}</p><span>${m.date} · ${m.time || ''}</span></div>
+        <div class="mood-item-text"><p>${m.note || 'No note'}${parentTag(m.parent)}</p><span>${m.date} · ${m.time || ''}</span></div>
       </div>
       <button class="item-delete" onclick="deleteMood(${m.id})"><i class="ti ti-trash"></i></button>
     </div>`).join('');
@@ -1183,7 +1266,7 @@ async function saveMemory() {
   const btn = document.getElementById('save-btn'); btn.disabled = true;
   setJStatus('Saving...', 'pending');
   const years = getAgeYears(), months = getAgeMonths() - years * 12;
-  const entry = { text, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), age: years+'y'+(months>0?months+'m':''), photo: pendingPhotoBase64 || null };
+  const entry = { text, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), age: years+'y'+(months>0?months+'m':''), photo: pendingPhotoBase64 || null, parent: currentParent };
   if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
     try {
       const res = await fetch(MEMORIES_API, { method:'POST', headers:sbH(), body:JSON.stringify(entry) });
@@ -1206,10 +1289,11 @@ function setJStatus(msg, cls) {
 
 function renderMemories() {
   const list = document.getElementById('memories-list');
-  if (!memories.length) { list.innerHTML = '<p class="empty-state">No memories yet — add your first one above.</p>'; return; }
-  list.innerHTML = memories.map(m => `
+  const filtered = journalFilter === 'all' ? memories : memories.filter(m => m.parent === journalFilter);
+  if (!filtered.length) { list.innerHTML = '<p class="empty-state">No memories yet — add your first one above.</p>'; return; }
+  list.innerHTML = filtered.map(m => `
     <div class="mem-item">
-      <div class="mem-date">${m.date}<span class="mem-age-tag">${m.age||''}</span></div>
+      <div class="mem-date">${m.date}<span class="mem-age-tag">${m.age||''}</span>${parentTag(m.parent)}</div>
       <div class="mem-text">${m.text}</div>
       ${m.photo ? `<img src="${m.photo}" class="mem-photo" />` : ''}
     </div>`).join('');
@@ -1332,6 +1416,7 @@ document.getElementById('growth-date').value = new Date().toISOString().split('T
 document.getElementById('visit-date').value = new Date().toISOString().split('T')[0];
 document.getElementById('med-date').value = new Date().toISOString().split('T')[0];
 document.getElementById('insurance-info').value = localStorage.getItem('insurance') || '';
+setParent(currentParent);
 updateHeader();
 renderMilestones();
 renderPacking();
