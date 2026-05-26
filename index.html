@@ -13,116 +13,96 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     :root {
-      --bg: #0a0a0a; --bg2: #141414; --bg3: #1c1c1e; --bg4: #2c2c2e;
-      --green: #30d158; --green-dim: #1a3d24;
-      --amber: #ffd60a; --amber-dim: #3a3000;
-      --blue: #0a84ff; --blue-dim: #0a2a4a;
-      --text: #f5f5f7; --text2: #aeaeb2; --text3: #636366;
-      --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.13);
+      --bg:#0a0a0a; --bg2:#141414; --bg3:#1c1c1e; --bg4:#2c2c2e;
+      --green:#30d158; --green-dim:#1a3d24;
+      --amber:#ffd60a; --amber-dim:#3a3000;
+      --text:#f5f5f7; --text2:#aeaeb2; --text3:#636366;
+      --border:rgba(255,255,255,0.08); --border2:rgba(255,255,255,0.13);
     }
-    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow: hidden; }
-    .app { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+    html,body { height:100%; background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; overflow:hidden; }
+    .app { display:flex; flex-direction:column; height:100vh; height:100dvh; }
 
-    /* HEADER */
-    .header { background: var(--bg2); padding: calc(env(safe-area-inset-top) + 14px) 1.25rem 1rem; border-bottom: 0.5px solid var(--border); flex-shrink: 0; }
-    .header-row { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
-    .child-name { font-family: 'Fraunces', serif; font-size: 26px; font-weight: 300; color: var(--text); line-height: 1.1; }
-    .child-name em { color: var(--green); font-style: italic; }
-    .age-pill { background: var(--green-dim); color: var(--green); font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; white-space: nowrap; margin-top: 4px; }
-    .sub-line { font-size: 12px; color: var(--text3); margin-bottom: 10px; }
-    .custody-bar { background: var(--bg3); border-radius: 8px; padding: 9px 12px; display: flex; align-items: center; gap: 8px; border: 0.5px solid var(--border); }
-    .custody-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
-    .custody-text { font-size: 12px; color: var(--text2); }
-    .custody-text strong { color: var(--text); }
+    .header { background:var(--bg2); padding:calc(env(safe-area-inset-top) + 14px) 1.25rem 1rem; border-bottom:0.5px solid var(--border); flex-shrink:0; }
+    .header-row { display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px; }
+    .child-name { font-family:'Fraunces',serif; font-size:26px; font-weight:300; color:var(--text); line-height:1.1; }
+    .child-name em { color:var(--green); font-style:italic; }
+    .age-pill { background:var(--green-dim); color:var(--green); font-size:11px; font-weight:500; padding:4px 10px; border-radius:20px; white-space:nowrap; margin-top:4px; }
+    .sub-line { font-size:12px; color:var(--text3); margin-bottom:10px; }
+    .custody-bar { background:var(--bg3); border-radius:8px; padding:9px 12px; display:flex; align-items:center; gap:8px; border:0.5px solid var(--border); }
+    .custody-dot { width:7px; height:7px; border-radius:50%; background:var(--green); flex-shrink:0; }
+    .custody-text { font-size:12px; color:var(--text2); }
+    .custody-text strong { color:var(--text); }
 
-    /* AGE SELECTOR */
-    .age-selector { background: var(--bg2); padding: 10px 1.25rem; border-bottom: 0.5px solid var(--border); flex-shrink: 0; display: flex; align-items: center; gap: 8px; overflow-x: auto; scrollbar-width: none; }
-    .age-selector::-webkit-scrollbar { display: none; }
-    .age-selector-label { font-size: 11px; color: var(--text3); white-space: nowrap; font-weight: 500; flex-shrink: 0; }
-    .age-btn { flex: none; padding: 5px 12px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text3); background: var(--bg3); border: 0.5px solid var(--border2); border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
-    .age-btn.active { background: var(--green-dim); color: var(--green); border-color: var(--green); }
+    .age-selector { background:var(--bg2); padding:8px 1.25rem; border-bottom:0.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; gap:8px; overflow-x:auto; scrollbar-width:none; }
+    .age-selector::-webkit-scrollbar { display:none; }
+    .age-selector-label { font-size:11px; color:var(--text3); white-space:nowrap; font-weight:500; flex-shrink:0; }
+    .age-btn { flex:none; padding:5px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); background:var(--bg3); border:0.5px solid var(--border2); border-radius:20px; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
+    .age-btn.active { background:var(--green-dim); color:var(--green); border-color:var(--green); }
 
-    /* NAV */
-    .nav { display: flex; background: var(--bg2); border-bottom: 0.5px solid var(--border); overflow-x: auto; scrollbar-width: none; flex-shrink: 0; }
-    .nav::-webkit-scrollbar { display: none; }
-    .nav-btn { flex: none; padding: 11px 14px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; color: var(--text3); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; }
-    .nav-btn i { font-size: 14px; vertical-align: -2px; margin-right: 4px; }
-    .nav-btn.active { color: var(--green); border-bottom-color: var(--green); }
+    .nav { display:flex; background:var(--bg2); border-bottom:0.5px solid var(--border); overflow-x:auto; scrollbar-width:none; flex-shrink:0; }
+    .nav::-webkit-scrollbar { display:none; }
+    .nav-btn { flex:none; padding:11px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); background:none; border:none; border-bottom:2px solid transparent; cursor:pointer; white-space:nowrap; }
+    .nav-btn i { font-size:14px; vertical-align:-2px; margin-right:4px; }
+    .nav-btn.active { color:var(--green); border-bottom-color:var(--green); }
 
-    /* CONTENT */
-    .content { flex: 1; overflow-y: auto; background: var(--bg); -webkit-overflow-scrolling: touch; padding-bottom: calc(env(safe-area-inset-bottom) + 16px); }
-    .section { display: none; padding: 1rem; }
-    .section.active { display: block; }
-    .section-title { font-family: 'Fraunces', serif; font-size: 18px; font-weight: 400; color: var(--text); margin-bottom: 4px; }
-    .section-subtitle { font-size: 12px; color: var(--text3); margin-bottom: 0.75rem; }
+    .content { flex:1; overflow-y:auto; background:var(--bg); -webkit-overflow-scrolling:touch; padding-bottom:calc(env(safe-area-inset-bottom) + 16px); }
+    .section { display:none; padding:1rem; }
+    .section.active { display:block; }
+    .section-title { font-family:'Fraunces',serif; font-size:18px; font-weight:400; color:var(--text); margin-bottom:3px; }
+    .section-sub { font-size:12px; color:var(--text3); margin-bottom:0.85rem; }
 
-    /* CARDS */
-    .card { background: var(--bg3); border-radius: 12px; border: 0.5px solid var(--border2); padding: 1rem 1.125rem; margin-bottom: 0.75rem; }
-    .card.ga { border-left: 2px solid var(--green); border-radius: 0 12px 12px 0; }
-    .card.aa { border-left: 2px solid var(--amber); border-radius: 0 12px 12px 0; }
-    .card.ba { border-left: 2px solid var(--blue); border-radius: 0 12px 12px 0; }
-    .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-    .lbl { font-size: 10px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; }
-    .lbl.g { color: var(--green); } .lbl.a { color: var(--amber); } .lbl.b { color: var(--blue); }
+    .card { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem 1.125rem; margin-bottom:0.75rem; }
+    .card.ga { border-left:2px solid var(--green); border-radius:0 12px 12px 0; }
+    .card.aa { border-left:2px solid var(--amber); border-radius:0 12px 12px 0; }
+    .card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+    .lbl { font-size:10px; font-weight:500; letter-spacing:0.8px; text-transform:uppercase; }
+    .lbl.g { color:var(--green); } .lbl.a { color:var(--amber); }
 
-    /* MILESTONES */
-    .ms-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 0; border-bottom: 0.5px solid var(--border); }
-    .ms-item:last-child { border-bottom: none; padding-bottom: 0; }
-    .ms-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--text3); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; margin-top: 1px; transition: background 0.2s, border-color 0.2s; }
-    .ms-check.done { background: var(--green); border-color: var(--green); }
-    .ms-check i { font-size: 11px; color: transparent; }
-    .ms-check.done i { color: #000; }
-    .ms-label p { font-size: 14px; color: var(--text); line-height: 1.4; }
-    .ms-label span { font-size: 11px; color: var(--text3); }
-    .progress-row { display: flex; align-items: center; gap: 12px; padding-top: 12px; margin-top: 10px; border-top: 0.5px solid var(--border); }
-    .ring-wrap { position: relative; width: 48px; height: 48px; flex-shrink: 0; }
-    .ring-wrap svg { transform: rotate(-90deg); }
-    .ring-center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 500; color: var(--green); }
-    .ring-info p { font-size: 13px; color: var(--text); font-weight: 500; }
-    .ring-info span { font-size: 11px; color: var(--text3); }
+    .content-body h4 { font-family:'Fraunces',serif; font-size:14px; font-weight:400; color:var(--green); margin:0.8rem 0 0.3rem; }
+    .content-body h4:first-child { margin-top:0; }
+    .content-body ul { padding-left:1.1rem; margin:0.2rem 0 0.5rem; }
+    .content-body li { margin-bottom:0.35rem; color:var(--text2); font-size:13px; line-height:1.5; }
+    .content-body p { font-size:13px; color:var(--text2); line-height:1.6; margin-bottom:0.4rem; }
+    .content-body strong { color:var(--text); font-weight:500; }
 
-    /* AI */
-    .ai-loading { display: flex; align-items: center; gap: 8px; padding: 0.5rem 0; color: var(--text3); font-size: 13px; }
-    .dots { display: flex; gap: 3px; }
-    .dots span { width: 4px; height: 4px; border-radius: 50%; background: var(--green); opacity: 0.3; animation: dp 1.2s infinite; }
-    .dots span:nth-child(2) { animation-delay: 0.2s; }
-    .dots span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes dp { 0%,80%,100%{opacity:0.3;transform:scale(0.8)} 40%{opacity:1;transform:scale(1)} }
-    .ai-body { font-size: 13px; line-height: 1.65; color: var(--text); }
-    .ai-body h4 { font-family: 'Fraunces', serif; font-size: 14px; font-weight: 400; color: var(--green); margin: 0.75rem 0 0.25rem; }
-    .ai-body h4:first-child { margin-top: 0; }
-    .ai-body ul { padding-left: 1.1rem; margin: 0.2rem 0 0.4rem; }
-    .ai-body li { margin-bottom: 0.3rem; color: var(--text2); font-size: 13px; }
-    .ai-body p { margin-bottom: 0.35rem; color: var(--text2); font-size: 13px; }
-    .ai-body strong { color: var(--text); font-weight: 500; }
-    .refresh-btn { background: var(--bg4); border: 0.5px solid var(--border2); border-radius: 6px; padding: 4px 10px; font-size: 11px; font-family: 'DM Sans', sans-serif; color: var(--text2); cursor: pointer; display: flex; align-items: center; gap: 4px; }
+    .ms-item { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:0.5px solid var(--border); }
+    .ms-item:last-child { border-bottom:none; padding-bottom:0; }
+    .ms-check { width:22px; height:22px; border-radius:50%; border:1.5px solid var(--text3); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; margin-top:1px; transition:background 0.2s,border-color 0.2s; }
+    .ms-check.done { background:var(--green); border-color:var(--green); }
+    .ms-check i { font-size:11px; color:transparent; }
+    .ms-check.done i { color:#000; }
+    .ms-label p { font-size:14px; color:var(--text); line-height:1.4; }
+    .ms-label span { font-size:11px; color:var(--text3); }
+    .progress-row { display:flex; align-items:center; gap:12px; padding-top:12px; margin-top:10px; border-top:0.5px solid var(--border); }
+    .ring-wrap { position:relative; width:48px; height:48px; flex-shrink:0; }
+    .ring-wrap svg { transform:rotate(-90deg); }
+    .ring-center { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:500; color:var(--green); }
+    .ring-info p { font-size:13px; color:var(--text); font-weight:500; }
+    .ring-info span { font-size:11px; color:var(--text3); }
 
-    /* HOME TWO COL */
-    .two-col { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 8px; margin-bottom: 0.75rem; }
-    .sub-card { background: var(--bg3); border-radius: 10px; padding: 10px 12px; border: 0.5px solid var(--border); }
+    .two-col { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-bottom:0.75rem; }
+    .sub-card { background:var(--bg3); border-radius:10px; padding:10px 12px; border:0.5px solid var(--border); }
 
-    /* JOURNAL */
-    .j-textarea { width: 100%; border: 0.5px solid var(--border2); border-radius: 8px; padding: 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--bg4); resize: none; outline: none; margin-top: 0.5rem; }
-    .j-textarea:focus { border-color: var(--green); }
-    .save-btn { background: var(--green); color: #000; border: none; border-radius: 8px; padding: 9px 18px; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; margin-top: 0.5rem; }
-    .mem-item { border-bottom: 0.5px solid var(--border); padding: 10px 0; }
-    .mem-item:last-child { border-bottom: none; }
-    .mem-date { font-size: 10px; color: var(--text3); margin-bottom: 3px; }
-    .mem-text { font-size: 13px; color: var(--text2); line-height: 1.5; }
-    .mem-age-tag { display: inline-block; background: var(--green-dim); color: var(--green); font-size: 10px; padding: 2px 7px; border-radius: 10px; margin-left: 6px; }
+    .j-textarea { width:100%; border:0.5px solid var(--border2); border-radius:8px; padding:10px; font-family:'DM Sans',sans-serif; font-size:14px; color:var(--text); background:var(--bg4); resize:none; outline:none; margin-top:0.5rem; }
+    .j-textarea:focus { border-color:var(--green); }
+    .save-btn { background:var(--green); color:#000; border:none; border-radius:8px; padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; cursor:pointer; margin-top:0.5rem; }
+    .mem-item { border-bottom:0.5px solid var(--border); padding:10px 0; }
+    .mem-item:last-child { border-bottom:none; }
+    .mem-date { font-size:10px; color:var(--text3); margin-bottom:3px; }
+    .mem-text { font-size:13px; color:var(--text2); line-height:1.5; }
+    .mem-age-tag { display:inline-block; background:var(--green-dim); color:var(--green); font-size:10px; padding:2px 7px; border-radius:10px; margin-left:6px; }
   </style>
 </head>
 <body>
 <div class="app">
 
-  <!-- HEADER -->
   <div class="header">
     <div class="header-row">
       <div>
         <div class="child-name"><em>Malachi</em></div>
-        <div class="sub-line">Born June 15, 2024 · <span id="exact-age">calculating...</span></div>
+        <div class="sub-line">Born June 15, 2024 · <span id="exact-age">loading...</span></div>
       </div>
-      <div class="age-pill" id="age-pill">2 years</div>
+      <div class="age-pill" id="age-pill">2 yr</div>
     </div>
     <div class="custody-bar">
       <div class="custody-dot"></div>
@@ -130,16 +110,14 @@
     </div>
   </div>
 
-  <!-- AGE BAND SELECTOR -->
   <div class="age-selector">
-    <span class="age-selector-label">Viewing:</span>
+    <span class="age-selector-label">Age:</span>
     <button class="age-btn" onclick="setAgeBand('2')" id="band-2">Age 2</button>
     <button class="age-btn" onclick="setAgeBand('3')" id="band-3">Age 3</button>
     <button class="age-btn" onclick="setAgeBand('4')" id="band-4">Age 4</button>
     <button class="age-btn" onclick="setAgeBand('5')" id="band-5">Age 5</button>
   </div>
 
-  <!-- NAV -->
   <nav class="nav">
     <button class="nav-btn active" onclick="showTab('milestones')"><i class="ti ti-star"></i>Milestones</button>
     <button class="nav-btn" onclick="showTab('research')"><i class="ti ti-microscope"></i>Research</button>
@@ -151,13 +129,12 @@
 
   <div class="content">
 
-    <!-- MILESTONES -->
     <div id="milestones" class="section active">
       <p class="section-title">Milestone tracker</p>
-      <p class="section-subtitle" id="ms-subtitle">Tracking age 2 milestones</p>
-      <div class="card ga" id="ms-card">
+      <p class="section-sub" id="ms-sub">Age 2 milestones</p>
+      <div class="card ga">
         <div class="card-head">
-          <span class="lbl g" id="ms-card-label">At age 2</span>
+          <span class="lbl g" id="ms-lbl">CDC checkpoints</span>
           <span id="ms-count" style="font-size:11px;color:var(--text3)">0 / 0 done</span>
         </div>
         <div id="ms-list"></div>
@@ -174,59 +151,42 @@
       </div>
     </div>
 
-    <!-- RESEARCH -->
     <div id="research" class="section">
-      <p class="section-title">Latest research</p>
-      <p class="section-subtitle" id="research-subtitle">AI-curated for age 2</p>
-      <div class="card ga">
-        <div class="card-head"><span class="lbl g" id="research-lbl">Age 2 research</span><button class="refresh-btn" onclick="loadAI('research')"><i class="ti ti-refresh"></i>Refresh</button></div>
-        <div id="research-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
-      </div>
+      <p class="section-title">Development research</p>
+      <p class="section-sub" id="research-sub">What to know about age 2</p>
+      <div id="research-body"></div>
     </div>
 
-    <!-- TOYS -->
     <div id="toys" class="section">
       <p class="section-title">Toy recommendations</p>
-      <p class="section-subtitle" id="toys-subtitle">Best picks for age 2</p>
-      <div class="card aa">
-        <div class="card-head"><span class="lbl a" id="toys-lbl">Age 2 toys</span><button class="refresh-btn" onclick="loadAI('toys')"><i class="ti ti-refresh"></i>Refresh</button></div>
-        <div id="toys-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
-      </div>
+      <p class="section-sub" id="toys-sub">Best picks for age 2</p>
+      <div id="toys-body"></div>
     </div>
 
-    <!-- TIPS -->
     <div id="tips" class="section">
       <p class="section-title">Communication &amp; learning</p>
-      <p class="section-subtitle" id="tips-subtitle">Tips for age 2</p>
-      <div class="card ga">
-        <div class="card-head"><span class="lbl g" id="tips-lbl">Age 2 tips</span><button class="refresh-btn" onclick="loadAI('tips')"><i class="ti ti-refresh"></i>Refresh</button></div>
-        <div id="tips-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
-      </div>
+      <p class="section-sub" id="tips-sub">Tips for age 2</p>
+      <div id="tips-body"></div>
     </div>
 
-    <!-- HOME & HEALTH -->
     <div id="home" class="section">
       <p class="section-title">Home &amp; health</p>
-      <p class="section-subtitle" id="home-subtitle">Recommendations for age 2</p>
+      <p class="section-sub" id="home-sub">Recommendations for age 2</p>
       <div class="two-col">
         <div class="sub-card" style="border-left:2px solid var(--green);border-radius:0 10px 10px 0">
-          <div class="lbl g" style="margin-bottom:6px">Lifestyle</div>
-          <div id="lifestyle-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+          <div class="lbl g" style="margin-bottom:8px">Lifestyle</div>
+          <div id="lifestyle-body"></div>
         </div>
         <div class="sub-card" style="border-left:2px solid var(--amber);border-radius:0 10px 10px 0">
-          <div class="lbl a" style="margin-bottom:6px">Health kit</div>
-          <div id="health-content"><div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div></div>
+          <div class="lbl a" style="margin-bottom:8px">Health kit</div>
+          <div id="health-body"></div>
         </div>
-      </div>
-      <div style="display:flex;justify-content:flex-end">
-        <button class="refresh-btn" onclick="loadAI('lifestyle');loadAI('health')"><i class="ti ti-refresh"></i>Refresh both</button>
       </div>
     </div>
 
-    <!-- JOURNAL -->
     <div id="journal" class="section">
       <p class="section-title">Memory journal</p>
-      <p class="section-subtitle">Every moment with Malachi, saved forever</p>
+      <p class="section-sub">Every moment with Malachi, saved forever</p>
       <div class="card">
         <div class="lbl g" style="margin-bottom:6px">Add a memory</div>
         <textarea class="j-textarea" id="journal-input" rows="3" placeholder="Write something Malachi did today..."></textarea>
@@ -246,149 +206,446 @@ const BIRTH = new Date('2024-06-15');
 let currentBand = '2';
 let activeTab = 'milestones';
 
-// ── MILESTONE DATA ──────────────────────────────────────────────
+// ─────────────────────────────────────────────
+// MILESTONES
+// ─────────────────────────────────────────────
 const MILESTONES = {
   '2': [
-    { text: 'Uses 2-word phrases ("more milk", "go bye-bye")', cat: 'Language' },
-    { text: 'Points to things or pictures when named', cat: 'Communication' },
-    { text: 'Kicks a ball, runs with more control', cat: 'Gross motor' },
-    { text: 'Stacks 4+ blocks, uses spoon independently', cat: 'Fine motor' },
-    { text: 'Shows defiant behavior ("No!")', cat: 'Social / emotional' },
-    { text: 'Parallel play alongside other children', cat: 'Social' },
-    { text: 'Follows 2-step instructions', cat: 'Cognitive' },
-    { text: 'Pretend play (feeds doll, talks on toy phone)', cat: 'Cognitive' },
+    { text:'Uses 2-word phrases ("more milk", "go bye-bye")', cat:'Language' },
+    { text:'Vocabulary of 50+ words', cat:'Language' },
+    { text:'Points to things or pictures when named', cat:'Communication' },
+    { text:'Kicks a ball forward, runs without falling often', cat:'Gross motor' },
+    { text:'Climbs onto and down from furniture without help', cat:'Gross motor' },
+    { text:'Stacks 6+ blocks', cat:'Fine motor' },
+    { text:'Uses spoon and fork independently', cat:'Fine motor' },
+    { text:'Shows defiant behavior ("No!")', cat:'Social / emotional' },
+    { text:'Plays alongside other children (parallel play)', cat:'Social' },
+    { text:'Follows 2-step instructions', cat:'Cognitive' },
+    { text:'Pretend play — feeds doll, talks on toy phone', cat:'Cognitive' },
+    { text:'Begins to show signs of potty awareness', cat:'Self-care' },
   ],
   '3': [
-    { text: 'Speaks in sentences of 3–4 words', cat: 'Language' },
-    { text: 'Strangers can understand most of what they say', cat: 'Communication' },
-    { text: 'Climbs stairs alternating feet, pedals a tricycle', cat: 'Gross motor' },
-    { text: 'Draws a circle, turns pages one at a time', cat: 'Fine motor' },
-    { text: 'Takes turns in games, shows affection for friends', cat: 'Social' },
-    { text: 'Shows concern when others are upset', cat: 'Social / emotional' },
-    { text: 'Understands "mine", "his", "hers"', cat: 'Cognitive' },
-    { text: 'Dresses and undresses with some help', cat: 'Self-care' },
-    { text: 'Names familiar colors', cat: 'Cognitive' },
+    { text:'Speaks in sentences of 4–5 words', cat:'Language' },
+    { text:'Strangers can understand most of what they say', cat:'Language' },
+    { text:'Says first and last name when asked', cat:'Communication' },
+    { text:'Climbs stairs alternating feet', cat:'Gross motor' },
+    { text:'Pedals a tricycle', cat:'Gross motor' },
+    { text:'Runs around obstacles', cat:'Gross motor' },
+    { text:'Draws a circle, copies a cross shape', cat:'Fine motor' },
+    { text:'Turns pages of a book one at a time', cat:'Fine motor' },
+    { text:'Takes turns in simple games', cat:'Social' },
+    { text:'Shows affection for friends spontaneously', cat:'Social / emotional' },
+    { text:'Understands "mine", "his", "hers"', cat:'Cognitive' },
+    { text:'Names familiar colors', cat:'Cognitive' },
+    { text:'Dresses and undresses with some help', cat:'Self-care' },
+    { text:'Uses toilet independently most of the time', cat:'Self-care' },
   ],
   '4': [
-    { text: 'Tells stories, uses sentences of 5+ words', cat: 'Language' },
-    { text: 'Can say first and last name', cat: 'Communication' },
-    { text: 'Hops on one foot, catches a bounced ball', cat: 'Gross motor' },
-    { text: 'Draws a person with 2–4 body parts', cat: 'Fine motor' },
-    { text: 'Cooperates with other children, prefers playing with others', cat: 'Social' },
-    { text: 'Understands "same" and "different"', cat: 'Cognitive' },
-    { text: 'Follows 3-step instructions', cat: 'Cognitive' },
-    { text: 'Counts to 10 or higher', cat: 'Cognitive' },
-    { text: 'Uses the toilet independently most of the time', cat: 'Self-care' },
+    { text:'Tells stories and talks about daily activities', cat:'Language' },
+    { text:'Uses sentences of 5+ words, future tense appears', cat:'Language' },
+    { text:'Can say full name, age, and address', cat:'Communication' },
+    { text:'Hops and stands on one foot for up to 2 seconds', cat:'Gross motor' },
+    { text:'Catches a bounced ball most of the time', cat:'Gross motor' },
+    { text:'Draws a person with 2–4 body parts', cat:'Fine motor' },
+    { text:'Uses scissors', cat:'Fine motor' },
+    { text:'Cooperates with other children', cat:'Social' },
+    { text:'Plays "Mom" or "Dad" in pretend play', cat:'Social' },
+    { text:'Understands "same" and "different"', cat:'Cognitive' },
+    { text:'Follows 3-step instructions', cat:'Cognitive' },
+    { text:'Counts to 10 or higher', cat:'Cognitive' },
+    { text:'Uses toilet independently, including wiping', cat:'Self-care' },
   ],
   '5': [
-    { text: 'Speaks very clearly, tells a simple story', cat: 'Language' },
-    { text: 'Uses future tense ("Dad will come")', cat: 'Language' },
-    { text: 'Stands on one foot for 10+ seconds, does somersaults', cat: 'Gross motor' },
-    { text: 'Copies a triangle, writes some letters', cat: 'Fine motor' },
-    { text: 'Wants to please friends, wants to be like friends', cat: 'Social' },
-    { text: 'Can distinguish fantasy from reality', cat: 'Cognitive' },
-    { text: 'Counts 10+ objects, knows about everyday things (money, food)', cat: 'Cognitive' },
-    { text: 'Uses fork, spoon, and sometimes a knife', cat: 'Self-care' },
-    { text: 'Can use the toilet without help', cat: 'Self-care' },
+    { text:'Speaks very clearly; tells a simple but complete story', cat:'Language' },
+    { text:'Uses future tense correctly ("Dad will be here soon")', cat:'Language' },
+    { text:'Can have a back-and-forth conversation', cat:'Communication' },
+    { text:'Stands on one foot for 10+ seconds', cat:'Gross motor' },
+    { text:'Does somersaults, hops, swings, climbs', cat:'Gross motor' },
+    { text:'Copies a triangle, writes some letters and numbers', cat:'Fine motor' },
+    { text:'Draws a person with at least 6 body parts', cat:'Fine motor' },
+    { text:'Wants to please friends, wants to be like friends', cat:'Social' },
+    { text:'Can distinguish fantasy from reality', cat:'Cognitive' },
+    { text:'Counts 10+ objects, basic math concepts', cat:'Cognitive' },
+    { text:'Knows about everyday things — money, food, routines', cat:'Cognitive' },
+    { text:'Uses fork, spoon, and sometimes a knife', cat:'Self-care' },
+    { text:'Uses the toilet without any help', cat:'Self-care' },
   ]
 };
 
-// ── AI PROMPTS ──────────────────────────────────────────────────
-const PROMPTS = {
-  research: (band) => `Child development expert. My son Malachi is ${band} years old. Give me a dad-friendly summary of current research for this exact age: brain development, sleep needs, language growth, emotional regulation, and social development. Use <h4> section headers and <ul><li> bullets. Be specific to age ${band}, not general. Max 300 words. Return HTML only, no preamble.`,
-
-  toys: (band) => `Child development toy specialist. My son is ${band} years old. Recommend the 5 best developmental toys or activities specifically for a ${band}-year-old right now. For each: name, why it's developmentally valuable at this age, price range. Use <h4> for toy name and <p> for description. Max 280 words. Return HTML only, no preamble.`,
-
-  tips: (band) => `Child development specialist. My son Malachi is ${band} years old. I have him every other week in a co-parenting arrangement. Give me 5 specific, actionable communication and learning tips tailored to a ${band}-year-old. Include at least one tip about maintaining connection during the weeks apart. Use <h4> headers and <p>. Max 280 words. Return HTML only, no preamble.`,
-
-  lifestyle: (band) => `Parenting lifestyle expert. My son is ${band} years old. Give SHORT bullet-point recommendations specifically for this age: bedroom setup, appropriate bed type, bedding safety, and sleep environment. Use <ul><li> only. Be age-specific to ${band} years. Max 110 words. Return HTML only, no preamble.`,
-
-  health: (band) => `Pediatric health advisor. My son is ${band} years old. List the essential items to keep in my medicine cabinet and any supplements commonly recommended for a ${band}-year-old. Include brief notes on each. Use <ul><li> only. End with one sentence: always verify with your pediatrician. Max 110 words. Return HTML only, no preamble.`
+// ─────────────────────────────────────────────
+// RESEARCH CONTENT
+// ─────────────────────────────────────────────
+const RESEARCH = {
+  '2': `
+    <div class="card ga"><div class="content-body">
+      <h4>Brain development</h4>
+      <p>At 2, Malachi's brain is growing at a rapid pace — forming over 1 million new neural connections per second. The prefrontal cortex (responsible for self-control and decision-making) is still very immature, which is why tantrums are normal and expected, not bad behavior.</p>
+      <h4>Sleep needs</h4>
+      <ul>
+        <li><strong>11–14 hours total</strong> per day including one nap</li>
+        <li>Most 2-year-olds nap 1–2 hours in the early afternoon</li>
+        <li>Consistent bedtime routine dramatically improves sleep quality</li>
+        <li>Night wakings are still common — respond calmly and briefly</li>
+      </ul>
+      <h4>Language explosion</h4>
+      <p>Between 18–24 months, most toddlers go from ~50 words to over 200. If Malachi isn't combining 2 words yet by age 2, mention it to his pediatrician. Reading aloud daily is the single most effective language booster at this age.</p>
+      <h4>Emotional regulation</h4>
+      <p>He literally cannot regulate his own emotions yet — the brain circuits for that aren't wired. Your calm response to his big feelings is what teaches him over time. Name emotions out loud: "You're frustrated because we have to leave." This builds emotional vocabulary.</p>
+      <h4>Social development</h4>
+      <p>Parallel play (playing near but not with other kids) is completely age-appropriate. True cooperative play doesn't typically emerge until age 3–4. Don't worry if he doesn't share — sharing is a skill, not an instinct, and takes years to develop.</p>
+    </div></div>`,
+  '3': `
+    <div class="card ga"><div class="content-body">
+      <h4>Brain development</h4>
+      <p>Age 3 brings a surge in the prefrontal cortex. Malachi is becoming more capable of self-regulation, but it's still very much a work in progress. Imaginative play explodes — this is one of the most critical periods for creativity and problem-solving development.</p>
+      <h4>Sleep needs</h4>
+      <ul>
+        <li><strong>10–13 hours total</strong> per day</li>
+        <li>Many 3-year-olds begin dropping naps; rest time is still valuable</li>
+        <li>Nighttime fears and nightmares often begin around this age — totally normal</li>
+        <li>A consistent wind-down routine (bath, book, bed) is very effective</li>
+      </ul>
+      <h4>Language growth</h4>
+      <p>By 3, most children have 200–1,000 words and use 3–5 word sentences. Questions become constant ("Why? Why? Why?") — this is healthy cognitive development. Answer genuinely; it builds trust and vocabulary simultaneously.</p>
+      <h4>Emotional regulation</h4>
+      <p>Tantrums often peak between 18 months and 3 years, then gradually decrease. Naming emotions, offering limited choices, and staying calm yourself remain the most effective tools. Avoid giving in to tantrum demands — consistency matters most.</p>
+      <h4>Social development</h4>
+      <p>Cooperative play begins to emerge. He'll start having "best friends" and showing preference for specific peers. Pretend play with others becomes rich and elaborate — this builds empathy, narrative thinking, and social skills simultaneously.</p>
+    </div></div>`,
+  '4': `
+    <div class="card ga"><div class="content-body">
+      <h4>Brain development</h4>
+      <p>At 4, Malachi's brain is significantly more capable of logic and reasoning. He can follow multi-step instructions, understand cause and effect, and think ahead. Working memory is developing rapidly — he can hold more information at once and use it to solve problems.</p>
+      <h4>Sleep needs</h4>
+      <ul>
+        <li><strong>10–13 hours</strong> per night; most 4-year-olds no longer nap</li>
+        <li>Bedtime resistance is common — give him a wind-down routine with some control (which book? which pajamas?)</li>
+        <li>Night terrors may occur; they look scary but he won't remember them</li>
+      </ul>
+      <h4>Language growth</h4>
+      <p>Sentences become complex, with conjunctions ("because", "but", "so"). He can tell a story with a beginning, middle, and end. Vocabulary grows by 5–10 new words per day at this stage if he's in a language-rich environment.</p>
+      <h4>Emotional regulation</h4>
+      <p>Emotion coaching becomes very effective now. Validate feelings first, then help problem-solve: "I understand you're angry. What could we do about it?" He can start learning basic coping strategies like deep breaths or counting to 10.</p>
+      <h4>Social development</h4>
+      <p>Friendships become important and meaningful. He may start to notice differences between himself and others. Gender identity and awareness increases significantly. Lies and tall tales emerge — mostly imaginative, not deceptive. He's testing the boundary between reality and fantasy.</p>
+    </div></div>`,
+  '5': `
+    <div class="card ga"><div class="content-body">
+      <h4>Brain development</h4>
+      <p>At 5, Malachi is approaching school-readiness. Executive function (planning, impulse control, working memory) is meaningfully stronger. He can understand rules and apply them, think about thinking, and begin to manage his own emotions with support.</p>
+      <h4>Sleep needs</h4>
+      <ul>
+        <li><strong>10–13 hours</strong> per night, no nap needed</li>
+        <li>Screen-free wind-down is especially important now — screens delay melatonin release</li>
+        <li>A consistent sleep schedule across both homes helps him adjust to the every-other-week routine</li>
+      </ul>
+      <h4>Language growth</h4>
+      <p>By 5, most children speak in grammatically correct sentences and can hold real conversations. He can tell a detailed story, explain his reasoning, and ask complex questions. Reading readiness peaks — this is an ideal time to begin phonics exposure if not already started.</p>
+      <h4>Emotional regulation</h4>
+      <p>He's now capable of identifying emotions in others and beginning to manage his own. Peer relationships matter deeply. Rejection by friends feels serious to him — take it seriously. Consistent emotional coaching across both homes produces the best outcomes.</p>
+      <h4>Social development</h4>
+      <p>Friendships are now his primary social world outside family. He'll be navigating inclusion, exclusion, fairness, and loyalty. Role play and cooperative games are excellent for building social skills. Empathy is growing — he can genuinely take another person's perspective.</p>
+    </div></div>`
 };
 
-// ── HEADER ──────────────────────────────────────────────────────
+// ─────────────────────────────────────────────
+// TOYS CONTENT
+// ─────────────────────────────────────────────
+const TOYS = {
+  '2': `
+    <div class="card aa"><div class="content-body">
+      <h4>Mega Bloks or Duplo (large blocks)</h4>
+      <p>Builds fine motor skills, spatial reasoning, and creativity. Large enough to be safe. The absolute top pick for this age. <strong>$20–$40</strong></p>
+      <h4>Shape sorters &amp; stacking toys</h4>
+      <p>Problem-solving, hand-eye coordination, and understanding of geometry. Satisfying for toddlers when pieces click into place. <strong>$15–$25</strong></p>
+      <h4>Push &amp; pull toys / ride-on toys</h4>
+      <p>Develops gross motor skills and balance. Ride-on cars he can push with his feet are excellent for this age. <strong>$30–$60</strong></p>
+      <h4>Board books &amp; touch-and-feel books</h4>
+      <p>The single best investment for language development. Read together every day. Board books survive toddler handling. <strong>$5–$15 each</strong></p>
+      <h4>Simple puzzles (4–12 pieces, knob-style)</h4>
+      <p>Builds problem-solving, fine motor, and shape/color recognition. Knob-style pieces are easiest for small hands. <strong>$10–$20</strong></p>
+      <h4>Crayons &amp; large paper</h4>
+      <p>Early mark-making is critical for pre-writing skills. Use jumbo crayons — easier to grip. Don't worry what he draws; it's all process at this stage. <strong>$5–$10</strong></p>
+    </div></div>`,
+  '3': `
+    <div class="card aa"><div class="content-body">
+      <h4>Playdough &amp; molding sets</h4>
+      <p>Exceptional for fine motor development, creativity, and sensory processing. Make your own or buy name brand. Endless replayability. <strong>$10–$20</strong></p>
+      <h4>Tricycle or balance bike</h4>
+      <p>Builds gross motor skills, coordination, and outdoor independence. Balance bikes (no pedals) actually teach riding faster than tricycles. <strong>$40–$80</strong></p>
+      <h4>Magnetic tiles (Magna-Tiles or Picasso Tiles)</h4>
+      <p>STEM powerhouse — builds spatial reasoning, creativity, and engineering thinking. Works from age 3 all the way through elementary school. <strong>$30–$80</strong></p>
+      <h4>Dress-up clothes &amp; costume box</h4>
+      <p>Fuels imaginative play, which is the primary developmental work of age 3. Any clothes — hats, capes, old Halloween costumes. <strong>$20–$40</strong></p>
+      <h4>Simple board games (Candy Land, Hi Ho Cherry-O)</h4>
+      <p>Teaches turn-taking, following rules, counting, and handling losing. Critical social skills. Play with him — don't let him always win. <strong>$10–$20</strong></p>
+      <h4>Art supplies — finger paint, stamps, brushes</h4>
+      <p>Self-expression, fine motor control, and color theory all develop through art. Set up a dedicated art space if you can. <strong>$15–$25</strong></p>
+    </div></div>`,
+  '4': `
+    <div class="card aa"><div class="content-body">
+      <h4>Lego Duplo or starter Lego sets</h4>
+      <p>At 4, kids can handle more complex building. Develops spatial reasoning, following instructions, and creative thinking. <strong>$20–$50</strong></p>
+      <h4>Puzzles (24–48 pieces)</h4>
+      <p>Working memory, problem-solving, and persistence all grow through puzzle completion at this age. Step up difficulty gradually. <strong>$10–$20</strong></p>
+      <h4>Alphabet and number learning toys</h4>
+      <p>LeapFrog sets, foam letters for the bath, or magnetic letters for the fridge. School readiness builds now. <strong>$15–$30</strong></p>
+      <h4>Outdoor play equipment — slide, sandbox, swing</h4>
+      <p>Gross motor development, risk assessment, and social skills all come from unstructured outdoor play. One of the best investments you can make. <strong>$50–$200</strong></p>
+      <h4>Pretend play sets (kitchen, tool bench, doctor kit)</h4>
+      <p>Role play lets him process the world around him. Doctor kits are especially good for normalizing medical experiences. <strong>$25–$60</strong></p>
+      <h4>Simple science kits</h4>
+      <p>Baking soda volcanoes, color mixing, magnet exploration. Curiosity and scientific thinking start here. <strong>$15–$30</strong></p>
+    </div></div>`,
+  '5': `
+    <div class="card aa"><div class="content-body">
+      <h4>Beginner reading books (Bob Books, Dr. Seuss)</h4>
+      <p>If Malachi is starting to read, these bridge the gap perfectly. Reading success at 5 is one of the strongest predictors of academic confidence. <strong>$10–$20</strong></p>
+      <h4>Standard Lego sets (age 5+)</h4>
+      <p>More complex than Duplo — follows instructions, builds fine motor precision, spatial reasoning, and patience. <strong>$15–$40</strong></p>
+      <h4>Board games with strategy (Sequence for Kids, Zingo)</h4>
+      <p>Teaches planning ahead, reading cues, and graceful winning/losing. Foundational social skills for school. <strong>$15–$25</strong></p>
+      <h4>Art &amp; craft kits</h4>
+      <p>Watercolors, bead sets, weaving kits. Fine motor precision improves rapidly at 5. Completing a craft project builds pride and persistence. <strong>$15–$30</strong></p>
+      <h4>Beginner sports equipment (t-ball, soccer goal)</h4>
+      <p>Team sport introduction builds social skills, physical literacy, and self-confidence. T-ball and soccer are perfect starting points. <strong>$20–$50</strong></p>
+      <h4>Coding toys (Osmo, Botley the Robot)</h4>
+      <p>Early computational thinking and problem-solving. Screen-adjacent but genuinely educational. <strong>$40–$80</strong></p>
+    </div></div>`
+};
+
+// ─────────────────────────────────────────────
+// TIPS CONTENT
+// ─────────────────────────────────────────────
+const TIPS = {
+  '2': `
+    <div class="card ga"><div class="content-body">
+      <h4>Talk constantly, narrate everything</h4>
+      <p>Describe what you're doing in real time: "Now I'm washing the dishes, I'm using soap and hot water." This builds vocabulary faster than any toy or app. Aim for 30,000 words heard per day — it sounds like a lot but natural narration gets you there.</p>
+      <h4>Read together every single day</h4>
+      <p>10–20 minutes of reading daily at age 2 has measurable language and cognitive benefits through elementary school. Let him turn pages, point at pictures, and "read" to you. It's not about finishing the book.</p>
+      <h4>Give simple choices, not open questions</h4>
+      <p>Instead of "What do you want for lunch?" try "Do you want mac and cheese or a sandwich?" Limited choices give him autonomy without overwhelming a 2-year-old's decision-making capacity.</p>
+      <h4>Keep transitions predictable</h4>
+      <p>The every-other-week schedule can be disorienting. Give Malachi 5-minute warnings before every transition — leaving the park, changing activities, going to bed. Predictability reduces anxiety and meltdowns significantly.</p>
+      <h4>Stay connected during his week away</h4>
+      <p>A short video call every 2 days is ideal at this age — long enough to connect, short enough that he can focus. Keep it playful: show him something, read him a quick book, sing a song together. Make it low-pressure so he looks forward to it.</p>
+      <h4>Let him be "bad" at things</h4>
+      <p>Resist the urge to help immediately when he struggles. Give him 30–60 seconds to work through frustration on his own before stepping in. Productive struggle builds persistence and problem-solving confidence.</p>
+    </div></div>`,
+  '3': `
+    <div class="card ga"><div class="content-body">
+      <h4>Ask "what" questions, not "why"</h4>
+      <p>"What happened?" lands better than "Why did you do that?" at age 3. He doesn't yet have the introspective ability to explain his motivations, but he can describe events. This avoids the defensive shutdown "I don't know" response.</p>
+      <h4>Use play to process the co-parenting schedule</h4>
+      <p>Get a toy house or draw a simple picture — "This is Daddy's house, this is Mommy's house. You love both and both love you." Letting him play out the two-home reality reduces anxiety about transitions.</p>
+      <h4>Expand his sentences back to him</h4>
+      <p>When he says "Dog runned fast," respond naturally: "Yes, the dog ran really fast, didn't he?" This models correct grammar without correcting or shaming him. It works better than any grammar lesson.</p>
+      <h4>Establish your own routines at your house</h4>
+      <p>Kids in two-home arrangements thrive when each home has its own consistent, loving routines. Your bedtime routine, your weekend traditions, your way of doing Saturday breakfast — these become anchors he looks forward to.</p>
+      <h4>Let him help with real tasks</h4>
+      <p>Stirring batter, pouring water, carrying groceries, washing vegetables. He feels capable and important. These "jobs" also build fine motor skills, attention, and a sense of contribution that translates directly to self-esteem.</p>
+      <h4>Validate emotions before solving problems</h4>
+      <p>When he's upset: feelings first, solutions second. "You're really sad that we have to leave the park. That makes sense — it was so fun." Then, after he feels heard: "Should we say goodbye to the swings?" This co-regulation approach rewires the stress response over time.</p>
+    </div></div>`,
+  '4': `
+    <div class="card ga"><div class="content-body">
+      <h4>Have real conversations, not just instructions</h4>
+      <p>At 4, Malachi can genuinely discuss things. Ask his opinion, debate what pizza topping is best, ask what his favorite part of the day was. Conversations where he talks more than you do are gold for language and confidence.</p>
+      <h4>Introduce the concept of two homes, one love</h4>
+      <p>By 4 he understands the structure but may start asking harder questions. Be honest, simple, and warm: "You have two homes and two parents who love you completely. That's actually pretty lucky." Never speak negatively about the other parent — it directly harms him, not her.</p>
+      <h4>Let him take appropriate risks</h4>
+      <p>Climbing a little higher, running a little faster, trying something he might fail at. Risk-taking at this age builds executive function, confidence, and physical literacy. Your job is to spot him, not stop him.</p>
+      <h4>Read chapter books together at bedtime</h4>
+      <p>Start simple ones like "Frog and Toad," "Magic Tree House," or "Mercy Watson." Cliffhangers make him excited for bed. This builds sustained attention, vocabulary, and the love of story that underpins all future academic success.</p>
+      <h4>Teach him to solve social problems</h4>
+      <p>When he reports a conflict with a friend, resist solving it for him. Ask: "What could you do?" and "What do you think would happen?" This builds conflict resolution skills that will serve him through school and beyond.</p>
+      <h4>Create a photo book or memory box together</h4>
+      <p>Print photos from your weeks together and put them in a book he keeps at your house. This gives him a tangible record of your relationship and your time together — especially powerful for a co-parenting arrangement.</p>
+    </div></div>`,
+  '5': `
+    <div class="card ga"><div class="content-body">
+      <h4>Practice school readiness through play</h4>
+      <p>Name letters on signs, count objects, play rhyming games. School skills developed through play stick better than worksheets. He's ready for more structured learning now but it should still feel fun.</p>
+      <h4>Talk about the schedule openly and positively</h4>
+      <p>At 5, Malachi fully understands the every-other-week routine. Let him have a simple calendar at your home where he can see when he's with you and when he's with mom. Predictability and seeing it written down dramatically reduces separation anxiety.</p>
+      <h4>Build a handoff ritual</h4>
+      <p>A specific, positive goodbye routine helps enormously — a special handshake, a particular phrase, something consistent every time he transitions. It signals safety and becomes something he can rely on.</p>
+      <h4>Encourage him to talk about both homes</h4>
+      <p>Ask genuinely curious, positive questions: "What did you guys do this week? That sounds fun." This communicates that both homes are good and safe, and that he doesn't need to hide one world from the other. It reduces the loyalty bind that harms kids in two-home families.</p>
+      <h4>Read together — even though he can read</h4>
+      <p>Even as he learns to read independently, continue reading to him above his current level. It builds vocabulary, listening comprehension, and most importantly, it's bonding time that both of you will remember.</p>
+      <h4>Be boring together</h4>
+      <p>You don't need to entertain him every moment. Some of the most important development happens in unscheduled time — boredom, imagination, and figuring out what to do. Sit nearby while he plays. Be available without being directive.</p>
+    </div></div>`
+};
+
+// ─────────────────────────────────────────────
+// LIFESTYLE CONTENT
+// ─────────────────────────────────────────────
+const LIFESTYLE = {
+  '2': `<div class="content-body"><ul>
+    <li><strong>Bed:</strong> Toddler bed or crib with rail removed — keep mattress on lowest setting</li>
+    <li><strong>Bed rail:</strong> Use a foam or mesh side rail to prevent rolling out</li>
+    <li><strong>Pillow:</strong> Small toddler pillow is fine now (not infant flat)</li>
+    <li><strong>Sheets:</strong> Fitted only — no loose blankets; use a sleep sack or toddler blanket</li>
+    <li><strong>Room temp:</strong> 68–72°F is ideal for toddler sleep</li>
+    <li><strong>Noise:</strong> White noise machine helps block household sounds</li>
+    <li><strong>Nightlight:</strong> Dim amber light — blue light disrupts melatonin</li>
+  </ul></div>`,
+  '3': `<div class="content-body"><ul>
+    <li><strong>Bed:</strong> Toddler bed or twin bed with bed rail — many 3-year-olds transition to twin</li>
+    <li><strong>Pillow:</strong> Standard toddler pillow; some kids are ready for a small standard pillow</li>
+    <li><strong>Blanket:</strong> Regular blanket is fine now — no loose bedding risk at 3</li>
+    <li><strong>Dresser safety:</strong> Anchor all dressers to the wall — tip-over injuries peak at this age</li>
+    <li><strong>Bedtime:</strong> 7–8pm is ideal; overtired 3-year-olds are harder to settle</li>
+    <li><strong>Nighttime fears:</strong> Nightlight and a consistent goodbye ritual address most fears</li>
+  </ul></div>`,
+  '4': `<div class="content-body"><ul>
+    <li><strong>Bed:</strong> Twin bed is standard — he'll use it through early elementary</li>
+    <li><strong>Bedding:</strong> Let him pick his sheets — character sheets increase bedtime cooperation</li>
+    <li><strong>Dresser:</strong> Keep anchored to wall; teach him to use one drawer at a time</li>
+    <li><strong>Routine:</strong> Bath → PJs → 2 books → lights out; 30-minute wind-down is ideal</li>
+    <li><strong>Screen cutoff:</strong> No screens 1 hour before bed — blue light delays sleep onset significantly</li>
+    <li><strong>Room:</strong> Declutter for focus; a designated space for his toys reduces bedtime stalling</li>
+  </ul></div>`,
+  '5': `<div class="content-body"><ul>
+    <li><strong>Bed:</strong> Twin or twin XL — fine through elementary school</li>
+    <li><strong>Pillow:</strong> Standard pillow; let him pick the pillowcase</li>
+    <li><strong>Alarm clock:</strong> A simple kid's clock (like Hatch) teaches him when it's okay to get up</li>
+    <li><strong>Consistent schedule:</strong> Same bedtime (7:30–8pm) across both homes is ideal — coordinate if possible</li>
+    <li><strong>Books in bed:</strong> Letting him read in bed with a small lamp builds the reading habit</li>
+    <li><strong>Room:</strong> A small desk or art table in his room supports school readiness and independent play</li>
+  </ul></div>`
+};
+
+// ─────────────────────────────────────────────
+// HEALTH CONTENT
+// ─────────────────────────────────────────────
+const HEALTH = {
+  '2': `<div class="content-body"><ul>
+    <li><strong>Children's Tylenol</strong> (acetaminophen) — fever and pain; dose by weight</li>
+    <li><strong>Children's Motrin</strong> (ibuprofen) — fever over 102°F and teething pain; dose by weight</li>
+    <li><strong>Children's Benadryl</strong> — allergic reactions; confirm dose with pediatrician</li>
+    <li><strong>Saline nasal drops/spray</strong> — stuffy nose relief; safe at any age</li>
+    <li><strong>Bulb syringe</strong> — nasal clearance</li>
+    <li><strong>Pedialyte or electrolyte popsicles</strong> — for vomiting/diarrhea hydration</li>
+    <li><strong>Vitamin D3 (600 IU)</strong> — most toddlers are deficient; ask pediatrician</li>
+    <li><strong>Digital thermometer</strong> — rectal most accurate; ear thermometer is fine for home use</li>
+    <li><strong>First aid kit</strong> — bandages, antiseptic wipes, antibiotic ointment</li>
+    <li><em>Always verify doses with your pediatrician</em></li>
+  </ul></div>`,
+  '3': `<div class="content-body"><ul>
+    <li><strong>Children's Tylenol &amp; Motrin</strong> — fever and pain management; dose by weight</li>
+    <li><strong>Children's Claritin or Zyrtec</strong> — seasonal allergies; can use daily if needed</li>
+    <li><strong>Saline nasal spray</strong> — congestion relief</li>
+    <li><strong>Children's cough syrup</strong> (honey-based options like Zarbee's are safe now)</li>
+    <li><strong>Pedialyte</strong> — stomach bugs; keep one on hand always</li>
+    <li><strong>Vitamin D3 (600 IU) + Omega-3</strong> — brain development support</li>
+    <li><strong>Probiotic</strong> — gut health; especially after any antibiotic course</li>
+    <li><strong>Hydrocortisone 1% cream</strong> — bug bites, rashes, minor irritation</li>
+    <li><strong>Digital ear thermometer</strong> — fast and easy at this age</li>
+    <li><em>Always verify doses with your pediatrician</em></li>
+  </ul></div>`,
+  '4': `<div class="content-body"><ul>
+    <li><strong>Children's Tylenol &amp; Motrin</strong> — dose by weight; know his current weight</li>
+    <li><strong>Children's Claritin or Zyrtec</strong> — allergy season staple</li>
+    <li><strong>Saline spray + nasal rinse</strong> — sinus congestion</li>
+    <li><strong>Zarbee's cough &amp; mucus</strong> — honey-based, safe and effective</li>
+    <li><strong>Pedialyte or electrolyte drinks</strong> — stomach illness hydration</li>
+    <li><strong>Vitamin D3 (600 IU)</strong> — especially in winter months</li>
+    <li><strong>Omega-3 (fish oil, kid's chewable)</strong> — brain and attention support</li>
+    <li><strong>Probiotic gummy</strong> — daily gut health</li>
+    <li><strong>Bandages + antiseptic + ice pack</strong> — active 4-year-olds get a lot of scrapes</li>
+    <li><em>Always verify doses with your pediatrician</em></li>
+  </ul></div>`,
+  '5': `<div class="content-body"><ul>
+    <li><strong>Children's Tylenol &amp; Motrin</strong> — he may be moving toward junior strength; confirm with pediatrician</li>
+    <li><strong>Children's allergy med</strong> (Claritin, Zyrtec, or Allegra) — school exposes him to more allergens</li>
+    <li><strong>Saline spray</strong> — daily use is safe and effective for congestion</li>
+    <li><strong>Cough drops (age 5+)</strong> — Luden's or Zarbee's; supervise use</li>
+    <li><strong>Vitamin D3 (600–1000 IU)</strong> — especially important if he doesn't get much sun</li>
+    <li><strong>Omega-3 chewable</strong> — supports focus and brain development ahead of school</li>
+    <li><strong>Probiotic</strong> — daily gut and immune support</li>
+    <li><strong>Melatonin (0.5–1mg)</strong> — occasional use only for sleep disruptions from schedule changes; confirm with pediatrician</li>
+    <li><strong>First aid kit</strong> — update supplies regularly</li>
+    <li><em>Always verify doses with your pediatrician</em></li>
+  </ul></div>`
+};
+
+// ─────────────────────────────────────────────
+// CORE FUNCTIONS
+// ─────────────────────────────────────────────
+function getAgeYears() {
+  const n = new Date();
+  let y = n.getFullYear() - BIRTH.getFullYear();
+  const m = n.getMonth() - BIRTH.getMonth();
+  if (m < 0 || (m === 0 && n.getDate() < BIRTH.getDate())) y--;
+  return y;
+}
+
 function getAgeMonths() {
   const n = new Date();
   return (n.getFullYear() - BIRTH.getFullYear()) * 12 + (n.getMonth() - BIRTH.getMonth());
 }
 
-function getAgeYears() {
-  const n = new Date();
-  let years = n.getFullYear() - BIRTH.getFullYear();
-  const mDiff = n.getMonth() - BIRTH.getMonth();
-  if (mDiff < 0 || (mDiff === 0 && n.getDate() < BIRTH.getDate())) years--;
-  return years;
-}
-
 function updateHeader() {
-  const months = getAgeMonths();
   const years = getAgeYears();
-  const remMonths = months - years * 12;
-  document.getElementById('age-pill').textContent = years + ' yr' + (remMonths > 0 ? ' ' + remMonths + ' mo' : '');
-  document.getElementById('exact-age').textContent = years + ' years' + (remMonths > 0 ? ', ' + remMonths + ' months old' : ' old');
+  const months = getAgeMonths() - years * 12;
+  document.getElementById('age-pill').textContent = years + ' yr' + (months > 0 ? ' ' + months + 'm' : '');
+  document.getElementById('exact-age').textContent = years + ' years' + (months > 0 ? ', ' + months + ' months old' : ' old');
   const d = new Date().getDay();
   const days = d === 0 ? 7 : 7 - d;
   document.getElementById('handoff-days').textContent = days === 1 ? 'tomorrow' : days + ' days';
-
-  // Auto-set age band to actual age (clamped 2–5)
-  const autoBand = String(Math.min(5, Math.max(2, years + (remMonths >= 6 ? 1 : 0))));
+  const autoBand = String(Math.min(5, Math.max(2, years)));
   setAgeBand(autoBand, true);
 }
 
-// ── AGE BAND ────────────────────────────────────────────────────
 function setAgeBand(band, silent) {
   currentBand = band;
   document.querySelectorAll('.age-btn').forEach(b => b.classList.remove('active'));
   const btn = document.getElementById('band-' + band);
   if (btn) btn.classList.add('active');
 
-  // Update all subtitle labels
-  document.getElementById('ms-subtitle').textContent = 'Tracking age ' + band + ' milestones';
-  document.getElementById('ms-card-label').textContent = 'Age ' + band + ' milestones';
-  document.getElementById('research-subtitle').textContent = 'AI-curated for age ' + band;
-  document.getElementById('research-lbl').textContent = 'Age ' + band + ' research';
-  document.getElementById('toys-subtitle').textContent = 'Best picks for age ' + band;
-  document.getElementById('toys-lbl').textContent = 'Age ' + band + ' toys';
-  document.getElementById('tips-subtitle').textContent = 'Tips for age ' + band;
-  document.getElementById('tips-lbl').textContent = 'Age ' + band + ' tips';
-  document.getElementById('home-subtitle').textContent = 'Recommendations for age ' + band;
+  document.getElementById('ms-sub').textContent = 'Age ' + band + ' milestones (CDC guidelines)';
+  document.getElementById('research-sub').textContent = 'What to know about age ' + band;
+  document.getElementById('toys-sub').textContent = 'Best developmental picks for age ' + band;
+  document.getElementById('tips-sub').textContent = 'Communication & learning tips for age ' + band;
+  document.getElementById('home-sub').textContent = 'Home and health guide for age ' + band;
 
   renderMilestones();
+  renderTab(activeTab);
+}
 
-  if (!silent) {
-    // Reload AI content for current tab
-    const aiTabs = ['research', 'toys', 'tips'];
-    if (aiTabs.includes(activeTab)) loadAI(activeTab);
-    if (activeTab === 'home') { loadAI('lifestyle'); loadAI('health'); }
+function renderTab(tab) {
+  if (tab === 'research') document.getElementById('research-body').innerHTML = RESEARCH[currentBand] || '';
+  if (tab === 'toys') document.getElementById('toys-body').innerHTML = TOYS[currentBand] || '';
+  if (tab === 'tips') document.getElementById('tips-body').innerHTML = TIPS[currentBand] || '';
+  if (tab === 'home') {
+    document.getElementById('lifestyle-body').innerHTML = LIFESTYLE[currentBand] || '';
+    document.getElementById('health-body').innerHTML = HEALTH[currentBand] || '';
   }
 }
 
-// ── MILESTONES ──────────────────────────────────────────────────
 function renderMilestones() {
   const list = document.getElementById('ms-list');
   const items = MILESTONES[currentBand] || [];
   const savedKey = 'ms-' + currentBand;
   const saved = JSON.parse(localStorage.getItem(savedKey) || '[]');
-
   list.innerHTML = items.map((m, i) => `
     <div class="ms-item">
-      <div class="ms-check${saved[i] ? ' done' : ''}" onclick="toggleMs(this, ${i})">
+      <div class="ms-check${saved[i] ? ' done' : ''}" onclick="toggleMs(this,${i})">
         <i class="ti ti-check"></i>
       </div>
       <div class="ms-label"><p>${m.text}</p><span>${m.cat}</span></div>
-    </div>
-  `).join('');
-
+    </div>`).join('');
   updateProgress();
 }
 
 function toggleMs(el, idx) {
   el.classList.toggle('done');
-  const savedKey = 'ms-' + currentBand;
-  const items = MILESTONES[currentBand] || [];
   const checks = document.querySelectorAll('.ms-check');
-  const states = [...checks].map(c => c.classList.contains('done'));
-  localStorage.setItem(savedKey, JSON.stringify(states));
+  localStorage.setItem('ms-' + currentBand, JSON.stringify([...checks].map(c => c.classList.contains('done'))));
   updateProgress();
 }
 
@@ -403,36 +660,6 @@ function updateProgress() {
   document.getElementById('ms-count').textContent = done + ' / ' + checks.length + ' done';
 }
 
-// ── AI ──────────────────────────────────────────────────────────
-function spin() {
-  return '<div class="ai-loading"><div class="dots"><span></span><span></span><span></span></div>Loading...</div>';
-}
-
-async function loadAI(key) {
-  const el = document.getElementById(key + '-content');
-  if (!el) return;
-  el.innerHTML = spin();
-  try {
-    const res = await fetch('/.netlify/functions/ai', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: PROMPTS[key](currentBand) }]
-      })
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    const text = data.content?.map(c => c.text || '').join('') || '';
-    if (!text) throw new Error('empty');
-    el.innerHTML = '<div class="ai-body">' + text + '</div>';
-  } catch(e) {
-    el.innerHTML = '<p style="font-size:12px;color:var(--text3);padding:4px 0">Could not load — tap Refresh to try again.</p>';
-  }
-}
-
-// ── TABS ─────────────────────────────────────────────────────────
 function showTab(tab) {
   activeTab = tab;
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -441,12 +668,10 @@ function showTab(tab) {
   document.querySelectorAll('.nav-btn').forEach(b => {
     if (b.getAttribute('onclick').includes("'" + tab + "'")) b.classList.add('active');
   });
-  const aiTabs = ['research', 'toys', 'tips'];
-  if (aiTabs.includes(tab)) loadAI(tab);
-  if (tab === 'home') { loadAI('lifestyle'); loadAI('health'); }
+  renderTab(tab);
 }
 
-// ── JOURNAL ──────────────────────────────────────────────────────
+// JOURNAL
 const memories = JSON.parse(localStorage.getItem('memories') || '[]');
 
 function saveMemory() {
@@ -455,11 +680,10 @@ function saveMemory() {
   if (!text) return;
   const years = getAgeYears();
   const months = getAgeMonths() - years * 12;
-  const ageTag = years + 'y' + (months > 0 ? months + 'm' : '');
   memories.unshift({
     text,
-    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-    age: ageTag
+    date: new Date().toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' }),
+    age: years + 'y' + (months > 0 ? months + 'm' : '')
   });
   localStorage.setItem('memories', JSON.stringify(memories));
   input.value = '';
@@ -476,14 +700,14 @@ function renderMemories() {
     `<div class="mem-item">
       <div class="mem-date">${m.date}<span class="mem-age-tag">${m.age || ''}</span></div>
       <div class="mem-text">${m.text}</div>
-    </div>`
-  ).join('');
+    </div>`).join('');
 }
 
-// ── INIT ─────────────────────────────────────────────────────────
+// INIT
 updateHeader();
+renderMilestones();
 renderMemories();
-loadAI('research');
+renderTab('research');
 </script>
 </body>
 </html>
