@@ -466,7 +466,7 @@ async function loadTab(tab) {
     const res  = await fetch('/.netlify/functions/ai', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({ model:'claude-3-5-haiku-20241022', max_tokens:1000, messages:[{ role:'user', content:PROMPTS[tab](currentBand) }] })
+      body:    JSON.stringify({ model:'claude-3-haiku-20240307', max_tokens:1000, messages:[{ role:'user', content:PROMPTS[tab](currentBand) }] })
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
@@ -626,7 +626,7 @@ async function sendChat() {
   try {
     const res  = await fetch('/.netlify/functions/ai', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ model:'claude-3-5-haiku-20241022', max_tokens:600, messages:[{ role:'user', content:
+      body: JSON.stringify({ model:'claude-3-haiku-20240307', max_tokens:600, messages:[{ role:'user', content:
         `You are a helpful child development assistant. My son Malachi is ${getAgeYears()} years old (born June 15, 2024). Answer this in a warm, dad-friendly tone. Keep it concise — 3–5 sentences max unless a list is genuinely needed. Question: ${query}`
       }]})
     });
