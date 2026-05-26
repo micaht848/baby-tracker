@@ -275,24 +275,24 @@
     .sub-card { background:var(--bg3); border-radius:10px; padding:10px 12px; border:0.5px solid var(--border); }
     .ai-body a { color:var(--green); text-decoration:none; border-bottom:1px solid var(--green-dim); }
 
-    /* MALACHI PHOTO */
-    .malachi-avatar { width:52px; height:52px; border-radius:50%; border:2px solid var(--green); overflow:hidden; flex-shrink:0; cursor:pointer; position:relative; background:var(--bg3); display:flex; align-items:center; justify-content:center; }
+    /* MALACHI AVATAR */
+    .malachi-avatar { width:48px; height:48px; border-radius:50%; border:2px solid var(--green); overflow:hidden; flex-shrink:0; cursor:pointer; position:relative; background:var(--bg3); display:flex; align-items:center; justify-content:center; }
     .malachi-avatar img { width:100%; height:100%; object-fit:cover; }
-    .malachi-avatar .avatar-placeholder { font-size:22px; }
+    .malachi-avatar .avatar-placeholder { font-size:20px; }
     .malachi-avatar input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
-    .malachi-avatar:hover::after { content:'📷'; position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; font-size:18px; border-radius:50%; }
-  .parent-bar { background:var(--bg2); padding:6px 1.25rem; border-bottom:0.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; gap:8px; }
-  .parent-bar-label { font-size:11px; color:var(--text3); white-space:nowrap; flex-shrink:0; }
-  .parent-btn { flex:none; padding:5px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); background:var(--bg3); border:0.5px solid var(--border2); border-radius:20px; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
-  .parent-btn.dad  { } .parent-btn.mom  { }
-  .parent-btn.active.dad { background:#0a2a4a; color:#0a84ff; border-color:#0a84ff; }
-  .parent-btn.active.mom { background:#2a0a3a; color:#bf5af2; border-color:#bf5af2; }
-  .parent-tag { display:inline-block; font-size:10px; font-weight:500; padding:2px 7px; border-radius:10px; margin-left:6px; }
-  .parent-tag.dad { background:#0a2a4a; color:#0a84ff; }
-  .parent-tag.mom { background:#2a0a3a; color:#bf5af2; }
-  .filter-bar { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
-  .filter-btn { padding:4px 12px; border-radius:20px; border:0.5px solid var(--border2); background:var(--bg4); font-size:11px; font-family:'DM Sans',sans-serif; color:var(--text2); cursor:pointer; transition:all 0.2s; }
-  .filter-btn.active { background:var(--green-dim); color:var(--green); border-color:var(--green); }
+
+    /* PARENT SELECTOR */
+    .parent-bar { background:var(--bg2); padding:6px 1.25rem; border-bottom:0.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; gap:8px; }
+    .parent-bar-label { font-size:11px; color:var(--text3); white-space:nowrap; flex-shrink:0; }
+    .parent-btn { flex:none; padding:5px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); background:var(--bg3); border:0.5px solid var(--border2); border-radius:20px; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
+    .parent-btn.active.dad { background:#0a2a4a; color:#0a84ff; border-color:#0a84ff; }
+    .parent-btn.active.mom { background:#2a0a3a; color:#bf5af2; border-color:#bf5af2; }
+    .parent-tag { display:inline-block; font-size:10px; font-weight:500; padding:2px 7px; border-radius:10px; margin-left:6px; }
+    .parent-tag.dad { background:#0a2a4a; color:#0a84ff; }
+    .parent-tag.mom { background:#2a0a3a; color:#bf5af2; }
+    .filter-bar { display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap; }
+    .filter-btn { padding:4px 12px; border-radius:20px; border:0.5px solid var(--border2); background:var(--bg4); font-size:11px; font-family:'DM Sans',sans-serif; color:var(--text2); cursor:pointer; transition:all 0.2s; }
+    .filter-btn.active { background:var(--green-dim); color:var(--green); border-color:var(--green); }
     .empty-state { font-size:13px; color:var(--text3); padding:8px 0; line-height:1.6; }
     .section-divider { font-size:10px; color:var(--text3); text-transform:uppercase; letter-spacing:0.8px; font-weight:500; margin:12px 0 8px; }
   </style>
@@ -308,7 +308,7 @@
       </div>
       <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
         <div class="age-pill" id="age-pill">2 yr</div>
-        <label class="malachi-avatar" title="Tap to update photo">
+        <label class="malachi-avatar" title="Tap to set a photo">
           <img id="malachi-photo" src="" style="display:none" />
           <span class="avatar-placeholder" id="avatar-placeholder">👦</span>
           <input type="file" accept="image/*" onchange="updateMalachiPhoto(this)" />
@@ -955,8 +955,6 @@ function refreshTab(tab) { delete tabCache[tab + '-' + currentBand]; loadTab(tab
 
 // ── MILESTONES ────────────────────────────────
 let msView = 'checklist';
-function getMsData() { return JSON.parse(localStorage.getItem('ms-data-' + currentBand) || '{}'); }
-function saveMsData(d) { localStorage.setItem('ms-data-' + currentBand, JSON.stringify(d)); }
 
 function getComparison(m, isDone) {
   if (!m.range) return '';
@@ -983,6 +981,47 @@ function toggleMsView(view) {
   if (view === 'concerns') renderMsConcerns();
 }
 
+// ── MILESTONE DATA (Supabase) ─────────────────
+let msData = {}; // { band: { idx: { done, flag, date, note, updated_by } } }
+
+async function loadMsData() {
+  if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') {
+    msData = JSON.parse(localStorage.getItem('ms-data-all') || '{}');
+    renderMilestones(); updateProgress(); return;
+  }
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/milestones?select=*', { headers: sbH() });
+    const rows = await res.json();
+    if (!res.ok) throw new Error('fetch failed');
+    msData = {};
+    rows.forEach(r => {
+      if (!msData[r.band]) msData[r.band] = {};
+      msData[r.band][r.idx] = { done: r.done, flag: r.flag, date: r.date, note: r.note, updated_by: r.updated_by };
+    });
+    renderMilestones(); updateProgress();
+  } catch(e) {
+    msData = JSON.parse(localStorage.getItem('ms-data-all') || '{}');
+    renderMilestones(); updateProgress();
+  }
+}
+
+function getMsData() { return msData[currentBand] || {}; }
+
+async function saveMsRow(idx, fields) {
+  const band = currentBand;
+  if (!msData[band]) msData[band] = {};
+  msData[band][idx] = { ...(msData[band][idx] || {}), ...fields, updated_by: currentParent };
+  localStorage.setItem('ms-data-all', JSON.stringify(msData));
+  if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') return;
+  try {
+    await fetch(SUPABASE_URL + '/rest/v1/milestones', {
+      method: 'POST',
+      headers: { ...sbH(), 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+      body: JSON.stringify({ band, idx, ...fields, updated_by: currentParent })
+    });
+  } catch(e) { console.warn('Supabase milestone save failed', e); }
+}
+
 function renderMilestones() {
   const list = document.getElementById('ms-list');
   const items = MILESTONES[currentBand] || [];
@@ -991,11 +1030,12 @@ function renderMilestones() {
     const d = data[i] || {};
     const done = d.done || false, flagged = d.flag || false, note = d.note || '', date = d.date || '';
     const pill = getComparison(m, done);
+    const whoTag = d.updated_by ? `<span class="parent-tag ${d.updated_by}" style="margin-left:4px">${d.updated_by === 'dad' ? '👨' : '👩'}</span>` : '';
     return `<div class="ms-item${flagged ? ' flagged' : ''}">
       <div class="ms-row">
         <div class="ms-check${done ? ' done' : ''}" onclick="toggleMs(${i})"><i class="ti ti-check"></i></div>
         <div class="ms-label">
-          <p>${m.text}</p><span>${m.cat}${pill}</span>
+          <p>${m.text}</p><span>${m.cat}${pill}${whoTag}</span>
           ${done && date ? `<div class="ms-achieved"><i class="ti ti-calendar-check"></i> ${date}</div>` : ''}
           ${note ? `<div class="ms-note-display">"${note}"</div>` : ''}
         </div>
@@ -1014,22 +1054,24 @@ function renderMilestones() {
 }
 
 function toggleMs(idx) {
-  const data = getMsData();
-  if (!data[idx]) data[idx] = {};
-  data[idx].done = !data[idx].done;
-  if (data[idx].done && !data[idx].date) data[idx].date = new Date().toISOString().split('T')[0];
-  saveMsData(data); renderMilestones();
+  const d = getMsData()[idx] || {};
+  const newDone = !d.done;
+  const newDate = newDone && !d.date ? new Date().toISOString().split('T')[0] : (d.date || '');
+  saveMsRow(idx, { done: newDone, flag: d.flag || false, date: newDate, note: d.note || '' });
+  renderMilestones();
 }
 function toggleMsFlag(idx) {
-  const data = getMsData(); if (!data[idx]) data[idx] = {};
-  data[idx].flag = !data[idx].flag; saveMsData(data); renderMilestones();
+  const d = getMsData()[idx] || {};
+  saveMsRow(idx, { done: d.done || false, flag: !d.flag, date: d.date || '', note: d.note || '' });
+  renderMilestones();
 }
 function toggleMsDetails(idx) { document.getElementById('ms-details-' + idx).classList.toggle('open'); }
-function saveMsDetail(idx) {
-  const data = getMsData(); if (!data[idx]) data[idx] = {};
-  const d = document.getElementById('ms-date-' + idx); const n = document.getElementById('ms-note-' + idx);
-  if (d) data[idx].date = d.value; if (n) data[idx].note = n.value.trim();
-  saveMsData(data); renderMilestones();
+async function saveMsDetail(idx) {
+  const d = getMsData()[idx] || {};
+  const dateEl = document.getElementById('ms-date-' + idx);
+  const noteEl = document.getElementById('ms-note-' + idx);
+  await saveMsRow(idx, { done: d.done || false, flag: d.flag || false, date: dateEl ? dateEl.value : (d.date||''), note: noteEl ? noteEl.value.trim() : (d.note||'') });
+  renderMilestones();
 }
 function renderMsHistory() {
   const el = document.getElementById('ms-history');
@@ -1068,26 +1110,42 @@ function shareMilestones() {
   else navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard — paste into an email to your pediatrician.'));
 }
 
-// ── GROWTH ────────────────────────────────────
-let growthData = JSON.parse(localStorage.getItem('growth') || '[]');
-function addGrowth() {
+// ── GROWTH (Supabase) ─────────────────────────
+let growthData = [];
+async function loadGrowth() {
+  if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') { growthData = JSON.parse(localStorage.getItem('growth') || '[]'); renderGrowth(); return; }
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/growth?order=date.desc', { headers: sbH() });
+    const data = await res.json();
+    if (!res.ok) throw new Error('fetch failed');
+    growthData = data.map(g => ({ ...g, height: g.height, weight: g.weight, ageLabel: g.age_label }));
+    renderGrowth();
+  } catch(e) { growthData = JSON.parse(localStorage.getItem('growth') || '[]'); renderGrowth(); }
+}
+async function addGrowth() {
   const date = document.getElementById('growth-date').value;
   const height = document.getElementById('growth-height').value;
   const weight = document.getElementById('growth-weight').value;
   const note = document.getElementById('growth-note').value.trim();
   const ageLabel = document.getElementById('growth-age-label').value.trim();
   if (!date || (!height && !weight)) { alert('Please enter a date and at least one measurement.'); return; }
-  growthData.unshift({ date, height: height ? parseFloat(height) : null, weight: weight ? parseFloat(weight) : null, note, ageLabel, parent: currentParent, id: Date.now() });
-  localStorage.setItem('growth', JSON.stringify(growthData));
-  document.getElementById('growth-height').value = '';
-  document.getElementById('growth-weight').value = '';
-  document.getElementById('growth-note').value = '';
-  document.getElementById('growth-age-label').value = '';
+  const entry = { date, height: height ? parseFloat(height) : null, weight: weight ? parseFloat(weight) : null, note, age_label: ageLabel, parent: currentParent };
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/growth', { method:'POST', headers:sbH(), body:JSON.stringify(entry) });
+      const saved = await res.json();
+      const row = Array.isArray(saved) ? saved[0] : saved;
+      growthData.unshift({ ...row, ageLabel: row.age_label });
+    } catch(e) { growthData.unshift({ ...entry, ageLabel, id: Date.now() }); }
+  } else { growthData.unshift({ ...entry, ageLabel, id: Date.now() }); localStorage.setItem('growth', JSON.stringify(growthData)); }
+  ['growth-height','growth-weight','growth-note','growth-age-label'].forEach(id => { document.getElementById(id).value = ''; });
   renderGrowth();
 }
-function deleteGrowth(id) {
-  growthData = growthData.filter(g => g.id !== id);
-  localStorage.setItem('growth', JSON.stringify(growthData)); renderGrowth();
+async function deleteGrowth(id) {
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+    try { await fetch(SUPABASE_URL + '/rest/v1/growth?id=eq.' + id, { method:'DELETE', headers:sbH() }); } catch(e) {}
+  }
+  growthData = growthData.filter(g => g.id !== id); renderGrowth();
 }
 function renderGrowth() {
   const list = document.getElementById('growth-list');
@@ -1120,9 +1178,18 @@ function renderGrowthChart() {
   chart.innerHTML = html;
 }
 
-// ── DOCTOR VISITS ─────────────────────────────
-let visits = JSON.parse(localStorage.getItem('visits') || '[]');
-function addVisit() {
+// ── DOCTOR VISITS (Supabase) ──────────────────
+let visits = [];
+async function loadVisits() {
+  if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') { visits = JSON.parse(localStorage.getItem('visits') || '[]'); renderVisits(); return; }
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/visits?order=date.desc', { headers: sbH() });
+    const data = await res.json();
+    if (!res.ok) throw new Error('fetch failed');
+    visits = data; renderVisits();
+  } catch(e) { visits = JSON.parse(localStorage.getItem('visits') || '[]'); renderVisits(); }
+}
+async function addVisit() {
   const date = document.getElementById('visit-date').value;
   const type = document.getElementById('visit-type').value;
   const doctor = document.getElementById('visit-doctor').value.trim();
@@ -1130,12 +1197,23 @@ function addVisit() {
   const notes = document.getElementById('visit-notes').value.trim();
   const followup = document.getElementById('visit-followup').value.trim();
   if (!date) { alert('Please enter a date.'); return; }
-  visits.unshift({ date, type, doctor, vaccines, notes, followup, parent: currentParent, id: Date.now() });
-  localStorage.setItem('visits', JSON.stringify(visits));
+  const entry = { date, type, doctor, vaccines, notes, followup, parent: currentParent };
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/visits', { method:'POST', headers:sbH(), body:JSON.stringify(entry) });
+      const saved = await res.json();
+      visits.unshift(Array.isArray(saved) ? saved[0] : saved);
+    } catch(e) { visits.unshift({ ...entry, id: Date.now() }); }
+  } else { visits.unshift({ ...entry, id: Date.now() }); localStorage.setItem('visits', JSON.stringify(visits)); }
   ['visit-date','visit-doctor','visit-vaccines','visit-notes','visit-followup'].forEach(id => { document.getElementById(id).value = ''; });
   renderVisits();
 }
-function deleteVisit(id) { visits = visits.filter(v => v.id !== id); localStorage.setItem('visits', JSON.stringify(visits)); renderVisits(); }
+async function deleteVisit(id) {
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+    try { await fetch(SUPABASE_URL + '/rest/v1/visits?id=eq.' + id, { method:'DELETE', headers:sbH() }); } catch(e) {}
+  }
+  visits = visits.filter(v => v.id !== id); renderVisits();
+}
 function renderVisits() {
   const list = document.getElementById('visit-list');
   const filtered = visitFilter === 'all' ? visits : visits.filter(v => v.parent === visitFilter);
@@ -1153,9 +1231,18 @@ function renderVisits() {
     </div>`).join('');
 }
 
-// ── MED LOG ───────────────────────────────────
-let meds = JSON.parse(localStorage.getItem('meds') || '[]');
-function addMed() {
+// ── MED LOG (Supabase) ────────────────────────
+let meds = [];
+async function loadMeds() {
+  if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') { meds = JSON.parse(localStorage.getItem('meds') || '[]'); renderMeds(); return; }
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/meds?order=date.desc', { headers: sbH() });
+    const data = await res.json();
+    if (!res.ok) throw new Error('fetch failed');
+    meds = data; renderMeds();
+  } catch(e) { meds = JSON.parse(localStorage.getItem('meds') || '[]'); renderMeds(); }
+}
+async function addMed() {
   const date = document.getElementById('med-date').value;
   const time = document.getElementById('med-time').value;
   const name = document.getElementById('med-name').value.trim();
@@ -1163,12 +1250,23 @@ function addMed() {
   const reason = document.getElementById('med-reason').value.trim();
   const notes = document.getElementById('med-notes').value.trim();
   if (!date || !name) { alert('Please enter a date and medication name.'); return; }
-  meds.unshift({ date, time, name, dose, reason, notes, parent: currentParent, id: Date.now() });
-  localStorage.setItem('meds', JSON.stringify(meds));
+  const entry = { date, time, name, dose, reason, notes, parent: currentParent };
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/meds', { method:'POST', headers:sbH(), body:JSON.stringify(entry) });
+      const saved = await res.json();
+      meds.unshift(Array.isArray(saved) ? saved[0] : saved);
+    } catch(e) { meds.unshift({ ...entry, id: Date.now() }); }
+  } else { meds.unshift({ ...entry, id: Date.now() }); localStorage.setItem('meds', JSON.stringify(meds)); }
   ['med-name','med-dose','med-reason','med-notes'].forEach(id => { document.getElementById(id).value = ''; });
   renderMeds();
 }
-function deleteMed(id) { meds = meds.filter(m => m.id !== id); localStorage.setItem('meds', JSON.stringify(meds)); renderMeds(); }
+async function deleteMed(id) {
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+    try { await fetch(SUPABASE_URL + '/rest/v1/meds?id=eq.' + id, { method:'DELETE', headers:sbH() }); } catch(e) {}
+  }
+  meds = meds.filter(m => m.id !== id); renderMeds();
+}
 function renderMeds() {
   const list = document.getElementById('med-list');
   const filtered = medFilter === 'all' ? meds : meds.filter(m => m.parent === medFilter);
@@ -1211,25 +1309,45 @@ function checkAllPacking() {
   items.forEach((_, i) => { s[i] = true; }); savePackingState(s); renderPacking();
 }
 
-// ── MOOD LOG ──────────────────────────────────
-let moods = JSON.parse(localStorage.getItem('moods') || '[]');
+// ── MOOD LOG (Supabase) ───────────────────────
+let moods = [];
+async function loadMoods() {
+  if (SUPABASE_URL === 'YOUR_SUPABASE_PROJECT_URL') { moods = JSON.parse(localStorage.getItem('moods') || '[]'); renderMoods(); return; }
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/moods?order=created_at.desc', { headers: sbH() });
+    const data = await res.json();
+    if (!res.ok) throw new Error('fetch failed');
+    moods = data; renderMoods();
+  } catch(e) { moods = JSON.parse(localStorage.getItem('moods') || '[]'); renderMoods(); }
+}
 function selectMood(emoji) {
   selectedMood = emoji;
   document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
   const btn = document.getElementById('mood-' + emoji);
   if (btn) btn.classList.add('active');
 }
-function addMood() {
+async function addMood() {
   if (!selectedMood) { alert('Please select a mood first.'); return; }
   const note = document.getElementById('mood-note').value.trim();
-  moods.unshift({ emoji: selectedMood, note, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), time: new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}), parent: currentParent, id: Date.now() });
-  localStorage.setItem('moods', JSON.stringify(moods));
+  const entry = { emoji: selectedMood, note, date: new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}), time: new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}), parent: currentParent };
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+    try {
+      const res = await fetch(SUPABASE_URL + '/rest/v1/moods', { method:'POST', headers:sbH(), body:JSON.stringify(entry) });
+      const saved = await res.json();
+      moods.unshift(Array.isArray(saved) ? saved[0] : saved);
+    } catch(e) { moods.unshift({ ...entry, id: Date.now() }); }
+  } else { moods.unshift({ ...entry, id: Date.now() }); localStorage.setItem('moods', JSON.stringify(moods)); }
   document.getElementById('mood-note').value = '';
   selectedMood = '';
   document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
   renderMoods();
 }
-function deleteMood(id) { moods = moods.filter(m => m.id !== id); localStorage.setItem('moods', JSON.stringify(moods)); renderMoods(); }
+async function deleteMood(id) {
+  if (SUPABASE_URL !== 'YOUR_SUPABASE_PROJECT_URL') {
+    try { await fetch(SUPABASE_URL + '/rest/v1/moods?id=eq.' + id, { method:'DELETE', headers:sbH() }); } catch(e) {}
+  }
+  moods = moods.filter(m => m.id !== id); renderMoods();
+}
 function renderMoods() {
   const list = document.getElementById('mood-list');
   const filtered = moodFilter === 'all' ? moods : moods.filter(m => m.parent === moodFilter);
@@ -1429,9 +1547,8 @@ function updateMalachiPhoto(input) {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = e => {
-    const base64 = e.target.result;
-    localStorage.setItem('malachiPhoto', base64);
-    showMalachiPhoto(base64);
+    localStorage.setItem('malachiPhoto', e.target.result);
+    showMalachiPhoto(e.target.result);
   };
   reader.readAsDataURL(file);
 }
@@ -1439,12 +1556,11 @@ function showMalachiPhoto(base64) {
   const img = document.getElementById('malachi-photo');
   const placeholder = document.getElementById('avatar-placeholder');
   if (base64) {
-    img.src = base64;
-    img.style.display = 'block';
-    placeholder.style.display = 'none';
+    img.src = base64; img.style.display = 'block';
+    if (placeholder) placeholder.style.display = 'none';
   } else {
     img.style.display = 'none';
-    placeholder.style.display = 'block';
+    if (placeholder) placeholder.style.display = 'block';
   }
 }
 
@@ -1456,13 +1572,13 @@ document.getElementById('insurance-info').value = localStorage.getItem('insuranc
 setParent(currentParent);
 showMalachiPhoto(localStorage.getItem('malachiPhoto') || '');
 updateHeader();
-renderMilestones();
-renderPacking();
-renderGrowth();
-renderVisits();
-renderMeds();
-renderMoods();
+loadMsData();
+loadGrowth();
+loadVisits();
+loadMeds();
+loadMoods();
 loadMemories();
+renderPacking();
 renderContacts();
 renderSuggestedQs();
 loadTab('research');
