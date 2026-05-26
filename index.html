@@ -275,7 +275,12 @@
     .sub-card { background:var(--bg3); border-radius:10px; padding:10px 12px; border:0.5px solid var(--border); }
     .ai-body a { color:var(--green); text-decoration:none; border-bottom:1px solid var(--green-dim); }
 
-    /* PARENT SELECTOR */
+    /* MALACHI PHOTO */
+    .malachi-avatar { width:52px; height:52px; border-radius:50%; border:2px solid var(--green); overflow:hidden; flex-shrink:0; cursor:pointer; position:relative; background:var(--bg3); display:flex; align-items:center; justify-content:center; }
+    .malachi-avatar img { width:100%; height:100%; object-fit:cover; }
+    .malachi-avatar .avatar-placeholder { font-size:22px; }
+    .malachi-avatar input[type=file] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; }
+    .malachi-avatar:hover::after { content:'📷'; position:absolute; inset:0; background:rgba(0,0,0,0.5); display:flex; align-items:center; justify-content:center; font-size:18px; border-radius:50%; }
   .parent-bar { background:var(--bg2); padding:6px 1.25rem; border-bottom:0.5px solid var(--border); flex-shrink:0; display:flex; align-items:center; gap:8px; }
   .parent-bar-label { font-size:11px; color:var(--text3); white-space:nowrap; flex-shrink:0; }
   .parent-btn { flex:none; padding:5px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; color:var(--text3); background:var(--bg3); border:0.5px solid var(--border2); border-radius:20px; cursor:pointer; white-space:nowrap; transition:all 0.2s; }
@@ -301,7 +306,14 @@
         <div class="child-name"><em>Malachi</em></div>
         <div class="sub-line">Born June 15, 2024 · <span id="exact-age">loading...</span></div>
       </div>
-      <div class="age-pill" id="age-pill">2 yr</div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <div class="age-pill" id="age-pill">2 yr</div>
+        <label class="malachi-avatar" title="Tap to update photo">
+          <img id="malachi-photo" src="" style="display:none" />
+          <span class="avatar-placeholder" id="avatar-placeholder">👦</span>
+          <input type="file" accept="image/*" onchange="updateMalachiPhoto(this)" />
+        </label>
+      </div>
     </div>
     <div class="age-countdown" id="age-countdown"></div>
   </div>
@@ -1411,12 +1423,38 @@ async function sendChat() {
   send.disabled = false; input.disabled = false; input.focus();
 }
 
+// ── MALACHI PHOTO ─────────────────────────────
+function updateMalachiPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const base64 = e.target.result;
+    localStorage.setItem('malachiPhoto', base64);
+    showMalachiPhoto(base64);
+  };
+  reader.readAsDataURL(file);
+}
+function showMalachiPhoto(base64) {
+  const img = document.getElementById('malachi-photo');
+  const placeholder = document.getElementById('avatar-placeholder');
+  if (base64) {
+    img.src = base64;
+    img.style.display = 'block';
+    placeholder.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    placeholder.style.display = 'block';
+  }
+}
+
 // ── INIT ──────────────────────────────────────
 document.getElementById('growth-date').value = new Date().toISOString().split('T')[0];
 document.getElementById('visit-date').value = new Date().toISOString().split('T')[0];
 document.getElementById('med-date').value = new Date().toISOString().split('T')[0];
 document.getElementById('insurance-info').value = localStorage.getItem('insurance') || '';
 setParent(currentParent);
+showMalachiPhoto(localStorage.getItem('malachiPhoto') || '');
 updateHeader();
 renderMilestones();
 renderPacking();
