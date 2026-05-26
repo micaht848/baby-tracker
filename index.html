@@ -62,20 +62,53 @@
     .content-body p { font-size:13px; color:var(--text2); line-height:1.6; margin-bottom:0.4rem; }
     .content-body strong { color:var(--text); font-weight:500; }
 
-    .ms-item { display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:0.5px solid var(--border); }
+    .ms-item { padding:10px 0; border-bottom:0.5px solid var(--border); }
     .ms-item:last-child { border-bottom:none; padding-bottom:0; }
+    .ms-item.flagged .ms-label p { color:var(--amber); }
+    .ms-row { display:flex; align-items:flex-start; gap:10px; }
     .ms-check { width:22px; height:22px; border-radius:50%; border:1.5px solid var(--text3); display:flex; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; margin-top:1px; transition:background 0.2s,border-color 0.2s; }
     .ms-check.done { background:var(--green); border-color:var(--green); }
     .ms-check i { font-size:11px; color:transparent; }
     .ms-check.done i { color:#000; }
+    .ms-label { flex:1; }
     .ms-label p { font-size:14px; color:var(--text); line-height:1.4; }
     .ms-label span { font-size:11px; color:var(--text3); }
+    .ms-actions { display:flex; align-items:center; gap:6px; margin-left:auto; flex-shrink:0; }
+    .ms-flag { background:none; border:none; cursor:pointer; padding:2px 4px; font-size:14px; color:var(--text3); transition:color 0.2s; }
+    .ms-flag.active { color:var(--amber); }
+    .ms-expand { background:none; border:none; cursor:pointer; padding:2px 4px; font-size:12px; color:var(--text3); }
+    .ms-details { margin-top:8px; margin-left:32px; display:none; }
+    .ms-details.open { display:block; }
+    .ms-date-row { display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+    .ms-date-label { font-size:11px; color:var(--text3); white-space:nowrap; }
+    .ms-date-input { background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:4px 8px; font-family:'DM Sans',sans-serif; font-size:12px; color:var(--text); outline:none; flex:1; }
+    .ms-date-input:focus { border-color:var(--green); }
+    .ms-note-input { width:100%; background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:6px 8px; font-family:'DM Sans',sans-serif; font-size:12px; color:var(--text); outline:none; resize:none; }
+    .ms-note-input:focus { border-color:var(--green); }
+    .ms-note-input::placeholder { color:var(--text3); }
+    .ms-save-note { background:var(--green-dim); color:var(--green); border:none; border-radius:6px; padding:4px 10px; font-size:11px; font-family:'DM Sans',sans-serif; cursor:pointer; margin-top:4px; }
+    .ms-achieved { font-size:11px; color:var(--green); margin-top:4px; }
+    .ms-note-display { font-size:12px; color:var(--text2); margin-top:4px; font-style:italic; line-height:1.5; }
     .progress-row { display:flex; align-items:center; gap:12px; padding-top:12px; margin-top:10px; border-top:0.5px solid var(--border); }
     .ring-wrap { position:relative; width:48px; height:48px; flex-shrink:0; }
     .ring-wrap svg { transform:rotate(-90deg); }
     .ring-center { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:500; color:var(--green); }
     .ring-info p { font-size:13px; color:var(--text); font-weight:500; }
     .ring-info span { font-size:11px; color:var(--text3); }
+    .ms-toolbar { display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
+    .ms-tool-btn { background:var(--bg4); border:0.5px solid var(--border2); border-radius:6px; padding:5px 10px; font-size:11px; font-family:'DM Sans',sans-serif; color:var(--text2); cursor:pointer; display:flex; align-items:center; gap:4px; }
+    .ms-tool-btn.amber { color:var(--amber); border-color:var(--amber-dim); background:var(--amber-dim); }
+    .concerns-card { background:var(--bg3); border-radius:12px; border:1px solid var(--amber); padding:1rem 1.125rem; margin-bottom:0.75rem; }
+    .concerns-card .lbl { color:var(--amber); margin-bottom:8px; display:block; }
+    .concern-item { font-size:13px; color:var(--text2); padding:5px 0; border-bottom:0.5px solid var(--border); line-height:1.4; }
+    .concern-item:last-child { border-bottom:none; }
+    .history-card { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem 1.125rem; margin-bottom:0.75rem; }
+    .history-item { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:0.5px solid var(--border); }
+    .history-item:last-child { border-bottom:none; }
+    .history-dot { width:8px; height:8px; border-radius:50%; background:var(--green); flex-shrink:0; margin-top:4px; }
+    .history-text p { font-size:13px; color:var(--text); line-height:1.4; }
+    .history-text span { font-size:11px; color:var(--text3); }
+    .share-btn { background:var(--blue-dim); color:var(--blue); border:0.5px solid var(--blue); border-radius:8px; padding:8px 14px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:500; cursor:pointer; display:flex; align-items:center; gap:6px; width:100%; justify-content:center; margin-top:0.5rem; }
 
     .tab-card { background:var(--bg3); border-radius:12px; border:0.5px solid var(--border2); padding:1rem 1.125rem; margin-bottom:0.75rem; }
     .tab-card.ga { border-left:2px solid var(--green); border-radius:0 12px 12px 0; }
@@ -172,12 +205,20 @@
     <div id="milestones" class="section active">
       <p class="section-title">Milestone tracker</p>
       <p class="section-sub" id="ms-sub">Age 2 milestones</p>
+
       <div class="card ga">
         <div class="card-head">
           <span class="lbl g">CDC checkpoints</span>
           <span id="ms-count" style="font-size:11px;color:var(--text3)">0 / 0 done</span>
         </div>
+        <div class="ms-toolbar">
+          <button class="ms-tool-btn" onclick="toggleView('checklist')" id="view-checklist"><i class="ti ti-list-check"></i> Checklist</button>
+          <button class="ms-tool-btn" onclick="toggleView('history')" id="view-history"><i class="ti ti-timeline"></i> Timeline</button>
+          <button class="ms-tool-btn amber" onclick="toggleView('concerns')" id="view-concerns"><i class="ti ti-alert-triangle"></i> Concerns</button>
+        </div>
         <div id="ms-list"></div>
+        <div id="ms-history" style="display:none"></div>
+        <div id="ms-concerns" style="display:none"></div>
         <div class="progress-row">
           <div class="ring-wrap">
             <svg width="48" height="48" viewBox="0 0 48 48">
@@ -188,6 +229,7 @@
           </div>
           <div class="ring-info"><p>Development progress</p><span>CDC guidelines</span></div>
         </div>
+        <button class="share-btn" onclick="shareMilestones()"><i class="ti ti-share"></i> Share with pediatrician</button>
       </div>
     </div>
 
@@ -495,34 +537,187 @@ function refreshTab(tab) {
 }
 
 // ── MILESTONES ────────────────────────────────
+let msView = 'checklist';
+
+function getMsData() {
+  return JSON.parse(localStorage.getItem('ms-data-' + currentBand) || '{}');
+}
+function saveMsData(data) {
+  localStorage.setItem('ms-data-' + currentBand, JSON.stringify(data));
+}
+
+function toggleView(view) {
+  msView = view;
+  ['checklist','history','concerns'].forEach(v => {
+    document.getElementById('ms-' + (v === 'checklist' ? 'list' : v)).style.display = v === view ? 'block' : 'none';
+    document.getElementById('view-' + v).style.opacity = v === view ? '1' : '0.5';
+  });
+  if (view === 'history') renderHistory();
+  if (view === 'concerns') renderConcerns();
+}
+
 function renderMilestones() {
   const list  = document.getElementById('ms-list');
   const items = MILESTONES[currentBand] || [];
-  const saved = JSON.parse(localStorage.getItem('ms-' + currentBand) || '[]');
-  list.innerHTML = items.map((m, i) => `
-    <div class="ms-item">
-      <div class="ms-check${saved[i] ? ' done' : ''}" onclick="toggleMs(this,${i})">
-        <i class="ti ti-check"></i>
+  const data  = getMsData();
+
+  list.innerHTML = items.map((m, i) => {
+    const d     = data[i] || {};
+    const done  = d.done || false;
+    const flagged = d.flag || false;
+    const note  = d.note || '';
+    const date  = d.date || '';
+    return `
+    <div class="ms-item${flagged ? ' flagged' : ''}" id="ms-item-${i}">
+      <div class="ms-row">
+        <div class="ms-check${done ? ' done' : ''}" onclick="toggleMs(${i})">
+          <i class="ti ti-check"></i>
+        </div>
+        <div class="ms-label">
+          <p>${m.text}</p>
+          <span>${m.cat}</span>
+          ${done && date ? `<div class="ms-achieved"><i class="ti ti-calendar-check"></i> ${date}</div>` : ''}
+          ${note ? `<div class="ms-note-display">"${note}"</div>` : ''}
+        </div>
+        <div class="ms-actions">
+          <button class="ms-flag${flagged ? ' active' : ''}" onclick="toggleFlag(${i})" title="Flag concern"><i class="ti ti-flag"></i></button>
+          <button class="ms-expand" onclick="toggleDetails(${i})" title="Add note / date"><i class="ti ti-pencil"></i></button>
+        </div>
       </div>
-      <div class="ms-label"><p>${m.text}</p><span>${m.cat}</span></div>
-    </div>`).join('');
+      <div class="ms-details" id="ms-details-${i}">
+        <div class="ms-date-row">
+          <span class="ms-date-label">Date achieved:</span>
+          <input class="ms-date-input" type="date" id="ms-date-${i}" value="${date}" onchange="saveDetail(${i})" />
+        </div>
+        <textarea class="ms-note-input" id="ms-note-${i}" rows="2" placeholder="Add a note about this milestone...">${note}</textarea>
+        <button class="ms-save-note" onclick="saveDetail(${i})">Save note</button>
+      </div>
+    </div>`; }).join('');
+
   updateProgress();
 }
-function toggleMs(el, idx) {
-  el.classList.toggle('done');
-  const checks = document.querySelectorAll('.ms-check');
-  localStorage.setItem('ms-' + currentBand, JSON.stringify([...checks].map(c => c.classList.contains('done'))));
-  updateProgress();
+
+function toggleMs(idx) {
+  const data = getMsData();
+  if (!data[idx]) data[idx] = {};
+  data[idx].done = !data[idx].done;
+  if (data[idx].done && !data[idx].date) {
+    data[idx].date = new Date().toISOString().split('T')[0];
+  }
+  saveMsData(data);
+  renderMilestones();
+  if (msView === 'history') renderHistory();
 }
+
+function toggleFlag(idx) {
+  const data = getMsData();
+  if (!data[idx]) data[idx] = {};
+  data[idx].flag = !data[idx].flag;
+  saveMsData(data);
+  renderMilestones();
+  if (msView === 'concerns') renderConcerns();
+}
+
+function toggleDetails(idx) {
+  const el = document.getElementById('ms-details-' + idx);
+  el.classList.toggle('open');
+}
+
+function saveDetail(idx) {
+  const data  = getMsData();
+  if (!data[idx]) data[idx] = {};
+  const dateEl = document.getElementById('ms-date-' + idx);
+  const noteEl = document.getElementById('ms-note-' + idx);
+  if (dateEl) data[idx].date = dateEl.value;
+  if (noteEl) data[idx].note = noteEl.value.trim();
+  saveMsData(data);
+  renderMilestones();
+}
+
+function renderHistory() {
+  const el    = document.getElementById('ms-history');
+  const items = MILESTONES[currentBand] || [];
+  const data  = getMsData();
+  const done  = items.map((m, i) => ({ ...m, ...data[i], idx: i }))
+    .filter(m => m.done)
+    .sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+
+  if (!done.length) {
+    el.innerHTML = '<p style="font-size:13px;color:var(--text3);padding:8px 0">No milestones completed yet — check some off to see them here.</p>';
+    return;
+  }
+  el.innerHTML = '<div class="history-card">' + done.map(m => `
+    <div class="history-item">
+      <div class="history-dot"></div>
+      <div class="history-text">
+        <p>${m.text}</p>
+        <span>${m.cat}${m.date ? ' · ' + m.date : ''}${m.note ? ' · "' + m.note + '"' : ''}</span>
+      </div>
+    </div>`).join('') + '</div>';
+}
+
+function renderConcerns() {
+  const el    = document.getElementById('ms-concerns');
+  const items = MILESTONES[currentBand] || [];
+  const data  = getMsData();
+  const flagged = items.map((m, i) => ({ ...m, ...data[i], idx: i })).filter(m => m.flag);
+
+  if (!flagged.length) {
+    el.innerHTML = '<p style="font-size:13px;color:var(--text3);padding:8px 0">No flagged concerns — tap the <i class="ti ti-flag"></i> on any milestone to flag it for your pediatrician.</p>';
+    return;
+  }
+  el.innerHTML = `
+    <div class="concerns-card">
+      <span class="lbl">⚑ Flagged for pediatrician</span>
+      ${flagged.map(m => `<div class="concern-item">${m.text} <span style="color:var(--text3);font-size:11px">(${m.cat})</span></div>`).join('')}
+    </div>
+    <p style="font-size:12px;color:var(--text3);margin-top:4px">Tap "Share with pediatrician" below to copy a summary.</p>`;
+}
+
 function updateProgress() {
-  const checks = document.querySelectorAll('.ms-check');
-  if (!checks.length) return;
-  const done = document.querySelectorAll('.ms-check.done').length;
-  const pct  = Math.round(done / checks.length * 100);
-  const circ = 2 * Math.PI * 19;
+  const items = MILESTONES[currentBand] || [];
+  const data  = getMsData();
+  const done  = items.filter((_, i) => data[i] && data[i].done).length;
+  const total = items.length;
+  const pct   = total ? Math.round(done / total * 100) : 0;
+  const circ  = 2 * Math.PI * 19;
   document.getElementById('progress-arc').setAttribute('stroke-dashoffset', circ - circ * pct / 100);
   document.getElementById('ring-pct').textContent = pct + '%';
-  document.getElementById('ms-count').textContent = done + ' / ' + checks.length + ' done';
+  document.getElementById('ms-count').textContent = done + ' / ' + total + ' done';
+}
+
+function shareMilestones() {
+  const items   = MILESTONES[currentBand] || [];
+  const data    = getMsData();
+  const done    = items.filter((_, i) => data[i] && data[i].done);
+  const notDone = items.filter((_, i) => !data[i] || !data[i].done);
+  const flagged = items.filter((_, i) => data[i] && data[i].flag);
+  const age     = getAgeYears();
+  const months  = getAgeMonths() - age * 12;
+
+  let text = `MALACHI — Age ${age}${months > 0 ? 'y ' + months + 'm' : ''} — Milestone Summary\n`;
+  text += `Date: ${new Date().toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' })}\n\n`;
+  text += `COMPLETED (${done.length}/${items.length}):\n`;
+  done.forEach(m => {
+    const d = data[items.indexOf(m)];
+    text += `✓ ${m.text}${d && d.date ? ' (' + d.date + ')' : ''}${d && d.note ? ' — ' + d.note : ''}\n`;
+  });
+  if (flagged.length) {
+    text += `\nCONCERNS TO DISCUSS (${flagged.length}):\n`;
+    flagged.forEach(m => { text += `⚑ ${m.text}\n`; });
+  }
+  if (notDone.length) {
+    text += `\nNOT YET (${notDone.length}):\n`;
+    notDone.forEach(m => { text += `○ ${m.text}\n`; });
+  }
+
+  if (navigator.share) {
+    navigator.share({ title: 'Malachi Milestone Summary', text });
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Milestone summary copied to clipboard — paste it in an email or message to your pediatrician.');
+    });
+  }
 }
 
 // ── JOURNAL — Supabase ────────────────────────
